@@ -39,7 +39,6 @@
 
 /* Begin PBXFileReference section */
 		820DD1511F633AA9005B6EFA /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		820DD1531F633AC9005B6EFA /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		820DD2501F634438005B6EFA /* libSimple-KML.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libSimple-KML.a"; sourceTree = "<group>"; };
 		820DD2521F634567005B6EFA /* libSimple-KML.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "libSimple-KML.h"; sourceTree = "<group>"; };
 		820DD2531F6346B6005B6EFA /* Simple-KML */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Simple-KML"; sourceTree = "<group>"; };
@@ -91,7 +90,6 @@
 			isa = PBXGroup;
 			children = (
 				820DD2501F634438005B6EFA /* libSimple-KML.a */,
-				820DD1531F633AC9005B6EFA /* libz.tbd */,
 				820DD1511F633AA9005B6EFA /* CoreLocation.framework */,
 			);
 			name = Frameworks;
