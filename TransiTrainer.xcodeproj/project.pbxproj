@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		820DD1521F633AA9005B6EFA /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 820DD1511F633AA9005B6EFA /* CoreLocation.framework */; };
+		820DD2511F634438005B6EFA /* libSimple-KML.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 820DD2501F634438005B6EFA /* libSimple-KML.a */; };
+		820DD2591F634AE3005B6EFA /* tm_rail_stops.kml in Resources */ = {isa = PBXBuildFile; fileRef = 820DD2581F634AE3005B6EFA /* tm_rail_stops.kml */; };
 		82AFAD941F53AC4B001D2E5E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AFAD931F53AC4B001D2E5E /* AppDelegate.swift */; };
 		82AFAD961F53AC4B001D2E5E /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AFAD951F53AC4B001D2E5E /* FirstViewController.swift */; };
 		82AFAD981F53AC4B001D2E5E /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AFAD971F53AC4B001D2E5E /* SecondViewController.swift */; };
@@ -35,6 +38,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		820DD1511F633AA9005B6EFA /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		820DD1531F633AC9005B6EFA /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		820DD2501F634438005B6EFA /* libSimple-KML.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libSimple-KML.a"; sourceTree = "<group>"; };
+		820DD2521F634567005B6EFA /* libSimple-KML.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "libSimple-KML.h"; sourceTree = "<group>"; };
+		820DD2531F6346B6005B6EFA /* Simple-KML */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Simple-KML"; sourceTree = "<group>"; };
+		820DD2581F634AE3005B6EFA /* tm_rail_stops.kml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = tm_rail_stops.kml; sourceTree = "<group>"; };
 		82AFAD901F53AC4B001D2E5E /* TransiTrainer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TransiTrainer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		82AFAD931F53AC4B001D2E5E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		82AFAD951F53AC4B001D2E5E /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
@@ -56,6 +65,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				820DD2511F634438005B6EFA /* libSimple-KML.a in Frameworks */,
+				820DD1521F633AA9005B6EFA /* CoreLocation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,13 +87,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		820DD1501F633AA9005B6EFA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				820DD2501F634438005B6EFA /* libSimple-KML.a */,
+				820DD1531F633AC9005B6EFA /* libz.tbd */,
+				820DD1511F633AA9005B6EFA /* CoreLocation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		82AFAD871F53AC4B001D2E5E = {
 			isa = PBXGroup;
 			children = (
+				820DD2581F634AE3005B6EFA /* tm_rail_stops.kml */,
+				820DD2531F6346B6005B6EFA /* Simple-KML */,
+				820DD2521F634567005B6EFA /* libSimple-KML.h */,
 				82AFAD921F53AC4B001D2E5E /* TransiTrainer */,
 				82AFADA91F53AC4B001D2E5E /* TransiTrainerTests */,
 				82AFADB41F53AC4B001D2E5E /* TransiTrainerUITests */,
 				82AFAD911F53AC4B001D2E5E /* Products */,
+				820DD1501F633AA9005B6EFA /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -238,6 +263,7 @@
 				82AFADA01F53AC4B001D2E5E /* LaunchScreen.storyboard in Resources */,
 				82AFAD9D1F53AC4B001D2E5E /* Assets.xcassets in Resources */,
 				82AFAD9B1F53AC4B001D2E5E /* Main.storyboard in Resources */,
+				820DD2591F634AE3005B6EFA /* tm_rail_stops.kml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -418,10 +444,22 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				HEADER_SEARCH_PATHS = (
+					/usr/include/libxml2,
+					"$(PROJECT_DIR)/Simple-KML/Simple-KML/vendor/objective-zip/Objective-Zip",
+					"$(PROJECT_DIR)/Simple-KML/Simple-KML/vendor/TouchXML/Source",
+					"$(PROJECT_DIR)/Simple-KML/Simple-KML/vendor/TouchXML/Source/Creation",
+				);
 				INFOPLIST_FILE = TransiTrainer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_BUNDLE_IDENTIFIER = org.trimet.TransiTrainer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "libSimple-KML.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -430,10 +468,22 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				HEADER_SEARCH_PATHS = (
+					/usr/include/libxml2,
+					"$(PROJECT_DIR)/Simple-KML/Simple-KML/vendor/objective-zip/Objective-Zip",
+					"$(PROJECT_DIR)/Simple-KML/Simple-KML/vendor/TouchXML/Source",
+					"$(PROJECT_DIR)/Simple-KML/Simple-KML/vendor/TouchXML/Source/Creation",
+				);
 				INFOPLIST_FILE = TransiTrainer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_BUNDLE_IDENTIFIER = org.trimet.TransiTrainer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "libSimple-KML.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
@@ -511,6 +561,7 @@
 				82AFADBC1F53AC4B001D2E5E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		82AFADBD1F53AC4B001D2E5E /* Build configuration list for PBXNativeTarget "TransiTrainerTests" */ = {
 			isa = XCConfigurationList;
@@ -519,6 +570,7 @@
 				82AFADBF1F53AC4B001D2E5E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		82AFADC01F53AC4B001D2E5E /* Build configuration list for PBXNativeTarget "TransiTrainerUITests" */ = {
 			isa = XCConfigurationList;
@@ -527,6 +579,7 @@
 				82AFADC21F53AC4B001D2E5E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
