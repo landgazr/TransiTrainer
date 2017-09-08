@@ -41,7 +41,6 @@
 		820DD1511F633AA9005B6EFA /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		820DD2501F634438005B6EFA /* libSimple-KML.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libSimple-KML.a"; sourceTree = "<group>"; };
 		820DD2521F634567005B6EFA /* libSimple-KML.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "libSimple-KML.h"; sourceTree = "<group>"; };
-		820DD2531F6346B6005B6EFA /* Simple-KML */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Simple-KML"; sourceTree = "<group>"; };
 		820DD2581F634AE3005B6EFA /* tm_rail_stops.kml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = tm_rail_stops.kml; sourceTree = "<group>"; };
 		82AFAD901F53AC4B001D2E5E /* TransiTrainer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TransiTrainer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		82AFAD931F53AC4B001D2E5E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -99,7 +98,6 @@
 			isa = PBXGroup;
 			children = (
 				820DD2581F634AE3005B6EFA /* tm_rail_stops.kml */,
-				820DD2531F6346B6005B6EFA /* Simple-KML */,
 				820DD2521F634567005B6EFA /* libSimple-KML.h */,
 				82AFAD921F53AC4B001D2E5E /* TransiTrainer */,
 				82AFADA91F53AC4B001D2E5E /* TransiTrainerTests */,
@@ -384,7 +382,9 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LIBRARY_SEARCH_PATHS = "";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -429,7 +429,9 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LIBRARY_SEARCH_PATHS = "";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -442,11 +444,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = "";
 				HEADER_SEARCH_PATHS = (
 					/usr/include/libxml2,
-					"$(PROJECT_DIR)/Simple-KML/Simple-KML/vendor/objective-zip/Objective-Zip",
-					"$(PROJECT_DIR)/Simple-KML/Simple-KML/vendor/TouchXML/Source",
-					"$(PROJECT_DIR)/Simple-KML/Simple-KML/vendor/TouchXML/Source/Creation",
+					"$(PROJECT_DIR)/Simple-KML/vendor/objective-zip/Objective-Zip",
+					"$(PROJECT_DIR)/Simple-KML/vendor/TouchXML/Source",
+					"$(PROJECT_DIR)/Simple-KML/vendor/TouchXML/Source/Creation",
 				);
 				INFOPLIST_FILE = TransiTrainer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -454,7 +457,10 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				OTHER_LDFLAGS = "-lxml2";
+				OTHER_LDFLAGS = (
+					"-lxml2",
+					"-v",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.trimet.TransiTrainer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "libSimple-KML.h";
@@ -466,11 +472,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = "";
 				HEADER_SEARCH_PATHS = (
 					/usr/include/libxml2,
-					"$(PROJECT_DIR)/Simple-KML/Simple-KML/vendor/objective-zip/Objective-Zip",
-					"$(PROJECT_DIR)/Simple-KML/Simple-KML/vendor/TouchXML/Source",
-					"$(PROJECT_DIR)/Simple-KML/Simple-KML/vendor/TouchXML/Source/Creation",
+					"$(PROJECT_DIR)/Simple-KML/vendor/objective-zip/Objective-Zip",
+					"$(PROJECT_DIR)/Simple-KML/vendor/TouchXML/Source",
+					"$(PROJECT_DIR)/Simple-KML/vendor/TouchXML/Source/Creation",
 				);
 				INFOPLIST_FILE = TransiTrainer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -478,7 +485,10 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				OTHER_LDFLAGS = "-lxml2";
+				OTHER_LDFLAGS = (
+					"-lxml2",
+					"-v",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.trimet.TransiTrainer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "libSimple-KML.h";
