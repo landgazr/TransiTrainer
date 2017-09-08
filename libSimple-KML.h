@@ -12,4 +12,4 @@
 
 #endif /* libSimple_KML_h */
 
-#include "Simple-KML/Simple-KML/source/SimpleKML.h"
+#include "Simple-KML/source/SimpleKML.h"
