@@ -19,7 +19,13 @@ class FirstViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that nevertheless can be recreated.
     }
+    
 
-
+    @IBAction func actionAlert(_ sender: Any) {
+        let myAlert = UIAlertController(title: "Alert", message: "This is an alert.", preferredStyle: .alert);
+        myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: nil));
+        show(myAlert, sender: self)
+    }
+   
 }
 
