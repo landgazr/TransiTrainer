@@ -13,14 +13,19 @@ class FirstViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        var myKML: SimpleKML
         // Do any additional setup after loading the view, typically from a nib.
         do {
         
-        try SimpleKML.init(contentsOfFile: "/path/to/file.kml")
+        myKML = try SimpleKML.init(contentsOfFile: "tm_rail_stops.kml")
         } catch {
+            
         }
         
+       
         
+    
+    
     }
 
     override func didReceiveMemoryWarning() {
