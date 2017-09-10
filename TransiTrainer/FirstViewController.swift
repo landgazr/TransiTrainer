@@ -18,7 +18,7 @@ class FirstViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         locManager.requestWhenInUseAuthorization()
-        NSLog(CLLocationManager.authorizationStatus().rawValue.description)
+        currentLocation = locManager.location
         if (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse ||
             CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways){
             currentLocation = locManager.location
