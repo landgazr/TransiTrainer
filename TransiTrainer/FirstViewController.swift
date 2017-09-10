@@ -7,14 +7,26 @@
 //
 
 import UIKit
-
+import CoreLocation
+import MapKit
 
 class FirstViewController: UIViewController {
 
+    var locManager = CLLocationManager()
+    var currentLocation: CLLocation!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        locManager.requestWhenInUseAuthorization()
+        NSLog(CLLocationManager.authorizationStatus().rawValue.description)
+        if (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse ||
+            CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways){
+            currentLocation = locManager.location
+            NSLog(currentLocation.coordinate.latitude.description)
+            NSLog(currentLocation.coordinate.longitude.description)
+        }
     
-    
+        
     }
 
     override func didReceiveMemoryWarning() {
