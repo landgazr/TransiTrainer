@@ -17,6 +17,8 @@ class MainlineViewController: UIViewController {
     var svc: StudentsViewController = StudentsViewController()
     var ss = [UITableViewCell]()
     var currentStudent = UITableViewCell()
+    @IBOutlet weak var timestamp: UILabel!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,6 +53,15 @@ class MainlineViewController: UIViewController {
     
     
     @IBAction func actionAlert(_ sender: Any) {
+        
+        let currentDateTime = Date()
+        
+        let formatter = DateFormatter()
+        formatter.timeStyle = .medium
+        formatter.dateStyle = .short
+        
+        
+        
         //let myAlert = UIAlertController(title: "Alert", message: "This is an alert.", preferredStyle: .alert);
         //myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: nil));
         //show(myAlert, sender: self)
@@ -65,14 +76,14 @@ class MainlineViewController: UIViewController {
         let popup = PopupDialog(title: "Students", message: "Please select student.")
         var studentButtons = [DefaultButton]()
         for ssc: UITableViewCell in ss {
-            var btn = DefaultButton(title: (ssc.textLabel?.text)!) { self.currentStudent = ssc; self.selectedStudent.text = (ssc.textLabel?.text)! }
+            let btn = DefaultButton(title: (ssc.textLabel?.text)!) { self.currentStudent = ssc }
             //studentButtons.append(DefaultButton(title: (ssc.textLabel?.text)!, action: nil))
             studentButtons.append(btn)
         }
         if( studentButtons.count > 0 ){
         popup.addButtons(studentButtons)
             self.present(popup, animated: true, completion: nil)
-            
+            self.timestamp.text = formatter.string(from: currentDateTime)
         } else {
             let myAlert = UIAlertController(title: "Information", message: "Please select students in current group.", preferredStyle: .alert);
             myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: nil));
