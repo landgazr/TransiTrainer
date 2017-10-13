@@ -110,6 +110,7 @@ class KMLParser: NSObject, XMLParserDelegate {
         return _placemarks
     }
     
+    
   
     
     // Return the list of KMLPlacemarks from the object graph that are simply
@@ -229,6 +230,8 @@ class KMLParser: NSObject, XMLParserDelegate {
             _placemark?.endName()
         case ELTYPE("Description"):
             _placemark?.endDescription()
+        case ELTYPE("ExtendedData"):
+            _placemark?.endExtData()
         case ELTYPE("styleUrl"):
             _placemark?.endStyleUrl()
         case ELTYPE("Polygon"), ELTYPE("Point"), ELTYPE("LineString"):
@@ -568,7 +571,7 @@ class KMLPlacemark: KMLElement {
     // Corresponds to the subtitle property on MKAnnotation
     private(set) var placemarkDescription: String?
     
-    private(set) var placemarkData: String?
+    private(set) var placemarkData: [String] = []
     
     var styleUrl: String?
     
@@ -620,7 +623,15 @@ class KMLPlacemark: KMLElement {
     
     func endExtData() {
         flags.remove(.inExtData)
-        placemarkData = accum
+        let accumArr = accum.components(separatedBy: "\n")
+        var test: String = ""
+        for val in accumArr {
+            test = val.trimmingCharacters(in: .whitespaces)
+            if( !(test.isEmpty ))
+            {
+            placemarkData.append(test)
+            }
+        }
         self.clearString()
     }
     

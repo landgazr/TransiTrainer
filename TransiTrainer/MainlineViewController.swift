@@ -15,6 +15,8 @@ class RailStop {
     var line:String = ""
     var status:String = ""
     var type:String = ""
+    var lat:Float = 0.0
+    var lon:Float = 0.0
 }
 
 
@@ -27,25 +29,12 @@ class MainlineViewController: UIViewController {
     var currentStudent = UITableViewCell()
     @IBOutlet weak var timestamp: UILabel!
     @IBOutlet weak var location: UILabel!
-    
-    func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String]) {
-        let rs = RailStop()
-        if(elementName=="Data" && attributeDict["name"]=="station")
-        {
-        
-        }
-        
-    }
-    
-    func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
-    }
-    
-    func parser(_ parser: XMLParser, foundCharacters string: String) {
-    }
-    
-    func parser(_ parser: XMLParser, parseErrorOccurred parseError: Error) {
-        print("failure error: ", parseError)
-    }
+    @IBOutlet weak var selectedStudent: UILabel!
+    var inStation: Bool = false
+    var inLine: Bool = false
+    var inStatus: Bool = false
+    var inType: Bool = false
+    var railStops: [RailStop] = []
     
     
     override func viewDidLoad() {
@@ -76,8 +65,7 @@ class MainlineViewController: UIViewController {
         }
 
     }
-
-    @IBOutlet weak var selectedStudent: UILabel!
+  
     
     
     @IBAction func actionAlert(_ sender: Any) {
@@ -97,14 +85,18 @@ class MainlineViewController: UIViewController {
         let u: URL = URL.init(fileURLWithPath: filepath!)
         let kp: KMLParser = KMLParser(url: u)
         kp.parseKML()
-        for mkb in kp.placemarks {
-            NSLog((mkb.point?.coordinate.latitude.description)! + " " + (mkb.point?.coordinate.longitude.description)!)
-            let pmData = mkb.placemarkData?.data(using: .utf8)
-            let parser = XMLParser(data: pmData!)
-            parser.delegate = self as! XMLParserDelegate;
-            parser.parse()
-            NSLog(parser["ExtendedData"])
         
+            for mkb in kp.placemarks {
+            var rs: RailStop = RailStop()
+            NSLog((mkb.point?.coordinate.latitude.description)! + " " + (mkb.point?.coordinate.longitude.description)!)
+            rs.station = mkb.placemarkData[0]
+            rs.line = mkb.placemarkData[1]
+            rs.status = mkb.placemarkData[2]
+            rs.type = mkb.placemarkData[3]
+            rs.lat = Float((mkb.point?.coordinate.latitude.description)!)!
+            rs.lon = Float((mkb.point?.coordinate.longitude.description)!)!
+            railStops.append(rs)
+            
         }
                 let popup = PopupDialog(title: "Students", message: "Please select student.")
         var studentButtons = [DefaultButton]()
