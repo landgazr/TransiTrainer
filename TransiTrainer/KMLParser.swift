@@ -106,6 +106,12 @@ class KMLParser: NSObject, XMLParserDelegate {
         return _placemarks.flatMap{$0.overlay}
     }
     
+    var placemarks: [KMLPlacemark] {
+        return _placemarks
+    }
+    
+  
+    
     // Return the list of KMLPlacemarks from the object graph that are simply
     // MKPointAnnotations and are not MKOverlays.
     var points: [MKAnnotation] {
@@ -168,6 +174,8 @@ class KMLParser: NSObject, XMLParserDelegate {
             _placemark?.beginName()
         case ELTYPE("Description"):
             _placemark?.beginDescription()
+        case ELTYPE("ExtendedData"):
+            _placemark?.beginExtData()
         case ELTYPE("styleUrl"):
             _placemark?.beginStyleUrl()
         case ELTYPE("Polygon"), ELTYPE("Point"), ELTYPE("LineString"):
@@ -560,6 +568,8 @@ class KMLPlacemark: KMLElement {
     // Corresponds to the subtitle property on MKAnnotation
     private(set) var placemarkDescription: String?
     
+    private(set) var placemarkData: String?
+    
     var styleUrl: String?
     
     private var mkShape: MKShape?
@@ -576,11 +586,12 @@ class KMLPlacemark: KMLElement {
         static let inStyle = Flags(rawValue: 1<<2)
         static let inGeometry = Flags(rawValue: 1<<3)
         static let inStyleUrl = Flags(rawValue: 1<<4)
+        static let inExtData = Flags(rawValue: 1<<5)
     }
     var flags: Flags = Flags(rawValue: 0)
     
     override var canAddString: Bool {
-        return flags.intersection([.inName, .inStyleUrl, .inDescription]) != []
+        return flags.intersection([.inName, .inStyleUrl, .inDescription, .inExtData]) != []
     }
     
     override func addString(_ str: String) {
@@ -600,6 +611,16 @@ class KMLPlacemark: KMLElement {
     func endName() {
         flags.remove(.inName)
         name = accum
+        self.clearString()
+    }
+    
+    func beginExtData() {
+        flags.insert(.inExtData)
+    }
+    
+    func endExtData() {
+        flags.remove(.inExtData)
+        placemarkData = accum
         self.clearString()
     }
     
