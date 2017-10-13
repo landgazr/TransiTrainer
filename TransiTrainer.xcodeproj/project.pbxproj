@@ -18,6 +18,11 @@
 		82AFADAB1F53AC4B001D2E5E /* TransiTrainerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AFADAA1F53AC4B001D2E5E /* TransiTrainerTests.swift */; };
 		82AFADB61F53AC4B001D2E5E /* TransiTrainerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AFADB51F53AC4B001D2E5E /* TransiTrainerUITests.swift */; };
 		82C7CFF41F63639F00580464 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 82C7CFF31F63639F00580464 /* libz.tbd */; };
+		82DEA8631F9146AC006097B7 /* CSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82DEA85E1F9146AC006097B7 /* CSV.swift */; };
+		82DEA8641F9146AC006097B7 /* Description.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82DEA85F1F9146AC006097B7 /* Description.swift */; };
+		82DEA8651F9146AC006097B7 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82DEA8601F9146AC006097B7 /* Parser.swift */; };
+		82DEA8661F9146AC006097B7 /* ParserHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82DEA8611F9146AC006097B7 /* ParserHelpers.swift */; };
+		82DEA8671F9146AC006097B7 /* String+Lines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82DEA8621F9146AC006097B7 /* String+Lines.swift */; };
 		82ED405C1F69C91D00862AA6 /* FXBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = 82ED404A1F69C91D00862AA6 /* FXBlurView.m */; };
 		82ED405D1F69C91D00862AA6 /* InteractiveTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82ED404B1F69C91D00862AA6 /* InteractiveTransition.swift */; };
 		82ED405E1F69C91D00862AA6 /* PopupDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82ED404C1F69C91D00862AA6 /* PopupDialog.swift */; };
@@ -80,6 +85,11 @@
 		82AFADB51F53AC4B001D2E5E /* TransiTrainerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransiTrainerUITests.swift; sourceTree = "<group>"; };
 		82AFADB71F53AC4B001D2E5E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		82C7CFF31F63639F00580464 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		82DEA85E1F9146AC006097B7 /* CSV.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSV.swift; sourceTree = "<group>"; };
+		82DEA85F1F9146AC006097B7 /* Description.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Description.swift; sourceTree = "<group>"; };
+		82DEA8601F9146AC006097B7 /* Parser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
+		82DEA8611F9146AC006097B7 /* ParserHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParserHelpers.swift; sourceTree = "<group>"; };
+		82DEA8621F9146AC006097B7 /* String+Lines.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Lines.swift"; sourceTree = "<group>"; };
 		82ED40481F69C91C00862AA6 /* TransiTrainer-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TransiTrainer-Bridging-Header.h"; sourceTree = "<group>"; };
 		82ED40491F69C91D00862AA6 /* FXBlurView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXBlurView.h; sourceTree = "<group>"; };
 		82ED404A1F69C91D00862AA6 /* FXBlurView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXBlurView.m; sourceTree = "<group>"; };
@@ -173,6 +183,11 @@
 		82AFAD921F53AC4B001D2E5E /* TransiTrainer */ = {
 			isa = PBXGroup;
 			children = (
+				82DEA85E1F9146AC006097B7 /* CSV.swift */,
+				82DEA85F1F9146AC006097B7 /* Description.swift */,
+				82DEA8601F9146AC006097B7 /* Parser.swift */,
+				82DEA8611F9146AC006097B7 /* ParserHelpers.swift */,
+				82DEA8621F9146AC006097B7 /* String+Lines.swift */,
 				82ED40771F69D8EB00862AA6 /* TZSpacerView.swift */,
 				82ED40781F69D8EB00862AA6 /* TZStackView.swift */,
 				82ED40791F69D8EB00862AA6 /* TZStackViewAlignment.swift */,
@@ -376,9 +391,12 @@
 				82ED40611F69C91D00862AA6 /* PopupDialogContainerView.swift in Sources */,
 				82ED405C1F69C91D00862AA6 /* FXBlurView.m in Sources */,
 				82AFAD961F53AC4B001D2E5E /* MainlineViewController.swift in Sources */,
+				82DEA8661F9146AC006097B7 /* ParserHelpers.swift in Sources */,
 				8202D9F91F64F45E00660802 /* KMLParser.swift in Sources */,
 				82ED40631F69C91D00862AA6 /* PopupDialogDefaultView.swift in Sources */,
+				82DEA8631F9146AC006097B7 /* CSV.swift in Sources */,
 				82ED40621F69C91D00862AA6 /* PopupDialogDefaultButtons.swift in Sources */,
+				82DEA8651F9146AC006097B7 /* Parser.swift in Sources */,
 				82ED406B1F69C91D00862AA6 /* UIImageView+Calculations.swift in Sources */,
 				82ED40691F69C91D00862AA6 /* TransitionAnimator.swift in Sources */,
 				82ED405F1F69C91D00862AA6 /* PopupDialog+Keyboard.swift in Sources */,
@@ -386,7 +404,9 @@
 				82ED40711F69D18900862AA6 /* StudentsViewController.swift in Sources */,
 				82ED40641F69C91D00862AA6 /* PopupDialogDefaultViewController.swift in Sources */,
 				82ED405E1F69C91D00862AA6 /* PopupDialog.swift in Sources */,
+				82DEA8671F9146AC006097B7 /* String+Lines.swift in Sources */,
 				82ED406C1F69C91D00862AA6 /* UIView+Animations.swift in Sources */,
+				82DEA8641F9146AC006097B7 /* Description.swift in Sources */,
 				82ED405D1F69C91D00862AA6 /* InteractiveTransition.swift in Sources */,
 				82ED40661F69C91D00862AA6 /* PresentationController.swift in Sources */,
 				82ED406D1F69C91D00862AA6 /* UIViewController+Visibility.swift in Sources */,

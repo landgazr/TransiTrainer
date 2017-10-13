@@ -17,6 +17,7 @@ class RailStop {
     var type:String = ""
     var lat:Float = 0.0
     var lon:Float = 0.0
+    
 }
 
 
@@ -35,7 +36,11 @@ class MainlineViewController: UIViewController {
     var inStatus: Bool = false
     var inType: Bool = false
     var railStops: [RailStop] = []
-    
+    var csvArray: [String] = []
+    var previousStudent:String = ""
+    var previousLocation:CLLocation = CLLocation()
+    var previousTime:Date? = Date()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,6 +53,9 @@ class MainlineViewController: UIViewController {
             NSLog(currentLocation.coordinate.latitude.description)
             NSLog(currentLocation.coordinate.longitude.description)
         }
+        
+        previousLocation = currentLocation
+        csvArray.append("student,inlocation,intime,outlocation,outtime\n")
     
         
     }
@@ -65,6 +73,14 @@ class MainlineViewController: UIViewController {
         }
 
     }
+    
+    @IBAction func csvSend(_ sender: Any) {
+        var str: String = ""
+        for row in csvArray {
+            str.append(row)
+        }
+        NSLog(str)
+    }
   
     
     
@@ -77,7 +93,6 @@ class MainlineViewController: UIViewController {
         formatter.dateStyle = .short
         
         
-        
         //let myAlert = UIAlertController(title: "Alert", message: "This is an alert.", preferredStyle: .alert);
         //myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: nil));
         //show(myAlert, sender: self)
@@ -87,7 +102,7 @@ class MainlineViewController: UIViewController {
         kp.parseKML()
         
             for mkb in kp.placemarks {
-            var rs: RailStop = RailStop()
+            let rs: RailStop = RailStop()
             NSLog((mkb.point?.coordinate.latitude.description)! + " " + (mkb.point?.coordinate.longitude.description)!)
             rs.station = mkb.placemarkData[0]
             rs.line = mkb.placemarkData[1]
@@ -98,24 +113,56 @@ class MainlineViewController: UIViewController {
             railStops.append(rs)
             
         }
+        
+        self.timestamp.text = formatter.string(from: currentDateTime).replacingOccurrences(of: ",", with: "")
+        locManager.requestWhenInUseAuthorization()
+        currentLocation = locManager.location
+        if (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse ||
+            CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways){
+            currentLocation = locManager.location
+            
+        }
+
+        
                 let popup = PopupDialog(title: "Students", message: "Please select student.")
         var studentButtons = [DefaultButton]()
         for ssc: UITableViewCell in ss {
             let btn = DefaultButton(title: (ssc.textLabel?.text)!) {
                 self.currentStudent = ssc
                 self.selectedStudent.text = ssc.textLabel?.text
-            }
+                self.previousTime = currentDateTime
+                            }
             studentButtons.append(btn)
         }
         if( studentButtons.count > 0 ){
         popup.addButtons(studentButtons)
+            
+            
+                self.previousStudent = self.selectedStudent.text!
+                let pls: String = previousLocation.coordinate.latitude.description + " " + previousLocation.coordinate.latitude.description
+                let pts: String = formatter.string(from: previousTime!).replacingOccurrences(of: ",", with: "")
+                let cls: String = currentLocation.coordinate.latitude.description + " " + currentLocation.coordinate.latitude.description
+                let cts: String = formatter.string(from: currentDateTime).replacingOccurrences(of: ",", with: "")
+                
+                let str: String = previousStudent + "," + pls + "," + pts + "," + cls + "," + cts + "\n"
+                csvArray.append(str)
+                
+                previousLocation = currentLocation
+                previousTime = currentDateTime
+                previousStudent = (self.selectedStudent.text)!
+                
+                self.location.text = cls
+
             self.present(popup, animated: true, completion: nil)
-            self.timestamp.text = formatter.string(from: currentDateTime)
+            
+            
         } else {
             let myAlert = UIAlertController(title: "Information", message: "Please select students in current group.", preferredStyle: .alert);
             myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: nil));
             show(myAlert, sender: self)
         }
+        
+        
         
     }}
 
