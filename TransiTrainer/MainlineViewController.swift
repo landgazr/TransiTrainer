@@ -9,6 +9,7 @@
 import UIKit
 import CoreLocation
 import MapKit
+import MessageUI
 
 class RailStop {
     var station:String = ""
@@ -21,7 +22,7 @@ class RailStop {
 }
 
 
-class MainlineViewController: UIViewController {
+class MainlineViewController: UIViewController, MFMailComposeViewControllerDelegate {
 
     var locManager = CLLocationManager()
     var currentLocation: CLLocation!
@@ -41,6 +42,10 @@ class MainlineViewController: UIViewController {
     var previousLocation:CLLocation = CLLocation()
     var previousTime:Date? = Date()
 
+    func mailComposeController(controller: MFMailComposeViewController,
+                               didFinishWithResult result: MFMailComposeResult, error: NSError?) {
+        controller.dismiss(animated: true, completion: nil)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,11 +81,56 @@ class MainlineViewController: UIViewController {
     
     @IBAction func csvSend(_ sender: Any) {
         var str: String = ""
+        
         for row in csvArray {
             str.append(row)
         }
-        NSLog(str)
-    }
+        let file = "file.csv" //this is the file. we will write to and read from it
+        
+        if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            
+            let fileURL = dir.appendingPathComponent(file)
+            do {
+                try str.write(to: fileURL, atomically: false, encoding: .utf8)
+            } catch {/* error handling here */}
+        
+            do {
+        
+           
+                
+                var csvdata: NSData = try NSData(contentsOf: fileURL, options: .alwaysMapped)
+                var csvatt: Data = csvdata as Data
+                
+                
+                
+                if MFMailComposeViewController.canSendMail()
+                {
+                let mail = MFMailComposeViewController()
+                mail.mailComposeDelegate = self;
+                mail.setCcRecipients(["one@two.com"])
+                mail.setSubject("Training Subject")
+                mail.setMessageBody("Training Body", isHTML: false)
+                mail.addAttachmentData(csvatt, mimeType: "text/csv", fileName: "file.csv")
+                self.present(mail, animated: true, completion: nil)
+                } else {
+                    let myAlert = UIAlertController(title: "Information", message: "Cannot send mail with this device.", preferredStyle: .alert);
+                    myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: nil));
+                    show(myAlert, sender: self)
+
+                }
+
+            }
+            catch {}
+            
+            
+            //reading
+            //do {
+            //    let text2 = try String(contentsOf: fileURL, encoding: .utf8)
+            //}
+            //catch {/* error handling here */}
+        }
+        
+                }
   
     
     
@@ -131,28 +181,30 @@ class MainlineViewController: UIViewController {
                 self.currentStudent = ssc
                 self.selectedStudent.text = ssc.textLabel?.text
                 self.previousTime = currentDateTime
-                            }
+                self.previousStudent = (ssc.textLabel?.text)!
+                let pls: String = self.previousLocation.coordinate.latitude.description + " " + self.previousLocation.coordinate.latitude.description
+                let pts: String = formatter.string(from: self.previousTime!).replacingOccurrences(of: ",", with: "")
+                let cls: String = self.currentLocation.coordinate.latitude.description + " " + self.currentLocation.coordinate.latitude.description
+                let cts: String = formatter.string(from: currentDateTime).replacingOccurrences(of: ",", with: "")
+                
+                let str: String = self.previousStudent + "," + pls + "," + pts + "," + cls + "," + cts + "\n"
+                self.csvArray.append(str)
+                
+                self.previousLocation = self.currentLocation
+                self.previousTime = currentDateTime
+                self.previousStudent = (self.selectedStudent.text)!
+                
+                self.location.text = cls
+            
+            }
             studentButtons.append(btn)
         }
+        
         if( studentButtons.count > 0 ){
         popup.addButtons(studentButtons)
             
             
-                self.previousStudent = self.selectedStudent.text!
-                let pls: String = previousLocation.coordinate.latitude.description + " " + previousLocation.coordinate.latitude.description
-                let pts: String = formatter.string(from: previousTime!).replacingOccurrences(of: ",", with: "")
-                let cls: String = currentLocation.coordinate.latitude.description + " " + currentLocation.coordinate.latitude.description
-                let cts: String = formatter.string(from: currentDateTime).replacingOccurrences(of: ",", with: "")
-                
-                let str: String = previousStudent + "," + pls + "," + pts + "," + cls + "," + cts + "\n"
-                csvArray.append(str)
-                
-                previousLocation = currentLocation
-                previousTime = currentDateTime
-                previousStudent = (self.selectedStudent.text)!
-                
-                self.location.text = cls
-
+            
             self.present(popup, animated: true, completion: nil)
             
             
