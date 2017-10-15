@@ -21,20 +21,60 @@ class ListItem: NSObject {
 
 class StudentsViewController: UITableViewController {
     
-    let list = ["studentA","studentB","studentC","studentD","studentE"]
-    var selectedCells: [UITableViewCell] = []
+    static var list = ["studentA","studentB","studentC","studentD","studentE"]
+    static var selectedCells: [UITableViewCell] = []
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedCells.append(tableView.cellForRow(at: indexPath)!)
+        StudentsViewController.selectedCells.append(tableView.cellForRow(at: indexPath)!)
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        let rowsCount = self.tableView.numberOfRows(inSection: 0)
+        for i in 0..<rowsCount  {
+            let ip: IndexPath = IndexPath(row: i, section: 0)
+            self.tableView.deselectRow(at: ip, animated: false)
+            // your custom code (deselecting)
+        }
+        StudentsViewController.selectedCells.removeAll()
+    }
+
     
     override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         let deselectedRow = tableView.cellForRow(at: indexPath)
-        if(selectedCells.contains(deselectedRow!)){
-            let indx = selectedCells.index(of: deselectedRow!)
-            selectedCells.remove(at: indx!)
+        if(StudentsViewController.selectedCells.contains(deselectedRow!)){
+            let indx = StudentsViewController.selectedCells.index(of: deselectedRow!)
+            StudentsViewController.selectedCells.remove(at: indx!)
         }
     }
+    
+    @IBAction func removeSelectedCells(_ sender: Any) {
+        
+        for r in StudentsViewController.selectedCells {
+        let indexPath = IndexPath(row: r.tag, section: 0)
+        StudentsViewController.list.remove(at: r.tag)
+        self.tableView.deselectRow(at: indexPath, animated: false)
+        tableView.deleteRows(at: [indexPath], with: .none)
+        }
+        
+       self.tableView.reloadData()
+        
+        let rowsCount = self.tableView.numberOfRows(inSection: 0)
+        for i in 0..<rowsCount  {
+            let ip: IndexPath = IndexPath(row: i, section: 0)
+            self.tableView.deselectRow(at: ip, animated: false)
+            // your custom code (deselecting)
+        }
+        
+        StudentsViewController.selectedCells.removeAll()
+
+        
+    }
+    
+    
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,13 +91,14 @@ class StudentsViewController: UITableViewController {
     
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return list.count
+        return StudentsViewController.list.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "LabelCell", for: indexPath)
+        cell.tag = indexPath.row
         
-        cell.textLabel?.text = list[indexPath.item]
+        cell.textLabel?.text = StudentsViewController.list[indexPath.item]
         
         return cell
     }
@@ -65,7 +106,7 @@ class StudentsViewController: UITableViewController {
 
     func getSelectedStudents() -> [UITableViewCell]{
         
-        return self.selectedCells
+        return StudentsViewController.selectedCells
 
     //for ip: UITableViewCell in self.selectedCells {
     //        NSLog((ip.textLabel?.text)!)

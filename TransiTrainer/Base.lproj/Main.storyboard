@@ -120,7 +120,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="9pv-A4-QxB" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
-                        <segue destination="Nrq-0b-ZGh" kind="relationship" relationship="viewControllers" id="KWg-0S-IV4"/>
+                        <segue destination="qUE-Cf-eET" kind="relationship" relationship="viewControllers" id="AVh-c5-jgz"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
@@ -131,16 +131,24 @@
         <scene sceneID="uRW-3S-RWb">
             <objects>
                 <tableViewController title="Students" id="Nrq-0b-ZGh" customClass="StudentsViewController" customModule="TransiTrainer" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="3rG-Eb-C64">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="94" sectionHeaderHeight="28" sectionFooterHeight="28" id="3rG-Eb-C64">
+                        <rect key="frame" x="0.0" y="0.0" width="343" height="208"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <button key="tableHeaderView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="oSM-P4-b9I">
+                            <rect key="frame" x="0.0" y="0.0" width="343" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" title="Button"/>
+                            <connections>
+                                <action selector="removeSelectedCells:" destination="Nrq-0b-ZGh" eventType="primaryActionTriggered" id="NT2-R3-w2A"/>
+                            </connections>
+                        </button>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="s7h-On-kQK">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="94" id="s7h-On-kQK">
+                                <rect key="frame" x="0.0" y="58" width="343" height="94"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="s7h-On-kQK" id="v5L-wI-fsj">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="343" height="93.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -154,11 +162,41 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3ES-4l-MSX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-84" y="153"/>
+            <point key="canvasLocation" x="-84" y="152.47376311844079"/>
+        </scene>
+        <!--Adding-->
+        <scene sceneID="BGj-wu-oja">
+            <objects>
+                <viewController id="qUE-Cf-eET" userLabel="Adding" customClass="AddingViewController" customModule="TransiTrainer" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="v10-fS-BpB"/>
+                        <viewControllerLayoutGuide type="bottom" id="3Sb-bL-QFX"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="DZc-IR-vj0">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="opd-UT-cuw">
+                                <rect key="frame" x="16" y="263" width="343" height="208"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <connections>
+                                    <segue destination="Nrq-0b-ZGh" kind="embed" id="Yn7-dN-4mw"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Adding" image="third" id="P3s-bD-qqQ" userLabel="Adding"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="u5r-BR-fOK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-767.20000000000005" y="564.46776611694156"/>
         </scene>
     </scenes>
     <resources>
         <image name="first" width="30" height="30"/>
         <image name="second" width="30" height="30"/>
+        <image name="third" width="16" height="16"/>
     </resources>
 </document>
