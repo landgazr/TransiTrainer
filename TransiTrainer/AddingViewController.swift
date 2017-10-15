@@ -13,6 +13,8 @@ class AddingViewController: UIViewController {
     var svc: StudentsViewController = StudentsViewController()
     var ss = [UITableViewCell]()
 
+    @IBOutlet weak var name: UITextField!
+    @IBOutlet weak var badge: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +34,12 @@ class AddingViewController: UIViewController {
         svc.addCell()
     }
 
+    func getNameAndBadge () -> String {
+        let str = name.text! + " " + badge.text!
+        name.text = ""
+        badge.text = ""
+        return str
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
