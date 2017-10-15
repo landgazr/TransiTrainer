@@ -76,6 +76,40 @@ class StudentsViewController: UITableViewController {
         }
     }
     
+    func writeRoster() {
+        
+        let file = "roster.csv" //this is the file. we will write to and read from it
+        
+        if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            
+            let fileURL = dir.appendingPathComponent(file)
+            do {
+                // always try to work with URL when accessing Files
+                if(FileManager.default.fileExists(atPath: fileURL.path)){
+                    try FileManager.default.removeItem(atPath: fileURL.path)
+                }
+            } catch {/* error handling here */}
+
+            
+        var toWrite: String = ""
+        toWrite.append("name,badge\n")
+        let rowsCount = self.tableView.numberOfRows(inSection: 0)
+        for i in 0..<rowsCount  {
+            let ip: IndexPath = IndexPath(row: i, section: 0)
+            let s = self.tableView.cellForRow(at: ip)?.textLabel?.text
+            let studentAndBadge = s?.components(separatedBy: " ")
+            toWrite.append((studentAndBadge?[0])! + "," + (studentAndBadge?[1])! + "\n")
+        }
+            
+            do {
+                try toWrite.write(to: fileURL, atomically: false, encoding: .utf8)
+            } catch {/* error handling here */}
+
+            
+            
+    }
+    }
+    
     @IBAction func removeSelectedCells(_ sender: Any) {
         
         for r in StudentsViewController.selectedCells {
@@ -112,7 +146,26 @@ class StudentsViewController: UITableViewController {
         tableView.setEditing(true, animated: false)
         // Do any additional setup after loading the view, typically from a nib.
         
+        let file = "roster.csv" //this is the file. we will write to and read from it
         
+        if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            
+            let fileURL = dir.appendingPathComponent(file)
+            do {
+                  // always try to work with URL when accessing Files
+                if(FileManager.default.fileExists(atPath: fileURL.path)){
+                    let roster = try String(contentsOf: fileURL, encoding: .utf8)
+                    let arr: [String] = roster.components(separatedBy: "\n")
+                    
+                    for a in arr {
+                        StudentsViewController.list.append(a.replacingOccurrences(of: ",", with: " "))
+                    }
+                                   }
+            } catch {/* error handling here */}
+            
+        
+        
+    }
     }
     
     override func didReceiveMemoryWarning() {

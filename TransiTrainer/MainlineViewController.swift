@@ -129,7 +129,41 @@ class MainlineViewController: UIViewController, MFMailComposeViewControllerDeleg
             //catch {/* error handling here */}
         }
         
-                }
+        avc.svc.writeRoster()
+        
+        }
+    
+    @IBAction func actionAlertOut(_ sender: Any)
+    {
+        let formatter = DateFormatter()
+        formatter.timeStyle = .medium
+        formatter.dateStyle = .short
+
+        locManager.requestWhenInUseAuthorization()
+        currentLocation = locManager.location
+        if (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse ||
+            CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways){
+            currentLocation = locManager.location
+            
+        }
+
+        
+        self.selectedStudent.text = "None"
+       
+        
+        let pls: String = self.previousLocation.coordinate.latitude.description + " " + self.previousLocation.coordinate.latitude.description
+        let pts: String = formatter.string(from: self.previousTime!).replacingOccurrences(of: ",", with: "")
+        let cls: String = self.currentLocation.coordinate.latitude.description + " " + self.currentLocation.coordinate.latitude.description
+        let cts: String = formatter.string(from: Date()).replacingOccurrences(of: ",", with: "")
+        
+        self.timestamp.text = formatter.string(from: Date()).replacingOccurrences(of: ",", with: "")
+        self.location.text = cls
+        
+        let str: String = self.previousStudent + "," + pls + "," + pts + "," + cls + "," + cts + "\n"
+        self.csvArray.append(str)
+        NSLog(str)
+
+    }
   
     
     
@@ -164,6 +198,10 @@ class MainlineViewController: UIViewController, MFMailComposeViewControllerDeleg
         }
         
         self.timestamp.text = formatter.string(from: currentDateTime).replacingOccurrences(of: ",", with: "")
+        
+        
+        
+        
         locManager.requestWhenInUseAuthorization()
         currentLocation = locManager.location
         if (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse ||
@@ -171,29 +209,22 @@ class MainlineViewController: UIViewController, MFMailComposeViewControllerDeleg
             currentLocation = locManager.location
             
         }
+        
+        let cls: String = self.currentLocation.coordinate.latitude.description + " " + self.currentLocation.coordinate.latitude.description
+        self.location.text = cls
+
 
         
-                let popup = PopupDialog(title: "Students", message: "Please select student.")
+        let popup = PopupDialog(title: "Students", message: "Please select student.")
         var studentButtons = [DefaultButton]()
         for ssc: UITableViewCell in ss {
             let btn = DefaultButton(title: (ssc.textLabel?.text)!) {
                 self.currentStudent = ssc
-                self.selectedStudent.text = ssc.textLabel?.text
-                self.previousTime = currentDateTime
-                self.previousStudent = (ssc.textLabel?.text)!
-                let pls: String = self.previousLocation.coordinate.latitude.description + " " + self.previousLocation.coordinate.latitude.description
-                let pts: String = formatter.string(from: self.previousTime!).replacingOccurrences(of: ",", with: "")
-                let cls: String = self.currentLocation.coordinate.latitude.description + " " + self.currentLocation.coordinate.latitude.description
-                let cts: String = formatter.string(from: currentDateTime).replacingOccurrences(of: ",", with: "")
-                
-                let str: String = self.previousStudent + "," + pls + "," + pts + "," + cls + "," + cts + "\n"
-                self.csvArray.append(str)
-                
+                //self.selectedStudent.text = ssc.textLabel?.text
                 self.previousLocation = self.currentLocation
                 self.previousTime = currentDateTime
                 self.previousStudent = (self.selectedStudent.text)!
                 
-                self.location.text = cls
             
             }
             studentButtons.append(btn)
