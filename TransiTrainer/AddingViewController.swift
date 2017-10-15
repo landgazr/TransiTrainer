@@ -29,16 +29,16 @@ class AddingViewController: UIViewController {
             
         }
     }
-    
-    @IBAction func addStudent(_ sender: Any) {
-        svc.addCell()
-    }
-
+   
     func getNameAndBadge () -> String {
+        
+        if( (name.text?.isEmpty)! || (badge.text?.isEmpty)!) {
+           return ""
+        }
+        else {
         let str = name.text! + " " + badge.text!
-        name.text = ""
-        badge.text = ""
-        return str
+            return str
+        }
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

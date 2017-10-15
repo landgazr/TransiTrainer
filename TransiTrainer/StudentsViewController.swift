@@ -53,16 +53,25 @@ class StudentsViewController: UITableViewController {
                     avc = viewController as! AddingViewController
                 }}}
 
+        if avc.getNameAndBadge().isEmpty {
+            let myAlert = UIAlertController(title: "Information", message: "Please enter both name and badge.", preferredStyle: .alert);
+            myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: nil));
+            show(myAlert, sender: self)
+        }
+        else {
+            
+            
+            let s = avc.getNameAndBadge()
+            
+            StudentsViewController.list.append(s)
+            let indexPath:IndexPath = IndexPath(row:(StudentsViewController.list.count - 1), section:0)
+            
+            self.tableView.insertRows(at: [indexPath], with: .none)
+            self.tableView.reloadData()
+            self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+        }
                 
-        self.tableView.beginUpdates()
-        
-        
-        StudentsViewController.list.append(avc.getNameAndBadge())
-        let indexPath:IndexPath = IndexPath(row:(StudentsViewController.list.count - 1), section:0)
-        
-        self.tableView.insertRows(at: [indexPath], with: .none)
-        self.tableView.endUpdates()
-        self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+       
         
     }
     
