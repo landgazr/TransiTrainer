@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		820299C51F93B9E100389AB1 /* AddingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820299C41F93B9E100389AB1 /* AddingViewController.swift */; };
 		8202D9F91F64F45E00660802 /* KMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8202D9F81F64F45E00660802 /* KMLParser.swift */; };
 		820DD1521F633AA9005B6EFA /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 820DD1511F633AA9005B6EFA /* CoreLocation.framework */; };
 		824518961F646D0000A7F2DA /* tm_rail_stops.kml in Resources */ = {isa = PBXBuildFile; fileRef = 824518951F646D0000A7F2DA /* tm_rail_stops.kml */; };
@@ -68,6 +69,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		820299C41F93B9E100389AB1 /* AddingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddingViewController.swift; sourceTree = "<group>"; };
 		8202D9F81F64F45E00660802 /* KMLParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMLParser.swift; sourceTree = "<group>"; };
 		820DD1511F633AA9005B6EFA /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		824518951F646D0000A7F2DA /* tm_rail_stops.kml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = tm_rail_stops.kml; sourceTree = "<group>"; };
@@ -214,6 +216,7 @@
 				82AFAD931F53AC4B001D2E5E /* AppDelegate.swift */,
 				824518951F646D0000A7F2DA /* tm_rail_stops.kml */,
 				82AFAD951F53AC4B001D2E5E /* MainlineViewController.swift */,
+				820299C41F93B9E100389AB1 /* AddingViewController.swift */,
 				82ED40701F69D18900862AA6 /* StudentsViewController.swift */,
 				82AFAD991F53AC4B001D2E5E /* Main.storyboard */,
 				82AFAD9C1F53AC4B001D2E5E /* Assets.xcassets */,
@@ -406,6 +409,7 @@
 				82ED405E1F69C91D00862AA6 /* PopupDialog.swift in Sources */,
 				82DEA8671F9146AC006097B7 /* String+Lines.swift in Sources */,
 				82ED406C1F69C91D00862AA6 /* UIView+Animations.swift in Sources */,
+				820299C51F93B9E100389AB1 /* AddingViewController.swift in Sources */,
 				82DEA8641F9146AC006097B7 /* Description.swift in Sources */,
 				82ED405D1F69C91D00862AA6 /* InteractiveTransition.swift in Sources */,
 				82ED40661F69C91D00862AA6 /* PresentationController.swift in Sources */,

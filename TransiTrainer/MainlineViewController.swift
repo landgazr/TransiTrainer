@@ -26,7 +26,7 @@ class MainlineViewController: UIViewController, MFMailComposeViewControllerDeleg
 
     var locManager = CLLocationManager()
     var currentLocation: CLLocation!
-    var svc: StudentsViewController = StudentsViewController()
+    var avc: AddingViewController = AddingViewController()
     var ss = [UITableViewCell]()
     var currentStudent = UITableViewCell()
     @IBOutlet weak var timestamp: UILabel!
@@ -69,10 +69,9 @@ class MainlineViewController: UIViewController, MFMailComposeViewControllerDeleg
         
         if let viewControllers = UIApplication.shared.keyWindow?.rootViewController?.childViewControllers {
             for viewController in viewControllers {
-                if (viewController is StudentsViewController) {
-                    svc = viewController as! StudentsViewController
-                    ss = svc.getSelectedStudents()
-                }
+                if (viewController is AddingViewController) {
+                    avc = viewController as! AddingViewController
+                    ss = avc.svc.getSelectedStudents()                }
             }
             
         }
