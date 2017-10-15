@@ -34,7 +34,7 @@ extension CSV {
             field = [Character]()
         }
         
-        let changeState: (Character) -> (Bool) = { char in
+        let _: (Character) -> (Bool) = { char in
             if atStart {
                 if char == "\"" {
                     atStart = false
