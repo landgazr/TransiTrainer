@@ -21,8 +21,12 @@ class ListItem: NSObject {
 
 class StudentsViewController: UITableViewController {
     
-    static var list = ["studentA","studentB","studentC","studentD","studentE"]
+    static var list: [String] = [String]()
     static var selectedCells: [UITableViewCell] = []
+    
+    
+    
+    
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         StudentsViewController.selectedCells.append(tableView.cellForRow(at: indexPath)!)
@@ -40,17 +44,28 @@ class StudentsViewController: UITableViewController {
     
     @IBAction func addCell()
     {
-        let rowsCount: Int = (self.tableView.numberOfRows(inSection: 0))
+        var avc: AddingViewController = AddingViewController()
+        
+        let _: Int = (self.tableView.numberOfRows(inSection: 0))
+        if let viewControllers = UIApplication.shared.keyWindow?.rootViewController?.childViewControllers {
+            for viewController in viewControllers {
+                if (viewController is AddingViewController) {
+                    avc = viewController as! AddingViewController
+                }}}
+
+                
         self.tableView.beginUpdates()
-        StudentsViewController.list.append("dadsa")
+        
+        
+        StudentsViewController.list.append(avc.getNameAndBadge())
         let indexPath:IndexPath = IndexPath(row:(StudentsViewController.list.count - 1), section:0)
         
         self.tableView.insertRows(at: [indexPath], with: .none)
         self.tableView.endUpdates()
         self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
         
-        
     }
+    
 
     
     override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
@@ -96,6 +111,8 @@ class StudentsViewController: UITableViewController {
         tableView.allowsMultipleSelectionDuringEditing = true
         tableView.setEditing(true, animated: false)
         // Do any additional setup after loading the view, typically from a nib.
+        
+        
     }
     
     override func didReceiveMemoryWarning() {
