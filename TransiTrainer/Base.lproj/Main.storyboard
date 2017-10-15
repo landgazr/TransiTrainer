@@ -132,20 +132,28 @@
             <objects>
                 <tableViewController title="Students" id="Nrq-0b-ZGh" customClass="StudentsViewController" customModule="TransiTrainer" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="94" sectionHeaderHeight="28" sectionFooterHeight="28" id="3rG-Eb-C64">
-                        <rect key="frame" x="0.0" y="0.0" width="343" height="208"/>
+                        <rect key="frame" x="0.0" y="0.0" width="343" height="499"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <button key="tableHeaderView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="oSM-P4-b9I">
-                            <rect key="frame" x="0.0" y="0.0" width="343" height="30"/>
+                            <rect key="frame" x="0.0" y="0.0" width="343" height="74"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" title="Button"/>
                             <connections>
                                 <action selector="removeSelectedCells:" destination="Nrq-0b-ZGh" eventType="primaryActionTriggered" id="NT2-R3-w2A"/>
                             </connections>
                         </button>
+                        <button key="tableFooterView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="irC-fs-yTq">
+                            <rect key="frame" x="0.0" y="196" width="343" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" title="Button"/>
+                            <connections>
+                                <action selector="addCell" destination="Nrq-0b-ZGh" eventType="primaryActionTriggered" id="BZn-MH-n84"/>
+                            </connections>
+                        </button>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="94" id="s7h-On-kQK">
-                                <rect key="frame" x="0.0" y="58" width="343" height="94"/>
+                                <rect key="frame" x="0.0" y="102" width="343" height="94"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="s7h-On-kQK" id="v5L-wI-fsj">
                                     <rect key="frame" x="0.0" y="0.0" width="343" height="93.5"/>
@@ -177,12 +185,17 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="opd-UT-cuw">
-                                <rect key="frame" x="16" y="263" width="343" height="208"/>
+                                <rect key="frame" x="16" y="111" width="343" height="499"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <connections>
                                     <segue destination="Nrq-0b-ZGh" kind="embed" id="Yn7-dN-4mw"/>
                                 </connections>
                             </containerView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wXp-VY-PNw">
+                                <rect key="frame" x="164" y="73" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>

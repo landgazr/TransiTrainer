@@ -27,6 +27,10 @@ class AddingViewController: UIViewController {
             
         }
     }
+    
+    @IBAction func addStudent(_ sender: Any) {
+        svc.addCell()
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

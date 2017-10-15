@@ -37,6 +37,20 @@ class StudentsViewController: UITableViewController {
         }
         StudentsViewController.selectedCells.removeAll()
     }
+    
+    @IBAction func addCell()
+    {
+        let rowsCount: Int = (self.tableView.numberOfRows(inSection: 0))
+        self.tableView.beginUpdates()
+        StudentsViewController.list.append("dadsa")
+        let indexPath:IndexPath = IndexPath(row:(StudentsViewController.list.count - 1), section:0)
+        
+        self.tableView.insertRows(at: [indexPath], with: .none)
+        self.tableView.endUpdates()
+        self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+        
+        
+    }
 
     
     override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
