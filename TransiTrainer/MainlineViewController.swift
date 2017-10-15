@@ -16,8 +16,7 @@ class RailStop {
     var line:String = ""
     var status:String = ""
     var type:String = ""
-    var lat:Float = 0.0
-    var lon:Float = 0.0
+    var latlon:CLLocation = CLLocation()
     
 }
 
@@ -45,6 +44,8 @@ class MainlineViewController: UIViewController, MFMailComposeViewControllerDeleg
     var previousStudent:String = ""
     var previousLocation:CLLocation = CLLocation()
     var previousTime:Date? = Date()
+    var previousStop:String = ""
+    var currentStop:String = ""
 
     func mailComposeController(controller: MFMailComposeViewController,
                                didFinishWithResult result: MFMailComposeResult, error: NSError?) {
@@ -63,7 +64,18 @@ class MainlineViewController: UIViewController, MFMailComposeViewControllerDeleg
             NSLog(currentLocation.coordinate.longitude.description)
         }
         
-        previousLocation = currentLocation
+        var arr: [CLLocation] = [CLLocation]()
+        for rs in railStops {
+            arr.append(rs.latlon)
+        }
+        let stopCoords: CLLocation = (closestLocation(locations: arr, closestToLocation: currentLocation))!
+        for rs in railStops {
+            if (rs.latlon.distance(from: stopCoords) == 0) {
+                currentStop = rs.station
+                break
+            }
+        }
+
         csvArray.append("student,inlocation,intime,outlocation,outtime\n")
     
         
@@ -101,10 +113,10 @@ class MainlineViewController: UIViewController, MFMailComposeViewControllerDeleg
         
            
                 
-                var csvdata: NSData = try NSData(contentsOf: fileURL, options: .alwaysMapped)
-                var csvatt: Data = csvdata as Data
+                let csvdata: NSData = try NSData(contentsOf: fileURL, options: .alwaysMapped)
+                let csvatt: Data = csvdata as Data
                 
-                var body = self.trainerLabel.text! + "\n" + self.carLabel.text! + "\n" + self.trainLabel.text!
+                let body = self.trainerLabel.text! + "\n" + self.carLabel.text! + "\n" + self.trainLabel.text!
                 
                 if MFMailComposeViewController.canSendMail()
                 {
@@ -150,15 +162,26 @@ class MainlineViewController: UIViewController, MFMailComposeViewControllerDeleg
             currentLocation = locManager.location
             
         }
-
+        
+        var arr: [CLLocation] = [CLLocation]()
+        for rs in railStops {
+            arr.append(rs.latlon)
+        }
+        let stopCoords: CLLocation = (closestLocation(locations: arr, closestToLocation: currentLocation))!
+        for rs in railStops {
+            if (rs.latlon.distance(from: stopCoords) == 0) {
+                currentStop = rs.station
+                break
+            }
+        }
         
         self.selectedStudent.text = "None"
        
         let s: String = (self.currentStudent.textLabel?.text)!
         
-        let pls: String = self.previousLocation.coordinate.latitude.description + " " + self.previousLocation.coordinate.latitude.description
+        let pls: String = previousStop
         let pts: String = formatter.string(from: self.previousTime!).replacingOccurrences(of: ",", with: "")
-        let cls: String = self.currentLocation.coordinate.latitude.description + " " + self.currentLocation.coordinate.latitude.description
+        let cls: String = currentStop
         let cts: String = formatter.string(from: Date()).replacingOccurrences(of: ",", with: "")
         
         //self.timestamp.text = formatter.string(from: Date()).replacingOccurrences(of: ",", with: "")
@@ -201,6 +224,14 @@ class MainlineViewController: UIViewController, MFMailComposeViewControllerDeleg
         
     }
     
+    func closestLocation(locations: [CLLocation], closestToLocation location: CLLocation) -> CLLocation? {
+        if let closestLocation = locations.min(by: { location.distance(from: $0) < location.distance(from: $1) }) {
+            return closestLocation
+        } else {
+            print("coordinates is empty")
+            return nil
+        }
+    }
     
     @IBAction func actionAlert(_ sender: Any) {
         
@@ -226,9 +257,15 @@ class MainlineViewController: UIViewController, MFMailComposeViewControllerDeleg
             rs.line = mkb.placemarkData[1]
             rs.status = mkb.placemarkData[2]
             rs.type = mkb.placemarkData[3]
-            rs.lat = Float((mkb.point?.coordinate.latitude.description)!)!
-            rs.lon = Float((mkb.point?.coordinate.longitude.description)!)!
-            railStops.append(rs)
+            
+                let lat: Double = Double((mkb.point?.coordinate.latitude.description)!)!
+                let lon: Double = Double((mkb.point?.coordinate.longitude.description)!)!
+                let latdeg: CLLocationDegrees = CLLocationDegrees(lat)
+                let londeg: CLLocationDegrees = CLLocationDegrees(lon)
+                let loc: CLLocation = CLLocation(latitude: latdeg, longitude: londeg)
+                
+                rs.latlon = loc
+                railStops.append(rs)
             
         }
         
@@ -245,9 +282,17 @@ class MainlineViewController: UIViewController, MFMailComposeViewControllerDeleg
             
         }
         
+        var arr: [CLLocation] = [CLLocation]()
+        
+        for rs in railStops {
+            arr.append(rs.latlon)
+        }
+
+        
+        let stopCoords: CLLocation = (closestLocation(locations: arr, closestToLocation: currentLocation))!
         //let cls: String = self.currentLocation.coordinate.latitude.description + " " + self.currentLocation.coordinate.latitude.description
         //self.location.text = cls
-
+        
 
         
         let popup = PopupDialog(title: "Students", message: "Please select student.")
@@ -259,6 +304,12 @@ class MainlineViewController: UIViewController, MFMailComposeViewControllerDeleg
                 self.previousLocation = self.currentLocation
                 self.previousTime = currentDateTime
                 self.previousStudent = (self.selectedStudent.text)!
+                for rs in self.railStops {
+                    if (rs.latlon.distance(from: stopCoords) == 0) {
+                        self.previousStop = rs.station
+                    }
+                }
+
                 
             
             }
