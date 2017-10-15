@@ -64,18 +64,7 @@ class MainlineViewController: UIViewController, MFMailComposeViewControllerDeleg
             NSLog(currentLocation.coordinate.longitude.description)
         }
         
-        var arr: [CLLocation] = [CLLocation]()
-        for rs in railStops {
-            arr.append(rs.latlon)
-        }
-        let stopCoords: CLLocation = (closestLocation(locations: arr, closestToLocation: currentLocation))!
-        for rs in railStops {
-            if (rs.latlon.distance(from: stopCoords) == 0) {
-                currentStop = rs.station
-                break
-            }
-        }
-
+        
         csvArray.append("student,inlocation,intime,outlocation,outtime\n")
     
         
