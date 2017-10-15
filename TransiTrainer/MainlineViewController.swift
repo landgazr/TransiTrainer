@@ -29,8 +29,12 @@ class MainlineViewController: UIViewController, MFMailComposeViewControllerDeleg
     var avc: AddingViewController = AddingViewController()
     var ss = [UITableViewCell]()
     var currentStudent = UITableViewCell()
-    @IBOutlet weak var timestamp: UILabel!
-    @IBOutlet weak var location: UILabel!
+    
+    @IBOutlet weak var trainerLabel: UILabel!
+    @IBOutlet weak var carLabel: UILabel!
+    @IBOutlet weak var trainLabel: UILabel!
+    
+    //@IBOutlet weak var location: UILabel!
     @IBOutlet weak var selectedStudent: UILabel!
     var inStation: Bool = false
     var inLine: Bool = false
@@ -100,7 +104,7 @@ class MainlineViewController: UIViewController, MFMailComposeViewControllerDeleg
                 var csvdata: NSData = try NSData(contentsOf: fileURL, options: .alwaysMapped)
                 var csvatt: Data = csvdata as Data
                 
-                
+                var body = self.trainerLabel.text! + "\n" + self.carLabel.text! + "\n" + self.trainLabel.text!
                 
                 if MFMailComposeViewController.canSendMail()
                 {
@@ -108,7 +112,7 @@ class MainlineViewController: UIViewController, MFMailComposeViewControllerDeleg
                 mail.mailComposeDelegate = self;
                 mail.setCcRecipients(["one@two.com"])
                 mail.setSubject("Training Subject")
-                mail.setMessageBody("Training Body", isHTML: false)
+                mail.setMessageBody(body, isHTML: false)
                 mail.addAttachmentData(csvatt, mimeType: "text/csv", fileName: "file.csv")
                 self.present(mail, animated: true, completion: nil)
                 } else {
@@ -150,21 +154,52 @@ class MainlineViewController: UIViewController, MFMailComposeViewControllerDeleg
         
         self.selectedStudent.text = "None"
        
+        let s: String = (self.currentStudent.textLabel?.text)!
         
         let pls: String = self.previousLocation.coordinate.latitude.description + " " + self.previousLocation.coordinate.latitude.description
         let pts: String = formatter.string(from: self.previousTime!).replacingOccurrences(of: ",", with: "")
         let cls: String = self.currentLocation.coordinate.latitude.description + " " + self.currentLocation.coordinate.latitude.description
         let cts: String = formatter.string(from: Date()).replacingOccurrences(of: ",", with: "")
         
-        self.timestamp.text = formatter.string(from: Date()).replacingOccurrences(of: ",", with: "")
-        self.location.text = cls
+        //self.timestamp.text = formatter.string(from: Date()).replacingOccurrences(of: ",", with: "")
+        //self.location.text = cls
         
-        let str: String = self.previousStudent + "," + pls + "," + pts + "," + cls + "," + cts + "\n"
+        let str: String = s + "," + pls + "," + pts + "," + cls + "," + cts + "\n"
         self.csvArray.append(str)
         NSLog(str)
 
     }
   
+    @IBAction func setTrainer(_ sender: Any)
+    {
+        
+        
+        let myAlert = UIAlertController(title: "Information", message: "Enter trainer/car #/train ID.", preferredStyle: .alert);
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
+            // Get 1st TextField's text
+            var sa: [String] = [String]()
+            for utf in myAlert.textFields! {
+                sa.append(utf.text!)
+            }
+            self.trainerLabel.text = sa[0]
+            self.carLabel.text = sa[1]
+            self.trainLabel.text = sa[2]
+        })
+        myAlert.addTextField(configurationHandler: {(_ textField: UITextField) -> Void in
+            textField.placeholder = "Trainer name"
+        })
+        myAlert.addTextField(configurationHandler: {(_ textField: UITextField) -> Void in
+            textField.placeholder = "Car number"
+        })
+        myAlert.addTextField(configurationHandler: {(_ textField: UITextField) -> Void in
+            textField.placeholder = "Train ID"
+        })
+        //myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: nil));
+        myAlert.addAction(okAction)
+        show(myAlert, sender: self)
+        
+        
+    }
     
     
     @IBAction func actionAlert(_ sender: Any) {
@@ -197,7 +232,7 @@ class MainlineViewController: UIViewController, MFMailComposeViewControllerDeleg
             
         }
         
-        self.timestamp.text = formatter.string(from: currentDateTime).replacingOccurrences(of: ",", with: "")
+        //self.timestamp.text = formatter.string(from: currentDateTime).replacingOccurrences(of: ",", with: "")
         
         
         
@@ -210,8 +245,8 @@ class MainlineViewController: UIViewController, MFMailComposeViewControllerDeleg
             
         }
         
-        let cls: String = self.currentLocation.coordinate.latitude.description + " " + self.currentLocation.coordinate.latitude.description
-        self.location.text = cls
+        //let cls: String = self.currentLocation.coordinate.latitude.description + " " + self.currentLocation.coordinate.latitude.description
+        //self.location.text = cls
 
 
         
@@ -220,7 +255,7 @@ class MainlineViewController: UIViewController, MFMailComposeViewControllerDeleg
         for ssc: UITableViewCell in ss {
             let btn = DefaultButton(title: (ssc.textLabel?.text)!) {
                 self.currentStudent = ssc
-                //self.selectedStudent.text = ssc.textLabel?.text
+                self.selectedStudent.text = ssc.textLabel?.text
                 self.previousLocation = self.currentLocation
                 self.previousTime = currentDateTime
                 self.previousStudent = (self.selectedStudent.text)!
