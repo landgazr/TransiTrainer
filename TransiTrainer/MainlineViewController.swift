@@ -94,6 +94,14 @@ class MainlineViewController: UIViewController, MFMailComposeViewControllerDeleg
         if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
             
             let fileURL = dir.appendingPathComponent(file)
+            
+            do {
+                
+            
+            if(FileManager.default.fileExists(atPath: fileURL.path)){
+                try FileManager.default.removeItem(atPath: fileURL.path)
+                } } catch {}
+
             do {
                 try str.write(to: fileURL, atomically: false, encoding: .utf8)
             } catch {/* error handling here */}
