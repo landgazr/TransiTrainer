@@ -169,7 +169,14 @@ class StudentsViewController: UITableViewController {
                     for a in arr {
                         StudentsViewController.list.append(a.replacingOccurrences(of: ",", with: " "))
                     }
-                                   }
+                    
+                    let indexPath:IndexPath = IndexPath(row:(StudentsViewController.list.count - 1), section:0)
+                    
+                    self.tableView.insertRows(at: [indexPath], with: .none)
+                    self.tableView.reloadData()
+                    self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+
+                }
             } catch {/* error handling here */}
             
         
