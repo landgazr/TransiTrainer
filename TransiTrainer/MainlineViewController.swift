@@ -56,12 +56,17 @@ class MainlineViewController: UIViewController, MFMailComposeViewControllerDeleg
         super.viewDidLoad()
         
         locManager.requestWhenInUseAuthorization()
+        
+        
         currentLocation = locManager.location
+        if( currentLocation != nil)
+        {
         if (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse ||
             CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways){
             currentLocation = locManager.location
             NSLog(currentLocation.coordinate.latitude.description)
             NSLog(currentLocation.coordinate.longitude.description)
+        }
         }
         
         
@@ -285,6 +290,7 @@ class MainlineViewController: UIViewController, MFMailComposeViewControllerDeleg
             arr.append(rs.latlon)
         }
 
+        if( currentLocation != nil ) {
         
         let stopCoords: CLLocation = (closestLocation(locations: arr, closestToLocation: currentLocation))!
         //let cls: String = self.currentLocation.coordinate.latitude.description + " " + self.currentLocation.coordinate.latitude.description
@@ -294,6 +300,7 @@ class MainlineViewController: UIViewController, MFMailComposeViewControllerDeleg
         
         let popup = PopupDialog(title: "Students", message: "Please select student.")
         var studentButtons = [DefaultButton]()
+        ss = avc.svc.getSelectedStudents()
         for ssc: UITableViewCell in ss {
             let btn = DefaultButton(title: (ssc.textLabel?.text)!) {
                 self.currentStudent = ssc
@@ -321,10 +328,18 @@ class MainlineViewController: UIViewController, MFMailComposeViewControllerDeleg
             self.present(popup, animated: true, completion: nil)
             
             
-        } else {
+            }
+        else {
             let myAlert = UIAlertController(title: "Information", message: "Please select students in current group.", preferredStyle: .alert);
             myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: nil));
             show(myAlert, sender: self)
+        
+        }
+        } else {
+            let myAlert = UIAlertController(title: "Information", message: "Could not get current location.", preferredStyle: .alert);
+            myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: nil));
+            show(myAlert, sender: self)
+
         }
         
         

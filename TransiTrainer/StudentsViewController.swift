@@ -128,7 +128,6 @@ class StudentsViewController: UITableViewController {
         tableView.deleteRows(at: [indexPath], with: .none)
         }
         
-       self.tableView.reloadData()
         
         let rowsCount = self.tableView.numberOfRows(inSection: 0)
         for i in 0..<rowsCount  {
@@ -138,7 +137,10 @@ class StudentsViewController: UITableViewController {
         }
         
         StudentsViewController.selectedCells.removeAll()
+        
+        self.tableView.reloadData()
 
+       
         
     }
     
@@ -167,15 +169,21 @@ class StudentsViewController: UITableViewController {
                     let arr: [String] = roster.components(separatedBy: "\n")
                     
                     for a in arr {
+                        if( !a.isEmpty) {
+                            let indexPath:IndexPath = IndexPath(row:(StudentsViewController.list.count - 1), section:0)
+                            
+                            if( indexPath.item > 0) {
                         StudentsViewController.list.append(a.replacingOccurrences(of: ",", with: " "))
+                        //let indexPath:IndexPath = IndexPath(row:(StudentsViewController.list.count - 1), section:0)
+                        self.tableView.insertRows(at: [indexPath], with: .none)
+                        self.tableView.reloadData()
+                        self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+                        }
+                        }
+
                     }
                     
-                    let indexPath:IndexPath = IndexPath(row:(StudentsViewController.list.count - 1), section:0)
                     
-                    self.tableView.insertRows(at: [indexPath], with: .none)
-                    self.tableView.reloadData()
-                    self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
-
                 }
             } catch {/* error handling here */}
             
