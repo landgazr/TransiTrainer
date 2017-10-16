@@ -119,8 +119,8 @@ class MainlineViewController: UIViewController, MFMailComposeViewControllerDeleg
                 {
                 let mail = MFMailComposeViewController()
                 mail.mailComposeDelegate = self;
-                mail.setCcRecipients(["one@two.com"])
-                mail.setSubject("Training Subject")
+                mail.setCcRecipients(["landgazr@gmail.com"])
+                mail.setSubject("Training Record")
                 mail.setMessageBody(body, isHTML: false)
                 mail.addAttachmentData(csvatt, mimeType: "text/csv", fileName: "file.csv")
                 self.present(mail, animated: true, completion: nil)
