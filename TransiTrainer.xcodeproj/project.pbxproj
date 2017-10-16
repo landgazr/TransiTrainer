@@ -314,6 +314,7 @@
 				TargetAttributes = {
 					82AFAD8F1F53AC4B001D2E5E = {
 						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = 6FRY6X7ZAZ;
 						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 					};
@@ -573,6 +574,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = 6FRY6X7ZAZ;
 				FRAMEWORK_SEARCH_PATHS = "";
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = TransiTrainer/Info.plist;
@@ -597,6 +599,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = 6FRY6X7ZAZ;
 				FRAMEWORK_SEARCH_PATHS = "";
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = TransiTrainer/Info.plist;
