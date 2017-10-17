@@ -21,7 +21,7 @@ class RailStop {
 }
 
 
-class MainlineViewController: UIViewController, MFMailComposeViewControllerDelegate {
+class MainlineViewController: UIViewController, MFMailComposeViewControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
 
     var locManager = CLLocationManager()
     var currentLocation: CLLocation!
@@ -35,6 +35,7 @@ class MainlineViewController: UIViewController, MFMailComposeViewControllerDeleg
     
     //@IBOutlet weak var location: UILabel!
     @IBOutlet weak var selectedStudent: UILabel!
+    @IBOutlet weak var picker: UIPickerView!
     var inStation: Bool = false
     var inLine: Bool = false
     var inStatus: Bool = false
@@ -46,6 +47,31 @@ class MainlineViewController: UIViewController, MFMailComposeViewControllerDeleg
     var previousTime:Date? = Date()
     var previousStop:String = ""
     var currentStop:String = ""
+    
+    var namesOfTrainers = [Int: String]()
+    static var trainerArr: [String] = [String]()
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        // This method is triggered whenever the user makes a change to the picker selection.
+        // The parameter named row and component represents what was selected.
+        self.trainerLabel.text = MainlineViewController.trainerArr[row]
+    }
+    
+    
+    // The number of columns of data
+    func numberOfComponents(in: UIPickerView) -> Int {
+        return 1
+    }
+    
+    // The number of rows of data
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return MainlineViewController.trainerArr.count
+    }
+    
+    // The data to return for the row and component (column) that's being passed in
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return MainlineViewController.trainerArr[row]
+    }
 
     func mailComposeController(_ controller: MFMailComposeViewController,
                                didFinishWith result: MFMailComposeResult, error: Error?) {
@@ -53,7 +79,19 @@ class MainlineViewController: UIViewController, MFMailComposeViewControllerDeleg
     }
     
     override func viewDidLoad() {
+        
+        namesOfTrainers[6661] = "Stone/Krista"
+        namesOfTrainers[4950] = "Ulabarro/Jorge"
+        namesOfTrainers[4990] = "Herring/Anthony"
+        
+        self.picker.dataSource = self
+        self.picker.delegate = self
+        
         super.viewDidLoad()
+        
+        for (_, v) in namesOfTrainers {
+            MainlineViewController.trainerArr.append(v)
+        }
         
         locManager.requestWhenInUseAuthorization()
         
@@ -71,8 +109,32 @@ class MainlineViewController: UIViewController, MFMailComposeViewControllerDeleg
         
         
         csvArray.append("student,inlocation,intime,outlocation,outtime\n")
+        
+        let date = Date()
+        let calendar = Calendar.current
+        
+        let hour = calendar.component(.hour, from: date)
+
+        
+        self.view.backgroundColor = getBackgroundColor(hour: hour)
     
         
+    }
+    
+    func getBackgroundColor(hour:Int) -> UIColor {
+        
+        
+        let morning = UIColor(red: 255/255.0, green: 200/255.0, blue: 200/255.0, alpha: 1.0)
+        let noon = UIColor(red: 200/255.0, green: 200/255.0, blue: 255/255.0, alpha: 1.0)
+        let night = UIColor(red: 200/255.0, green: 255/255.0, blue: 200/255.0, alpha: 1.0)
+        switch hour {
+        case 7...11:   // 7am-11am
+            return morning
+        case 12...16:  // 12pm-4pm
+            return noon
+        default:
+            return night
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -319,6 +381,25 @@ class MainlineViewController: UIViewController, MFMailComposeViewControllerDeleg
             }
             studentButtons.append(btn)
         }
+            
+            let btn = DefaultButton(title: (trainerLabel.text)!) {
+                self.currentStudent = UITableViewCell()
+                self.currentStudent.textLabel?.text = self.trainerLabel.text
+                self.selectedStudent.text = self.trainerLabel.text
+                self.previousLocation = self.currentLocation
+                self.previousTime = currentDateTime
+                self.previousStudent = (self.selectedStudent.text)!
+                for rs in self.railStops {
+                    if (rs.latlon.distance(from: stopCoords) == 0) {
+                        self.previousStop = rs.station
+                    }
+                }
+             
+            }
+
+                studentButtons.append(btn)
+            
+        
         
         if( studentButtons.count > 0 ){
         popup.addButtons(studentButtons)
