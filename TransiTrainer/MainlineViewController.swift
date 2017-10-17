@@ -21,10 +21,9 @@ class RailStop {
 }
 
 
-class MainlineViewController: UIViewController, MFMailComposeViewControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
+class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMailComposeViewControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
 
     var locManager = CLLocationManager()
-    static var currentLocation: CLLocation!
     var avc: AddingViewController = AddingViewController()
     var ss = [UITableViewCell]()
     var currentStudent = UITableViewCell()
@@ -46,10 +45,20 @@ class MainlineViewController: UIViewController, MFMailComposeViewControllerDeleg
     static var previousLocation:CLLocation = CLLocation()
     var previousTime:Date? = Date()
     var previousStop:String = ""
-    static var currentStop:String = ""
+    var currentStop:String = ""
     
     var namesOfTrainers = [Int: String]()
     static var trainerArr: [String] = [String]()
+    
+    func closestLocation(locations: [CLLocation], closestToLocation location: CLLocation) -> CLLocation? {
+        if let closestLocation = locations.min(by: { location.distance(from: $0) < location.distance(from: $1) }) {
+            return closestLocation
+        } else {
+            print("coordinates is empty")
+            return nil
+        }
+    }
+
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         // This method is triggered whenever the user makes a change to the picker selection.
@@ -78,7 +87,41 @@ class MainlineViewController: UIViewController, MFMailComposeViewControllerDeleg
         controller.dismiss(animated: true, completion: nil)
     }
     
+    @IBAction func showCurrentLocation() {
+        
+        var stopCoords: CLLocation = CLLocation()
+        var arr: [CLLocation] = [CLLocation]()
+        for rs in railStops {
+            arr.append(rs.latlon)
+        }
+        if (railStops.count > 0) {
+        locManager.requestWhenInUseAuthorization()
+            if (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse ||
+            CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways){
+            stopCoords = (self.closestLocation(locations: arr, closestToLocation: locManager.location!))!
+            
+        }
+        
+        for rs in railStops {
+            if (rs.latlon.distance(from: stopCoords) == 0) {
+                self.currentStop = rs.station
+                break
+            }
+        }
+
+        let myAlert = UIAlertController(title: "Information", message: self.currentStop, preferredStyle: .alert);
+        myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: nil));
+        self.show(myAlert, sender: self)
+        } else {
+            let myAlert = UIAlertController(title: "Information", message: "Please select a starting student to show location.", preferredStyle: .alert);
+            myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: nil));
+            self.show(myAlert, sender: self)
+        }
+
+    }
+    
     override func viewDidLoad() {
+        super.viewDidLoad()
         
         namesOfTrainers[6661] = "Stone/Krista"
         namesOfTrainers[4950] = "Ulabarro/Jorge"
@@ -87,25 +130,25 @@ class MainlineViewController: UIViewController, MFMailComposeViewControllerDeleg
         self.picker.dataSource = self
         self.picker.delegate = self
         
-        super.viewDidLoad()
         
-        for (_, v) in namesOfTrainers {
+        
+                for (_, v) in namesOfTrainers {
             MainlineViewController.trainerArr.append(v)
         }
         
-        locManager.requestWhenInUseAuthorization()
-        
-        
-        MainlineViewController.currentLocation = locManager.location
-        if( MainlineViewController.currentLocation != nil)
-        {
-        if (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse ||
+        locManager.delegate = self
+        locManager.desiredAccuracy = kCLLocationAccuracyBest
+        locManager.requestAlwaysAuthorization()
+       
+            if (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse ||
             CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways){
-            MainlineViewController.currentLocation = locManager.location
-            NSLog(MainlineViewController.currentLocation.coordinate.latitude.description)
-            NSLog(MainlineViewController.currentLocation.coordinate.longitude.description)
+            
+            NSLog((locManager.location?.coordinate.latitude.description)!)
+            NSLog((locManager.location?.coordinate.longitude.description)!)
         }
-        }
+        
+        locManager.startUpdatingLocation()
+        
         
         
         csvArray.append("student,inlocation,intime,outlocation,outtime\n")
@@ -147,6 +190,8 @@ class MainlineViewController: UIViewController, MFMailComposeViewControllerDeleg
             }
             
         }
+        
+        
 
     }
     
@@ -182,12 +227,18 @@ class MainlineViewController: UIViewController, MFMailComposeViewControllerDeleg
                 
                 let body = self.trainerLabel.text! + "\n" + self.carLabel.text! + "\n" + self.trainLabel.text!
                 
+                let date : Date = Date()
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "mm-dd-yyyy"
+                let todaysDate = dateFormatter.string(from: date)
+                
                 if MFMailComposeViewController.canSendMail()
                 {
                 let mail = MFMailComposeViewController()
                 mail.mailComposeDelegate = self;
+                mail.setToRecipients(["mumbuns@yahoo.com"])
                 mail.setCcRecipients(["landgazr@gmail.com"])
-                mail.setSubject("Training Record")
+                mail.setSubject("Training Record " + self.trainerLabel.text! + " " + todaysDate)
                 mail.setMessageBody(body, isHTML: false)
                 mail.addAttachmentData(csvatt, mimeType: "text/csv", fileName: "file.csv")
                 self.present(mail, animated: true, completion: nil)
@@ -218,37 +269,37 @@ class MainlineViewController: UIViewController, MFMailComposeViewControllerDeleg
         let formatter = DateFormatter()
         formatter.timeStyle = .medium
         formatter.dateStyle = .short
-
-        locManager.requestWhenInUseAuthorization()
-        MainlineViewController.currentLocation = locManager.location
-        if (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse ||
-            CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways){
-            MainlineViewController.currentLocation = locManager.location
+        if (railStops.count > 0) {
             
-        }
-        
-        var arr: [CLLocation] = [CLLocation]()
-        for rs in railStops {
-            arr.append(rs.latlon)
-        }
-        let stopCoords: CLLocation = (closestLocation(locations: arr, closestToLocation: MainlineViewController.currentLocation))!
-        for rs in railStops {
-            if (rs.latlon.distance(from: stopCoords) == 0) {
-                MainlineViewController.currentStop = rs.station
-                let myAlert = UIAlertController(title: "Information", message: MainlineViewController.currentStop, preferredStyle: .alert);
-                myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: nil));
-                self.show(myAlert, sender: self)
-                break
+            var stopCoords: CLLocation = CLLocation()
+            var arr: [CLLocation] = [CLLocation]()
+            for rs in railStops {
+                arr.append(rs.latlon)
             }
-        }
+            if (railStops.count > 0) {
+                locManager.requestWhenInUseAuthorization()
+                if (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse ||
+                    CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways){
+                    stopCoords = closestLocation(locations: arr, closestToLocation: locManager.location!)!
+                
+                }
+                
+                for rs in railStops {
+                    if (rs.latlon.distance(from: stopCoords) == 0) {
+                        self.currentStop = rs.station
+                        //self.previousStop = rs.station
+                        break
+                    }
+                }
+
         
-        self.selectedStudent.text = "None"
+            self.selectedStudent.text = "None"
        
         let s: String = (self.currentStudent.textLabel?.text)!
         
         let pls: String = previousStop
         let pts: String = formatter.string(from: self.previousTime!).replacingOccurrences(of: ",", with: "")
-        let cls: String = MainlineViewController.currentStop
+        let cls: String = self.currentStop
         let cts: String = formatter.string(from: Date()).replacingOccurrences(of: ",", with: "")
         
         //self.timestamp.text = formatter.string(from: Date()).replacingOccurrences(of: ",", with: "")
@@ -257,7 +308,12 @@ class MainlineViewController: UIViewController, MFMailComposeViewControllerDeleg
         let str: String = s + "," + pls + "," + pts + "," + cls + "," + cts + "\n"
         self.csvArray.append(str)
         NSLog(str)
+        } else {
+            let myAlert = UIAlertController(title: "Information", message: "Please select a starting student to show location.", preferredStyle: .alert);
+            myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: nil));
+            self.show(myAlert, sender: self)        }
 
+    }
     }
   
     @IBAction func setTrainer(_ sender: Any)
@@ -271,12 +327,8 @@ class MainlineViewController: UIViewController, MFMailComposeViewControllerDeleg
             for utf in myAlert.textFields! {
                 sa.append(utf.text!)
             }
-            self.trainerLabel.text = sa[0]
-            self.carLabel.text = sa[1]
-            self.trainLabel.text = sa[2]
-        })
-        myAlert.addTextField(configurationHandler: {(_ textField: UITextField) -> Void in
-            textField.placeholder = "Trainer name"
+            self.carLabel.text = sa[0]
+            self.trainLabel.text = sa[1]
         })
         myAlert.addTextField(configurationHandler: {(_ textField: UITextField) -> Void in
             textField.placeholder = "Car number"
@@ -291,15 +343,7 @@ class MainlineViewController: UIViewController, MFMailComposeViewControllerDeleg
         
     }
     
-    func closestLocation(locations: [CLLocation], closestToLocation location: CLLocation) -> CLLocation? {
-        if let closestLocation = locations.min(by: { location.distance(from: $0) < location.distance(from: $1) }) {
-            return closestLocation
-        } else {
-            print("coordinates is empty")
-            return nil
-        }
-    }
-    
+       
     @IBAction func actionAlert(_ sender: Any) {
         
         let currentDateTime = Date()
@@ -309,9 +353,6 @@ class MainlineViewController: UIViewController, MFMailComposeViewControllerDeleg
         formatter.dateStyle = .short
         
         
-        //let myAlert = UIAlertController(title: "Alert", message: "This is an alert.", preferredStyle: .alert);
-        //myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: nil));
-        //show(myAlert, sender: self)
         let filepath = Bundle.main.path(forResource: "tm_rail_stops", ofType: "kml")
         let u: URL = URL.init(fileURLWithPath: filepath!)
         let kp: KMLParser = KMLParser(url: u)
@@ -341,35 +382,27 @@ class MainlineViewController: UIViewController, MFMailComposeViewControllerDeleg
         
         
         
-        locManager.requestWhenInUseAuthorization()
-        MainlineViewController.currentLocation = locManager.location
-        if (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse ||
-            CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways){
-            MainlineViewController.currentLocation = locManager.location
-            
-        }
-        
+        var stopCoords: CLLocation = CLLocation()
         var arr: [CLLocation] = [CLLocation]()
-        
         for rs in railStops {
             arr.append(rs.latlon)
         }
-        let stopCoords: CLLocation = (closestLocation(locations: arr, closestToLocation: MainlineViewController.currentLocation))!
-        for rs in self.railStops {
-            if (rs.latlon.distance(from: stopCoords) == 0) {
-                MainlineViewController.currentStop = rs.station
-                self.previousStop = rs.station
-                let myAlert = UIAlertController(title: "Information", message: MainlineViewController.currentStop, preferredStyle: .alert);
-                myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: nil));
-                self.show(myAlert, sender: self)
-                break
-                
+        if (railStops.count > 0) {
+            locManager.requestWhenInUseAuthorization()
+            if (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse ||
+                CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways){
+                stopCoords = (self.closestLocation(locations: arr, closestToLocation: locManager.location!))!
                 
             }
-        }
+            
+            for rs in railStops {
+                if (rs.latlon.distance(from: stopCoords) == 0) {
+                    self.previousStop = rs.station
+                    break
+                }
+            }
 
 
-        if( MainlineViewController.currentLocation != nil ) {
         
         let popup = PopupDialog(title: "Students", message: "Please select student.")
         var studentButtons = [DefaultButton]()
@@ -378,11 +411,9 @@ class MainlineViewController: UIViewController, MFMailComposeViewControllerDeleg
             let btn = DefaultButton(title: (ssc.textLabel?.text)!) {
                 self.currentStudent = ssc
                 self.selectedStudent.text = ssc.textLabel?.text
-                MainlineViewController.previousLocation = MainlineViewController.currentLocation
+                MainlineViewController.previousLocation = self.locManager.location!
                 self.previousTime = currentDateTime
                 self.previousStudent = (self.selectedStudent.text)!
-                
-                
             
             }
             studentButtons.append(btn)
@@ -392,7 +423,7 @@ class MainlineViewController: UIViewController, MFMailComposeViewControllerDeleg
                 self.currentStudent = UITableViewCell()
                 self.currentStudent.textLabel?.text = self.trainerLabel.text
                 self.selectedStudent.text = self.trainerLabel.text
-                MainlineViewController.previousLocation = MainlineViewController.currentLocation
+                MainlineViewController.previousLocation = self.locManager.location!
                 self.previousTime = currentDateTime
                 self.previousStudent = (self.selectedStudent.text)!
                 
@@ -410,21 +441,22 @@ class MainlineViewController: UIViewController, MFMailComposeViewControllerDeleg
             self.present(popup, animated: true, completion: nil)
             
             
-            }
+            
+        }
+        
         else {
             let myAlert = UIAlertController(title: "Information", message: "Please select students in current group.", preferredStyle: .alert);
             myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: nil));
             show(myAlert, sender: self)
         
         }
+        
+        
+        
         } else {
-            let myAlert = UIAlertController(title: "Information", message: "Could not get current location.", preferredStyle: .alert);
+            let myAlert = UIAlertController(title: "Information", message: "Could not get location.", preferredStyle: .alert);
             myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: nil));
-            show(myAlert, sender: self)
+            show(myAlert, sender: self)        }
 
-        }
-        
-        
-        
-    }}
+        }}
 

@@ -93,6 +93,9 @@ class StudentsViewController: UITableViewController {
             self.tableView.insertRows(at: [indexPath], with: .none)
             self.tableView.reloadData()
             self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+            
+            
+            StudentsViewController.selectedCells.removeAll()
         }
                 
        
@@ -176,6 +179,9 @@ class StudentsViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "LabelCell")
         tableView.allowsMultipleSelectionDuringEditing = true
         tableView.setEditing(true, animated: false)
