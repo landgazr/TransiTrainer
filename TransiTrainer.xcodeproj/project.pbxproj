@@ -12,7 +12,6 @@
 		820DD1521F633AA9005B6EFA /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 820DD1511F633AA9005B6EFA /* CoreLocation.framework */; };
 		822C0AB41F9647A300BA649E /* Launch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 822C0AB31F9647A300BA649E /* Launch.storyboard */; };
 		822C0AB71F96483900BA649E /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822C0AB51F96483900BA649E /* LaunchViewController.swift */; };
-		822C0AB81F96483900BA649E /* LaunchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 822C0AB61F96483900BA649E /* LaunchViewController.xib */; };
 		824518961F646D0000A7F2DA /* tm_rail_stops.kml in Resources */ = {isa = PBXBuildFile; fileRef = 824518951F646D0000A7F2DA /* tm_rail_stops.kml */; };
 		82AFAD941F53AC4B001D2E5E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AFAD931F53AC4B001D2E5E /* AppDelegate.swift */; };
 		82AFAD961F53AC4B001D2E5E /* MainlineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AFAD951F53AC4B001D2E5E /* MainlineViewController.swift */; };
@@ -197,10 +196,10 @@
 				82DEA8621F9146AC006097B7 /* String+Lines.swift */,
 				82ED40771F69D8EB00862AA6 /* TZSpacerView.swift */,
 				82ED40781F69D8EB00862AA6 /* TZStackView.swift */,
+				82ED404A1F69C91D00862AA6 /* FXBlurView.m */,
 				82ED40791F69D8EB00862AA6 /* TZStackViewAlignment.swift */,
 				82ED407A1F69D8EB00862AA6 /* TZStackViewDistribution.swift */,
 				82ED40491F69C91D00862AA6 /* FXBlurView.h */,
-				82ED404A1F69C91D00862AA6 /* FXBlurView.m */,
 				82ED404B1F69C91D00862AA6 /* InteractiveTransition.swift */,
 				82ED404C1F69C91D00862AA6 /* PopupDialog.swift */,
 				82ED404D1F69C91D00862AA6 /* PopupDialog+Keyboard.swift */,
@@ -363,7 +362,6 @@
 			files = (
 				82AFAD9D1F53AC4B001D2E5E /* Assets.xcassets in Resources */,
 				82AFAD9B1F53AC4B001D2E5E /* Main.storyboard in Resources */,
-				822C0AB81F96483900BA649E /* LaunchViewController.xib in Resources */,
 				824518961F646D0000A7F2DA /* tm_rail_stops.kml in Resources */,
 				822C0AB41F9647A300BA649E /* Launch.storyboard in Resources */,
 			);
