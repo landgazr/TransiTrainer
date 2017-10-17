@@ -190,7 +190,33 @@ class StudentsViewController: UITableViewController {
         
         
     }
+        let date = Date()
+        let calendar = Calendar.current
+        
+        let hour = calendar.component(.hour, from: date)
+
+        self.view.backgroundColor = getBackgroundColor(hour: hour)
+        
+        
     }
+    
+    func getBackgroundColor(hour:Int) -> UIColor {
+        
+        
+        let morning = UIColor(red: 255/255.0, green: 200/255.0, blue: 200/255.0, alpha: 1.0)
+        let noon = UIColor(red: 200/255.0, green: 200/255.0, blue: 255/255.0, alpha: 1.0)
+        let night = UIColor(red: 200/255.0, green: 255/255.0, blue: 200/255.0, alpha: 1.0)
+        switch hour {
+        case 7...11:   // 7am-11am
+            return morning
+        case 12...16:  // 12pm-4pm
+            return noon
+        default:
+            return night
+        }
+    }
+    
+
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
