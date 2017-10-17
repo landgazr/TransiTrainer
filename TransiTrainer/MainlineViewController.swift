@@ -24,7 +24,7 @@ class RailStop {
 class MainlineViewController: UIViewController, MFMailComposeViewControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
 
     var locManager = CLLocationManager()
-    var currentLocation: CLLocation!
+    static var currentLocation: CLLocation!
     var avc: AddingViewController = AddingViewController()
     var ss = [UITableViewCell]()
     var currentStudent = UITableViewCell()
@@ -43,10 +43,10 @@ class MainlineViewController: UIViewController, MFMailComposeViewControllerDeleg
     var railStops: [RailStop] = []
     var csvArray: [String] = []
     var previousStudent:String = ""
-    var previousLocation:CLLocation = CLLocation()
+    static var previousLocation:CLLocation = CLLocation()
     var previousTime:Date? = Date()
     var previousStop:String = ""
-    var currentStop:String = ""
+    static var currentStop:String = ""
     
     var namesOfTrainers = [Int: String]()
     static var trainerArr: [String] = [String]()
@@ -96,14 +96,14 @@ class MainlineViewController: UIViewController, MFMailComposeViewControllerDeleg
         locManager.requestWhenInUseAuthorization()
         
         
-        currentLocation = locManager.location
-        if( currentLocation != nil)
+        MainlineViewController.currentLocation = locManager.location
+        if( MainlineViewController.currentLocation != nil)
         {
         if (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse ||
             CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways){
-            currentLocation = locManager.location
-            NSLog(currentLocation.coordinate.latitude.description)
-            NSLog(currentLocation.coordinate.longitude.description)
+            MainlineViewController.currentLocation = locManager.location
+            NSLog(MainlineViewController.currentLocation.coordinate.latitude.description)
+            NSLog(MainlineViewController.currentLocation.coordinate.longitude.description)
         }
         }
         
@@ -220,10 +220,10 @@ class MainlineViewController: UIViewController, MFMailComposeViewControllerDeleg
         formatter.dateStyle = .short
 
         locManager.requestWhenInUseAuthorization()
-        currentLocation = locManager.location
+        MainlineViewController.currentLocation = locManager.location
         if (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse ||
             CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways){
-            currentLocation = locManager.location
+            MainlineViewController.currentLocation = locManager.location
             
         }
         
@@ -231,11 +231,11 @@ class MainlineViewController: UIViewController, MFMailComposeViewControllerDeleg
         for rs in railStops {
             arr.append(rs.latlon)
         }
-        let stopCoords: CLLocation = (closestLocation(locations: arr, closestToLocation: currentLocation))!
+        let stopCoords: CLLocation = (closestLocation(locations: arr, closestToLocation: MainlineViewController.currentLocation))!
         for rs in railStops {
             if (rs.latlon.distance(from: stopCoords) == 0) {
-                currentStop = rs.station
-                let myAlert = UIAlertController(title: "Information", message: rs.station, preferredStyle: .alert);
+                MainlineViewController.currentStop = rs.station
+                let myAlert = UIAlertController(title: "Information", message: MainlineViewController.currentStop, preferredStyle: .alert);
                 myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: nil));
                 self.show(myAlert, sender: self)
                 break
@@ -248,7 +248,7 @@ class MainlineViewController: UIViewController, MFMailComposeViewControllerDeleg
         
         let pls: String = previousStop
         let pts: String = formatter.string(from: self.previousTime!).replacingOccurrences(of: ",", with: "")
-        let cls: String = currentStop
+        let cls: String = MainlineViewController.currentStop
         let cts: String = formatter.string(from: Date()).replacingOccurrences(of: ",", with: "")
         
         //self.timestamp.text = formatter.string(from: Date()).replacingOccurrences(of: ",", with: "")
@@ -342,10 +342,10 @@ class MainlineViewController: UIViewController, MFMailComposeViewControllerDeleg
         
         
         locManager.requestWhenInUseAuthorization()
-        currentLocation = locManager.location
+        MainlineViewController.currentLocation = locManager.location
         if (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse ||
             CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways){
-            currentLocation = locManager.location
+            MainlineViewController.currentLocation = locManager.location
             
         }
         
@@ -354,14 +354,22 @@ class MainlineViewController: UIViewController, MFMailComposeViewControllerDeleg
         for rs in railStops {
             arr.append(rs.latlon)
         }
+        let stopCoords: CLLocation = (closestLocation(locations: arr, closestToLocation: MainlineViewController.currentLocation))!
+        for rs in self.railStops {
+            if (rs.latlon.distance(from: stopCoords) == 0) {
+                MainlineViewController.currentStop = rs.station
+                self.previousStop = rs.station
+                let myAlert = UIAlertController(title: "Information", message: MainlineViewController.currentStop, preferredStyle: .alert);
+                myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: nil));
+                self.show(myAlert, sender: self)
+                break
+                
+                
+            }
+        }
 
-        if( currentLocation != nil ) {
-        
-        let stopCoords: CLLocation = (closestLocation(locations: arr, closestToLocation: currentLocation))!
-        //let cls: String = self.currentLocation.coordinate.latitude.description + " " + self.currentLocation.coordinate.latitude.description
-        //self.location.text = cls
-        
 
+        if( MainlineViewController.currentLocation != nil ) {
         
         let popup = PopupDialog(title: "Students", message: "Please select student.")
         var studentButtons = [DefaultButton]()
@@ -370,21 +378,10 @@ class MainlineViewController: UIViewController, MFMailComposeViewControllerDeleg
             let btn = DefaultButton(title: (ssc.textLabel?.text)!) {
                 self.currentStudent = ssc
                 self.selectedStudent.text = ssc.textLabel?.text
-                self.previousLocation = self.currentLocation
+                MainlineViewController.previousLocation = MainlineViewController.currentLocation
                 self.previousTime = currentDateTime
                 self.previousStudent = (self.selectedStudent.text)!
-                for rs in self.railStops {
-                    if (rs.latlon.distance(from: stopCoords) == 0) {
-                        self.previousStop = rs.station
-                        let myAlert = UIAlertController(title: "Information", message: rs.station, preferredStyle: .alert);
-                        myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: nil));
-                        self.show(myAlert, sender: self)
-                        break
-
-                        
-                    }
-                }
-
+                
                 
             
             }
@@ -395,15 +392,10 @@ class MainlineViewController: UIViewController, MFMailComposeViewControllerDeleg
                 self.currentStudent = UITableViewCell()
                 self.currentStudent.textLabel?.text = self.trainerLabel.text
                 self.selectedStudent.text = self.trainerLabel.text
-                self.previousLocation = self.currentLocation
+                MainlineViewController.previousLocation = MainlineViewController.currentLocation
                 self.previousTime = currentDateTime
                 self.previousStudent = (self.selectedStudent.text)!
-                for rs in self.railStops {
-                    if (rs.latlon.distance(from: stopCoords) == 0) {
-                        self.previousStop = rs.station
-                    }
-                }
-             
+                
             }
 
                 studentButtons.append(btn)
