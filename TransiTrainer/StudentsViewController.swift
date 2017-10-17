@@ -28,7 +28,31 @@ class StudentsViewController: UITableViewController {
     
     
     
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let date = Date()
+        let calendar = Calendar.current
+        
+        let hour = calendar.component(.hour, from: date)
+        
+        let myBackView: UIView = UIView.init(frame: cell.frame)
+        myBackView.backgroundColor = getBackgroundColor(hour: hour)
+
+        
+        
+        cell.backgroundColor = getBackgroundColor(hour: hour)
+        cell.selectedBackgroundView = myBackView
+
+    }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        //        let date = Date()
+        //let calendar = Calendar.current
+        
+        //let hour = calendar.component(.hour, from: date)
+        
+        
+        //tableView.cellForRow(at: indexPath)?.selectedBackgroundView?.backgroundColor = self.getBackgroundColor(hour: hour)
+        
         StudentsViewController.selectedCells.append(tableView.cellForRow(at: indexPath)!)
     }
     
@@ -157,6 +181,14 @@ class StudentsViewController: UITableViewController {
         tableView.setEditing(true, animated: false)
         // Do any additional setup after loading the view, typically from a nib.
         
+        let date = Date()
+        let calendar = Calendar.current
+        
+        let hour = calendar.component(.hour, from: date)
+        
+        
+        self.tableView.backgroundColor = getBackgroundColor(hour: hour)
+        
         let file = "roster.csv" //this is the file. we will write to and read from it
         
         if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
@@ -190,12 +222,7 @@ class StudentsViewController: UITableViewController {
         
         
     }
-        let date = Date()
-        let calendar = Calendar.current
         
-        let hour = calendar.component(.hour, from: date)
-
-        self.view.backgroundColor = getBackgroundColor(hour: hour)
         
         
     }
