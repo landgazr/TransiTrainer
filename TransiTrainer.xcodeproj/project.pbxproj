@@ -10,12 +10,14 @@
 		820299C51F93B9E100389AB1 /* AddingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820299C41F93B9E100389AB1 /* AddingViewController.swift */; };
 		8202D9F91F64F45E00660802 /* KMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8202D9F81F64F45E00660802 /* KMLParser.swift */; };
 		820DD1521F633AA9005B6EFA /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 820DD1511F633AA9005B6EFA /* CoreLocation.framework */; };
+		822C0AB41F9647A300BA649E /* Launch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 822C0AB31F9647A300BA649E /* Launch.storyboard */; };
+		822C0AB71F96483900BA649E /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822C0AB51F96483900BA649E /* LaunchViewController.swift */; };
+		822C0AB81F96483900BA649E /* LaunchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 822C0AB61F96483900BA649E /* LaunchViewController.xib */; };
 		824518961F646D0000A7F2DA /* tm_rail_stops.kml in Resources */ = {isa = PBXBuildFile; fileRef = 824518951F646D0000A7F2DA /* tm_rail_stops.kml */; };
 		82AFAD941F53AC4B001D2E5E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AFAD931F53AC4B001D2E5E /* AppDelegate.swift */; };
 		82AFAD961F53AC4B001D2E5E /* MainlineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AFAD951F53AC4B001D2E5E /* MainlineViewController.swift */; };
 		82AFAD9B1F53AC4B001D2E5E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 82AFAD991F53AC4B001D2E5E /* Main.storyboard */; };
 		82AFAD9D1F53AC4B001D2E5E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 82AFAD9C1F53AC4B001D2E5E /* Assets.xcassets */; };
-		82AFADA01F53AC4B001D2E5E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 82AFAD9E1F53AC4B001D2E5E /* LaunchScreen.storyboard */; };
 		82AFADAB1F53AC4B001D2E5E /* TransiTrainerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AFADAA1F53AC4B001D2E5E /* TransiTrainerTests.swift */; };
 		82AFADB61F53AC4B001D2E5E /* TransiTrainerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AFADB51F53AC4B001D2E5E /* TransiTrainerUITests.swift */; };
 		82C7CFF41F63639F00580464 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 82C7CFF31F63639F00580464 /* libz.tbd */; };
@@ -72,13 +74,15 @@
 		820299C41F93B9E100389AB1 /* AddingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddingViewController.swift; sourceTree = "<group>"; };
 		8202D9F81F64F45E00660802 /* KMLParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMLParser.swift; sourceTree = "<group>"; };
 		820DD1511F633AA9005B6EFA /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		822C0AB31F9647A300BA649E /* Launch.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Launch.storyboard; sourceTree = "<group>"; };
+		822C0AB51F96483900BA649E /* LaunchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
+		822C0AB61F96483900BA649E /* LaunchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchViewController.xib; sourceTree = "<group>"; };
 		824518951F646D0000A7F2DA /* tm_rail_stops.kml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = tm_rail_stops.kml; sourceTree = "<group>"; };
 		82AFAD901F53AC4B001D2E5E /* TransiTrainer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TransiTrainer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		82AFAD931F53AC4B001D2E5E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		82AFAD951F53AC4B001D2E5E /* MainlineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainlineViewController.swift; sourceTree = "<group>"; };
 		82AFAD9A1F53AC4B001D2E5E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		82AFAD9C1F53AC4B001D2E5E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		82AFAD9F1F53AC4B001D2E5E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		82AFADA11F53AC4B001D2E5E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		82AFADA61F53AC4B001D2E5E /* TransiTrainerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TransiTrainerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		82AFADAA1F53AC4B001D2E5E /* TransiTrainerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransiTrainerTests.swift; sourceTree = "<group>"; };
@@ -186,6 +190,7 @@
 			isa = PBXGroup;
 			children = (
 				82DEA85E1F9146AC006097B7 /* CSV.swift */,
+				822C0AB31F9647A300BA649E /* Launch.storyboard */,
 				82DEA85F1F9146AC006097B7 /* Description.swift */,
 				82DEA8601F9146AC006097B7 /* Parser.swift */,
 				82DEA8611F9146AC006097B7 /* ParserHelpers.swift */,
@@ -220,10 +225,11 @@
 				82ED40701F69D18900862AA6 /* StudentsViewController.swift */,
 				82AFAD991F53AC4B001D2E5E /* Main.storyboard */,
 				82AFAD9C1F53AC4B001D2E5E /* Assets.xcassets */,
-				82AFAD9E1F53AC4B001D2E5E /* LaunchScreen.storyboard */,
 				82AFADA11F53AC4B001D2E5E /* Info.plist */,
 				8202D9F81F64F45E00660802 /* KMLParser.swift */,
 				82ED40481F69C91C00862AA6 /* TransiTrainer-Bridging-Header.h */,
+				822C0AB51F96483900BA649E /* LaunchViewController.swift */,
+				822C0AB61F96483900BA649E /* LaunchViewController.xib */,
 			);
 			path = TransiTrainer;
 			sourceTree = "<group>";
@@ -355,10 +361,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				82AFADA01F53AC4B001D2E5E /* LaunchScreen.storyboard in Resources */,
 				82AFAD9D1F53AC4B001D2E5E /* Assets.xcassets in Resources */,
 				82AFAD9B1F53AC4B001D2E5E /* Main.storyboard in Resources */,
+				822C0AB81F96483900BA649E /* LaunchViewController.xib in Resources */,
 				824518961F646D0000A7F2DA /* tm_rail_stops.kml in Resources */,
+				822C0AB41F9647A300BA649E /* Launch.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -402,6 +409,7 @@
 				82ED40621F69C91D00862AA6 /* PopupDialogDefaultButtons.swift in Sources */,
 				82DEA8651F9146AC006097B7 /* Parser.swift in Sources */,
 				82ED406B1F69C91D00862AA6 /* UIImageView+Calculations.swift in Sources */,
+				822C0AB71F96483900BA649E /* LaunchViewController.swift in Sources */,
 				82ED40691F69C91D00862AA6 /* TransitionAnimator.swift in Sources */,
 				82ED405F1F69C91D00862AA6 /* PopupDialog+Keyboard.swift in Sources */,
 				82ED40671F69C91D00862AA6 /* PresentationManager.swift in Sources */,
@@ -456,14 +464,6 @@
 				82AFAD9A1F53AC4B001D2E5E /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		82AFAD9E1F53AC4B001D2E5E /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				82AFAD9F1F53AC4B001D2E5E /* Base */,
-			);
-			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
