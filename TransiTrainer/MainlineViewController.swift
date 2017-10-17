@@ -235,6 +235,9 @@ class MainlineViewController: UIViewController, MFMailComposeViewControllerDeleg
         for rs in railStops {
             if (rs.latlon.distance(from: stopCoords) == 0) {
                 currentStop = rs.station
+                let myAlert = UIAlertController(title: "Information", message: rs.station, preferredStyle: .alert);
+                myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: nil));
+                self.show(myAlert, sender: self)
                 break
             }
         }
@@ -373,6 +376,12 @@ class MainlineViewController: UIViewController, MFMailComposeViewControllerDeleg
                 for rs in self.railStops {
                     if (rs.latlon.distance(from: stopCoords) == 0) {
                         self.previousStop = rs.station
+                        let myAlert = UIAlertController(title: "Information", message: rs.station, preferredStyle: .alert);
+                        myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: nil));
+                        self.show(myAlert, sender: self)
+                        break
+
+                        
                     }
                 }
 
