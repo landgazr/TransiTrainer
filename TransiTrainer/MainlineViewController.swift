@@ -46,6 +46,7 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
     var previousTime:Date? = Date()
     var previousStop:String = ""
     var currentStop:String = ""
+    var todaysDate:String = ""
     
     var namesOfTrainers = [Int: String]()
     static var trainerArr: [String] = [String]()
@@ -151,12 +152,18 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
         
         
         
-        csvArray.append("student,inlocation,intime,outlocation,outtime\n")
         
         let date = Date()
         let calendar = Calendar.current
         
         let hour = calendar.component(.hour, from: date)
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM-dd-yyyy"
+        self.todaysDate = dateFormatter.string(from: date)
+        
+        csvArray.append("date,student,inlocation,intime,outlocation,outtime,totaltime\n")
+
 
         
         self.view.backgroundColor = getBackgroundColor(hour: hour)
@@ -296,16 +303,24 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
             self.selectedStudent.text = "None"
        
         let s: String = (self.currentStudent.textLabel?.text)!
-        
+        let currentTime: Date = Date()
         let pls: String = previousStop
         let pts: String = formatter.string(from: self.previousTime!).replacingOccurrences(of: ",", with: "")
         let cls: String = self.currentStop
-        let cts: String = formatter.string(from: Date()).replacingOccurrences(of: ",", with: "")
+        let cts: String = formatter.string(from: currentTime).replacingOccurrences(of: ",", with: "")
+                
+            
+    let formatter = DateComponentsFormatter()
+    formatter.allowedUnits = [.hour, .minute, .second]
+    formatter.unitsStyle = .positional
+    formatter.zeroFormattingBehavior = .pad
+                
+    let ttm = formatter.string(from: currentTime.timeIntervalSince(self.previousTime!))!
         
         //self.timestamp.text = formatter.string(from: Date()).replacingOccurrences(of: ",", with: "")
         //self.location.text = cls
         
-        let str: String = s + "," + pls + "," + pts + "," + cls + "," + cts + "\n"
+        let str: String = self.todaysDate + "," + s + "," + pls + "," + pts + "," + cls + "," + cts + "," + ttm + "\n"
         self.csvArray.append(str)
         NSLog(str)
         } else {
