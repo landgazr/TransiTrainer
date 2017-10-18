@@ -13,6 +13,7 @@
 		822C0AB41F9647A300BA649E /* Launch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 822C0AB31F9647A300BA649E /* Launch.storyboard */; };
 		822C0AB71F96483900BA649E /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822C0AB51F96483900BA649E /* LaunchViewController.swift */; };
 		824518961F646D0000A7F2DA /* tm_rail_stops.kml in Resources */ = {isa = PBXBuildFile; fileRef = 824518951F646D0000A7F2DA /* tm_rail_stops.kml */; };
+		82AE6A281F977D5C00DB5573 /* TheMix-Plain.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 82AE6A271F977D5C00DB5573 /* TheMix-Plain.ttf */; };
 		82AFAD941F53AC4B001D2E5E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AFAD931F53AC4B001D2E5E /* AppDelegate.swift */; };
 		82AFAD961F53AC4B001D2E5E /* MainlineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AFAD951F53AC4B001D2E5E /* MainlineViewController.swift */; };
 		82AFAD9B1F53AC4B001D2E5E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 82AFAD991F53AC4B001D2E5E /* Main.storyboard */; };
@@ -77,6 +78,7 @@
 		822C0AB51F96483900BA649E /* LaunchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		822C0AB61F96483900BA649E /* LaunchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchViewController.xib; sourceTree = "<group>"; };
 		824518951F646D0000A7F2DA /* tm_rail_stops.kml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = tm_rail_stops.kml; sourceTree = "<group>"; };
+		82AE6A271F977D5C00DB5573 /* TheMix-Plain.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "TheMix-Plain.ttf"; sourceTree = "<group>"; };
 		82AFAD901F53AC4B001D2E5E /* TransiTrainer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TransiTrainer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		82AFAD931F53AC4B001D2E5E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		82AFAD951F53AC4B001D2E5E /* MainlineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainlineViewController.swift; sourceTree = "<group>"; };
@@ -197,6 +199,7 @@
 				82ED40771F69D8EB00862AA6 /* TZSpacerView.swift */,
 				82ED40781F69D8EB00862AA6 /* TZStackView.swift */,
 				82ED404A1F69C91D00862AA6 /* FXBlurView.m */,
+				82AE6A271F977D5C00DB5573 /* TheMix-Plain.ttf */,
 				82ED40791F69D8EB00862AA6 /* TZStackViewAlignment.swift */,
 				82ED407A1F69D8EB00862AA6 /* TZStackViewDistribution.swift */,
 				82ED40491F69C91D00862AA6 /* FXBlurView.h */,
@@ -363,6 +366,7 @@
 				82AFAD9D1F53AC4B001D2E5E /* Assets.xcassets in Resources */,
 				82AFAD9B1F53AC4B001D2E5E /* Main.storyboard in Resources */,
 				824518961F646D0000A7F2DA /* tm_rail_stops.kml in Resources */,
+				82AE6A281F977D5C00DB5573 /* TheMix-Plain.ttf in Resources */,
 				822C0AB41F9647A300BA649E /* Launch.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
