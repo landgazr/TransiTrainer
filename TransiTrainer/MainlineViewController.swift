@@ -225,11 +225,11 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
                 let csvdata: NSData = try NSData(contentsOf: fileURL, options: .alwaysMapped)
                 let csvatt: Data = csvdata as Data
                 
-                let body = self.trainerLabel.text! + "\n" + self.carLabel.text! + "\n" + self.trainLabel.text!
+                let body = self.trainerLabel.text! + "\n Car # " + self.carLabel.text! + "\n Train ID " + self.trainLabel.text!
                 
                 let date : Date = Date()
                 let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "mm-dd-yyyy"
+                dateFormatter.dateFormat = "MM-dd-yyyy"
                 let todaysDate = dateFormatter.string(from: date)
                 
                 if MFMailComposeViewController.canSendMail()
@@ -320,7 +320,7 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
     {
         
         
-        let myAlert = UIAlertController(title: "Information", message: "Enter trainer/car #/train ID.", preferredStyle: .alert);
+        let myAlert = UIAlertController(title: "Information", message: "Enter car #/train ID.", preferredStyle: .alert);
         let okAction = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
             // Get 1st TextField's text
             var sa: [String] = [String]()
