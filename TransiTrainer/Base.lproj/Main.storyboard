@@ -298,15 +298,15 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="JWM-ga-fqY" secondAttribute="trailing" constant="20" id="44z-K5-Yed"/>
-                            <constraint firstItem="opd-UT-cuw" firstAttribute="top" secondItem="EZd-R1-EmR" secondAttribute="bottom" constant="8" symbolic="YES" id="8Hz-qL-4HY"/>
-                            <constraint firstItem="3Sb-bL-QFX" firstAttribute="top" secondItem="opd-UT-cuw" secondAttribute="bottom" constant="8" symbolic="YES" id="8WK-t7-KeH"/>
-                            <constraint firstItem="opd-UT-cuw" firstAttribute="top" secondItem="JWM-ga-fqY" secondAttribute="bottom" constant="8" symbolic="YES" id="C2K-V7-13A"/>
-                            <constraint firstItem="opd-UT-cuw" firstAttribute="trailing" secondItem="DZc-IR-vj0" secondAttribute="trailingMargin" id="EY9-Pz-7Mi"/>
-                            <constraint firstItem="JWM-ga-fqY" firstAttribute="leading" secondItem="EZd-R1-EmR" secondAttribute="trailing" constant="77" id="I2n-DJ-j69"/>
-                            <constraint firstItem="EZd-R1-EmR" firstAttribute="top" secondItem="v10-fS-BpB" secondAttribute="bottom" constant="53" id="Rvh-jr-djX"/>
-                            <constraint firstItem="opd-UT-cuw" firstAttribute="leading" secondItem="DZc-IR-vj0" secondAttribute="leadingMargin" id="lV1-tz-JUN"/>
-                            <constraint firstItem="EZd-R1-EmR" firstAttribute="leading" secondItem="DZc-IR-vj0" secondAttribute="leadingMargin" constant="40" id="qw6-7Q-xmu"/>
+                            <constraint firstItem="opd-UT-cuw" firstAttribute="top" secondItem="JWM-ga-fqY" secondAttribute="bottom" constant="8" symbolic="YES" id="InO-mW-44G"/>
+                            <constraint firstItem="opd-UT-cuw" firstAttribute="leading" secondItem="DZc-IR-vj0" secondAttribute="leadingMargin" id="LkB-R4-jCh"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="JWM-ga-fqY" secondAttribute="trailing" constant="20" id="Q43-Hn-dvl"/>
+                            <constraint firstItem="opd-UT-cuw" firstAttribute="top" secondItem="EZd-R1-EmR" secondAttribute="bottom" constant="8" symbolic="YES" id="TTK-B2-IyA"/>
+                            <constraint firstItem="JWM-ga-fqY" firstAttribute="leading" secondItem="EZd-R1-EmR" secondAttribute="trailing" constant="77" id="Vgr-iG-FVo"/>
+                            <constraint firstItem="3Sb-bL-QFX" firstAttribute="top" secondItem="opd-UT-cuw" secondAttribute="bottom" constant="8" symbolic="YES" id="gkW-DE-d0j"/>
+                            <constraint firstItem="EZd-R1-EmR" firstAttribute="leading" secondItem="DZc-IR-vj0" secondAttribute="leadingMargin" constant="40" id="nMS-uZ-Qnm"/>
+                            <constraint firstItem="opd-UT-cuw" firstAttribute="trailing" secondItem="DZc-IR-vj0" secondAttribute="trailingMargin" id="pZm-tp-YxN"/>
+                            <constraint firstItem="EZd-R1-EmR" firstAttribute="top" secondItem="v10-fS-BpB" secondAttribute="bottom" constant="53" id="qqg-yD-R3U"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Roster" image="second" id="P3s-bD-qqQ" userLabel="Adding"/>
