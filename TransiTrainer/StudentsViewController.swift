@@ -267,7 +267,7 @@ class StudentsViewController: UITableViewController {
             do {
                 // always try to work with URL when accessing Files
                 
-                var operatorsStr = try String(contentsOf: fileURL2)
+                let operatorsStr = try String(contentsOf: fileURL2)
                 let parsedCSV: [[String]] = operatorsStr.components(separatedBy: .newlines).map{ $0.components(separatedBy: ",") }
                 
                 for row in parsedCSV {
