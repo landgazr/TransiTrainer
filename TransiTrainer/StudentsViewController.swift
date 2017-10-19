@@ -19,13 +19,36 @@ class ListItem: NSObject {
     }
 }
 
+extension Dictionary where Value: Equatable {
+    func allKeys(forValue val: Value) -> [Key] {
+        return self.filter { $1 == val }.map { $0.0 }
+    }
+}
+
 class StudentsViewController: UITableViewController {
     
     static var list: [String] = [String]()
     static var selectedCells: [UITableViewCell] = []
     
+    var operators: [Int : String] = [Int : String]()
     
-    
+   
+        func getBackgroundColor(hour:Int) -> UIColor {
+        
+        
+        let morning = UIColor(red: 255/255.0, green: 200/255.0, blue: 200/255.0, alpha: 1.0)
+        let noon = UIColor(red: 200/255.0, green: 200/255.0, blue: 255/255.0, alpha: 1.0)
+        let night = UIColor(red: 200/255.0, green: 255/255.0, blue: 200/255.0, alpha: 1.0)
+        switch hour {
+        case 7...11:   // 7am-11am
+            return morning
+        case 12...16:  // 12pm-4pm
+            return noon
+        default:
+            return night
+        }
+    }
+
     
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -56,6 +79,8 @@ class StudentsViewController: UITableViewController {
         StudentsViewController.selectedCells.append(tableView.cellForRow(at: indexPath)!)
     }
     
+  
+    
     override func viewDidAppear(_ animated: Bool) {
         let rowsCount = self.tableView.numberOfRows(inSection: 0)
         for i in 0..<rowsCount  {
@@ -66,7 +91,7 @@ class StudentsViewController: UITableViewController {
         StudentsViewController.selectedCells.removeAll()
     }
     
-    @IBAction func addCell()
+    func addCell(s: String)
     {
         var avc: AddingViewController = AddingViewController()
         
@@ -77,15 +102,15 @@ class StudentsViewController: UITableViewController {
                     avc = viewController as! AddingViewController
                 }}}
 
-        if avc.getNameAndBadge().isEmpty {
-            let myAlert = UIAlertController(title: "Information", message: "Please enter both name and badge.", preferredStyle: .alert);
+        if avc.getBadge().isEmpty {
+            let myAlert = UIAlertController(title: "Information", message: "Please enter badge #.", preferredStyle: .alert);
             myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: nil));
             show(myAlert, sender: self)
         }
         else {
             
             
-            let s = avc.getNameAndBadge()
+            
             
             StudentsViewController.list.append(s)
             let indexPath:IndexPath = IndexPath(row:(StudentsViewController.list.count - 1), section:0)
@@ -171,7 +196,63 @@ class StudentsViewController: UITableViewController {
         
     }
     
+    @IBAction func findStudent() {
+        var avc: AddingViewController = AddingViewController()
+        
+        if let viewControllers = UIApplication.shared.keyWindow?.rootViewController?.childViewControllers {
+            for viewController in viewControllers {
+                if (viewController is AddingViewController) {
+                    avc = viewController as! AddingViewController
+                }}}
+        
+       
     
+    
+        var wasNotFound: Bool = true
+            let s = avc.getBadge()
+        
+            for (k, v) in (self.operators) {
+                if (Int(s) == k )
+                     {
+                    
+                    
+                    let op: String = v
+                    let bd: Int = k
+                    let myAlert = UIAlertController(title: "Information", message: op  + " " + String(bd), preferredStyle: .alert);
+                        myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { (action: UIAlertAction!) in
+                            self.addCell(s: op + " " + String(bd))
+                            }))
+
+                    myAlert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil));
+                    show(myAlert, sender: self)
+                    wasNotFound = false
+                        
+                    break
+
+                    
+                }
+        }
+        if( wasNotFound)
+               {
+                let myAlert = UIAlertController(title: "Information", message: "Student not found. Enter name to add.", preferredStyle: .alert);
+                let okAction = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
+                    // Get 1st TextField's text
+                    for utf in myAlert.textFields! {
+                        self.addCell(s: utf.text! + " " + s)
+                    }
+                })
+                myAlert.addTextField(configurationHandler: {(_ textField: UITextField) -> Void in
+                    textField.placeholder = "Student name"
+                })
+                myAlert.addAction(okAction)
+                myAlert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil));
+                show(myAlert, sender: self)
+                }
+            
+            
+
+        }
+
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
@@ -181,7 +262,23 @@ class StudentsViewController: UITableViewController {
         super.viewDidLoad()
         
         
-        
+        if let fileURL2 = Bundle.main.url(forResource: "operators", withExtension: "csv") {
+            
+            do {
+                // always try to work with URL when accessing Files
+                
+                var operatorsStr = try String(contentsOf: fileURL2)
+                let parsedCSV: [[String]] = operatorsStr.components(separatedBy: .newlines).map{ $0.components(separatedBy: ",") }
+                
+                for row in parsedCSV {
+                    if( row.count > 1) {
+                        self.operators[Int(row[1])!] = row[0] }
+                }
+                
+                
+            } catch {/* error handling here */}
+        }
+            
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "LabelCell")
         tableView.allowsMultipleSelectionDuringEditing = true
         tableView.setEditing(true, animated: false)
@@ -225,30 +322,9 @@ class StudentsViewController: UITableViewController {
                 }
             } catch {/* error handling here */}
             
-        
-        
-    }
-        
-        
-        
-    }
+                    }}
     
-    func getBackgroundColor(hour:Int) -> UIColor {
         
-        
-        let morning = UIColor(red: 255/255.0, green: 200/255.0, blue: 200/255.0, alpha: 1.0)
-        let noon = UIColor(red: 200/255.0, green: 200/255.0, blue: 255/255.0, alpha: 1.0)
-        let night = UIColor(red: 200/255.0, green: 255/255.0, blue: 200/255.0, alpha: 1.0)
-        switch hour {
-        case 7...11:   // 7am-11am
-            return morning
-        case 12...16:  // 12pm-4pm
-            return noon
-        default:
-            return night
-        }
-    }
-    
 
     
     override func didReceiveMemoryWarning() {
