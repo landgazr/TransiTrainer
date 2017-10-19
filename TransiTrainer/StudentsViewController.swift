@@ -234,15 +234,26 @@ class StudentsViewController: UITableViewController {
         }
         if( wasNotFound)
                {
+                var str: String = ""
+                var firstName: Bool = true
+                var first: String = ""
                 let myAlert = UIAlertController(title: "Information", message: "Student not found. Enter name to add.", preferredStyle: .alert);
                 let okAction = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
-                    // Get 1st TextField's text
                     for utf in myAlert.textFields! {
-                        self.addCell(s: utf.text! + " " + s)
+                        if( firstName ) {
+                        first = "/" + utf.text! + " "
+                            firstName = false
+                        } else {
+                            str = utf.text! + first
+                        }
                     }
+                    self.addCell(s: str + s)
                 })
                 myAlert.addTextField(configurationHandler: {(_ textField: UITextField) -> Void in
-                    textField.placeholder = "Student name"
+                    textField.placeholder = "Student first name"
+                })
+                myAlert.addTextField(configurationHandler: {(_ textField: UITextField) -> Void in
+                    textField.placeholder = "Student last name"
                 })
                 myAlert.addAction(okAction)
                 myAlert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil));

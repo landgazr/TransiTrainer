@@ -64,7 +64,11 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         // This method is triggered whenever the user makes a change to the picker selection.
         // The parameter named row and component represents what was selected.
-        self.trainerLabel.text = MainlineViewController.trainerArr[row]
+        if( row == 0 ){
+            self.trainerLabel.text = "No trainer selected"
+        } else {
+        self.trainerLabel.text = MainlineViewController.trainerArr[row - 1]
+             }
     }
     
     
@@ -75,12 +79,12 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
     
     // The number of rows of data
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return MainlineViewController.trainerArr.count
+        return MainlineViewController.trainerArr.count + 1
     }
     
     // The data to return for the row and component (column) that's being passed in
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return MainlineViewController.trainerArr[row]
+        return row == 0 ? "" : MainlineViewController.trainerArr[row - 1]
     }
 
     func mailComposeController(_ controller: MFMailComposeViewController,
