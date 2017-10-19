@@ -283,30 +283,22 @@
                                     <segue destination="Nrq-0b-ZGh" kind="embed" id="Yn7-dN-4mw"/>
                                 </connections>
                             </containerView>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EZd-R1-EmR">
-                                <rect key="frame" x="56" y="73" width="97" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Type badge # here" textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EZd-R1-EmR">
+                                <rect key="frame" x="98" y="73" width="178" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Student Badge #" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JWM-ga-fqY">
-                                <rect key="frame" x="230" y="86" width="109" height="17"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="opd-UT-cuw" firstAttribute="top" secondItem="JWM-ga-fqY" secondAttribute="bottom" constant="8" symbolic="YES" id="InO-mW-44G"/>
-                            <constraint firstItem="opd-UT-cuw" firstAttribute="leading" secondItem="DZc-IR-vj0" secondAttribute="leadingMargin" id="LkB-R4-jCh"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="JWM-ga-fqY" secondAttribute="trailing" constant="20" id="Q43-Hn-dvl"/>
-                            <constraint firstItem="opd-UT-cuw" firstAttribute="top" secondItem="EZd-R1-EmR" secondAttribute="bottom" constant="8" symbolic="YES" id="TTK-B2-IyA"/>
-                            <constraint firstItem="JWM-ga-fqY" firstAttribute="leading" secondItem="EZd-R1-EmR" secondAttribute="trailing" constant="77" id="Vgr-iG-FVo"/>
-                            <constraint firstItem="3Sb-bL-QFX" firstAttribute="top" secondItem="opd-UT-cuw" secondAttribute="bottom" constant="8" symbolic="YES" id="gkW-DE-d0j"/>
-                            <constraint firstItem="EZd-R1-EmR" firstAttribute="leading" secondItem="DZc-IR-vj0" secondAttribute="leadingMargin" constant="40" id="nMS-uZ-Qnm"/>
-                            <constraint firstItem="opd-UT-cuw" firstAttribute="trailing" secondItem="DZc-IR-vj0" secondAttribute="trailingMargin" id="pZm-tp-YxN"/>
-                            <constraint firstItem="EZd-R1-EmR" firstAttribute="top" secondItem="v10-fS-BpB" secondAttribute="bottom" constant="53" id="qqg-yD-R3U"/>
+                            <constraint firstItem="3Sb-bL-QFX" firstAttribute="top" secondItem="opd-UT-cuw" secondAttribute="bottom" constant="8" symbolic="YES" id="3sH-0B-UHo"/>
+                            <constraint firstItem="opd-UT-cuw" firstAttribute="top" secondItem="EZd-R1-EmR" secondAttribute="bottom" constant="8" symbolic="YES" id="3tC-SO-6qA"/>
+                            <constraint firstItem="EZd-R1-EmR" firstAttribute="centerX" secondItem="opd-UT-cuw" secondAttribute="centerX" id="89C-eW-z33"/>
+                            <constraint firstItem="opd-UT-cuw" firstAttribute="leading" secondItem="DZc-IR-vj0" secondAttribute="leadingMargin" id="9gM-IY-n9B"/>
+                            <constraint firstItem="opd-UT-cuw" firstAttribute="trailing" secondItem="DZc-IR-vj0" secondAttribute="trailingMargin" id="CfW-H7-LYd"/>
+                            <constraint firstItem="EZd-R1-EmR" firstAttribute="top" secondItem="v10-fS-BpB" secondAttribute="bottom" constant="53" id="GKf-AD-yWy"/>
+                            <constraint firstItem="EZd-R1-EmR" firstAttribute="leading" secondItem="DZc-IR-vj0" secondAttribute="leadingMargin" constant="82" id="skh-gJ-HNQ"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Roster" image="second" id="P3s-bD-qqQ" userLabel="Adding"/>
@@ -317,7 +309,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u5r-BR-fOK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-796" y="582"/>
+            <point key="canvasLocation" x="-796" y="580.65967016491754"/>
         </scene>
     </scenes>
     <resources>
