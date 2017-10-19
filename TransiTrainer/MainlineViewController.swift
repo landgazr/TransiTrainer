@@ -188,6 +188,7 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
         
     }
     
+        
     func getBackgroundColor(hour:Int) -> UIColor {
         
         
