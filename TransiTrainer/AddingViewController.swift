@@ -56,13 +56,13 @@ class AddingViewController: UIViewController {
     
 
    
-    func getNameAndBadge () -> String {
+    func getBadge () -> String {
         
-        if( (name.text?.isEmpty)! || (badge.text?.isEmpty)!) {
+        if((badge.text?.isEmpty)!) {
            return ""
         }
         else {
-        let str = name.text! + " " + badge.text!
+        let str = badge.text!
             return str
         }
     }

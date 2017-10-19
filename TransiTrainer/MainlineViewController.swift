@@ -127,6 +127,19 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
         namesOfTrainers[6661] = "Stone/Krista"
         namesOfTrainers[4950] = "Ulabarro/Jorge"
         namesOfTrainers[4990] = "Herring/Anthony"
+        namesOfTrainers[1018] = "Lynch/Bob"
+        namesOfTrainers[695]  = "Palmblad/Marylin"
+        namesOfTrainers[5083] = "Varcoe/Keary"
+        namesOfTrainers[5026] = "Carothers/Jewel"
+        namesOfTrainers[3861] = "Hilliard/James"
+        namesOfTrainers[5832] = "Harris/Charles"
+        namesOfTrainers[5948] = "Banegas Cruz/Shila"
+        namesOfTrainers[6365] = "Hull/Jason"
+        namesOfTrainers[6749] = "Nelson/Steven"
+        namesOfTrainers[7117] = "Milford/Margaret"
+        namesOfTrainers[1426] = "Carothers/Matthew"
+        namesOfTrainers[2852] = "Ruiz/David"
+        namesOfTrainers[7244] = "Saleib/Moheb"
         
         self.picker.dataSource = self
         self.picker.delegate = self
