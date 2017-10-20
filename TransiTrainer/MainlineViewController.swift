@@ -89,8 +89,18 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
 
     func mailComposeController(_ controller: MFMailComposeViewController,
                                didFinishWith result: MFMailComposeResult, error: Error?) {
+        
+        if( result == MFMailComposeResult.sent )
+        {
+            csvArray.removeAll()
+            csvArray.append("date,student,inlocation,intime,outlocation,outtime,totaltime\n")
+        }
         controller.dismiss(animated: true, completion: nil)
+        
+        
     }
+    
+    
     
     @IBAction func showCurrentLocation() {
         
