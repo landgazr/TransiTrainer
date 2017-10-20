@@ -323,9 +323,9 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
         let s: String = (self.currentStudent.textLabel?.text)!
         let currentTime: Date = Date()
         let pls: String = previousStop
-        let pts: String = formatter.string(from: self.previousTime!).replacingOccurrences(of: ",", with: "")
+        //let pts: String = formatter.string(from: self.previousTime!).replacingOccurrences(of: ",", with: "")
         let cls: String = self.currentStop
-        let cts: String = formatter.string(from: currentTime).replacingOccurrences(of: ",", with: "")
+        //let cts: String = formatter.string(from: currentTime).replacingOccurrences(of: ",", with: "")
                 
             
     let formatter = DateComponentsFormatter()
@@ -334,11 +334,14 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
     formatter.zeroFormattingBehavior = .pad
                 
     let ttm = formatter.string(from: currentTime.timeIntervalSince(self.previousTime!))!
-        
-        //self.timestamp.text = formatter.string(from: Date()).replacingOccurrences(of: ",", with: "")
-        //self.location.text = cls
-        
-        let str: String = self.todaysDate + "," + s + "," + pls + "," + pts + "," + cls + "," + cts + "," + ttm + "\n"
+    
+    let fmtr: DateFormatter = DateFormatter()
+    fmtr.dateFormat = "HH:mm"
+                
+         
+                
+                
+        let str: String = self.todaysDate + "," + s + "," + pls + "," + fmtr.string(from: self.previousTime!) + "," + cls + "," + fmtr.string(from: currentTime) + "," + ttm + "\n"
         self.csvArray.append(str)
         NSLog(str)
         } else {
