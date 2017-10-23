@@ -16,9 +16,24 @@ class AddingViewController: UIViewController {
     @IBOutlet weak var name: UITextField!
     @IBOutlet weak var badge: UITextField!
     
+    var numberToolbar: UIToolbar = UIToolbar()
+    
+    func done () {
+    badge.resignFirstResponder()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        numberToolbar.items=[
+            UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.bordered, target: self, action: "done")
+            
+        ]
+        
+        numberToolbar.sizeToFit()
+        
+        badge.inputAccessoryView = numberToolbar
+        
         if let viewControllers = UIApplication.shared.keyWindow?.rootViewController?.childViewControllers {
             for viewController in viewControllers {
                 if (viewController is StudentsViewController) {
