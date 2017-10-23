@@ -271,8 +271,8 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
                 {
                 let mail = MFMailComposeViewController()
                 mail.mailComposeDelegate = self;
-                mail.setToRecipients(["mumbuns@yahoo.com"])
-                mail.setCcRecipients(["landgazr@gmail.com"])
+                mail.setToRecipients(["VarcoeK@trimet.org"])
+                mail.setCcRecipients(["JonesRI@trimet.org"])
                 mail.setSubject("Training Record " + self.trainerLabel.text! + " " + todaysDate)
                 mail.setMessageBody(body, isHTML: false)
                 mail.addAttachmentData(csvatt, mimeType: "text/csv", fileName: "file.csv")
@@ -311,7 +311,7 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
             for rs in railStops {
                 arr.append(rs.latlon)
             }
-            if (railStops.count > 0) {
+            if (railStops.count > 0 && self.selectedStudent.text != "None") {
                 locManager.requestWhenInUseAuthorization()
                 if (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse ||
                     CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways){
@@ -347,15 +347,11 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
     
     let fmtr: DateFormatter = DateFormatter()
     fmtr.dateFormat = "HH:mm"
-                
-         
-                
-                
         let str: String = self.todaysDate + "," + s + "," + pls + "," + fmtr.string(from: self.previousTime!) + "," + cls + "," + fmtr.string(from: currentTime) + "," + ttm + "\n"
         self.csvArray.append(str)
         NSLog(str)
         } else {
-            let myAlert = UIAlertController(title: "Information", message: "Please select a starting student to show location.", preferredStyle: .alert);
+            let myAlert = UIAlertController(title: "Information", message: "Could not get location or no student in seat.", preferredStyle: .alert);
             myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: nil));
             self.show(myAlert, sender: self)        }
 
@@ -433,23 +429,18 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
         for rs in railStops {
             arr.append(rs.latlon)
         }
-        if (railStops.count > 0) {
+        if (railStops.count > 0 && self.selectedStudent.text == "None") {
             locManager.requestWhenInUseAuthorization()
             if (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse ||
                 CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways){
                 stopCoords = (self.closestLocation(locations: arr, closestToLocation: locManager.location!))!
-                
             }
-            
             for rs in railStops {
                 if (rs.latlon.distance(from: stopCoords) == 0) {
                     self.previousStop = rs.station
                     break
                 }
             }
-
-
-        
         let popup = PopupDialog(title: "Students", message: "Please select student.")
         var studentButtons = [DefaultButton]()
         ss = avc.svc.getSelectedStudents()
@@ -474,33 +465,17 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
                 self.previousStudent = (self.selectedStudent.text)!
                 
             }
-
                 studentButtons.append(btn)
-            
-        
-        
         if( studentButtons.count > 0 ){
         popup.addButtons(studentButtons)
-            
-            
-            
             self.present(popup, animated: true, completion: nil)
-            
-            
-            
         }
-        
         else {
             let myAlert = UIAlertController(title: "Information", message: "Please select students in current group.", preferredStyle: .alert);
             myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: nil));
-            show(myAlert, sender: self)
-        
-        }
-        
-        
-        
+            show(myAlert, sender: self)}
         } else {
-            let myAlert = UIAlertController(title: "Information", message: "Could not get location.", preferredStyle: .alert);
+            let myAlert = UIAlertController(title: "Information", message: "Could not get location or student already in seat.", preferredStyle: .alert);
             myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: nil));
             show(myAlert, sender: self)        }
 
