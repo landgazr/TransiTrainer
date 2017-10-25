@@ -21,9 +21,9 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>App needs Location</string>
+	<string>This app only uses location to track current location for training records.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>App needs Location</string>
+	<string>This app only uses location to track current location for training records.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>TheMix-Plain.ttf</string>
@@ -46,6 +46,8 @@
 			<false/>
 		</dict>
 	</dict>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>This app only uses location to track current location for training records.</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
