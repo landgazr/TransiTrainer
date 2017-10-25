@@ -194,7 +194,7 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
 
         
         self.view.backgroundColor = getBackgroundColor(hour: hour)
-    
+        self.selectedStudent.text = "None"
         
     }
     
@@ -304,7 +304,7 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
         let formatter = DateFormatter()
         formatter.timeStyle = .medium
         formatter.dateStyle = .short
-        if (railStops.count > 0) {
+       
             
             var stopCoords: CLLocation = CLLocation()
             var arr: [CLLocation] = [CLLocation]()
@@ -355,7 +355,7 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
             myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: nil));
             self.show(myAlert, sender: self)        }
 
-    }
+    
     }
   
     @IBAction func setTrainer(_ sender: Any)
