@@ -374,9 +374,11 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
         })
         myAlert.addTextField(configurationHandler: {(_ textField: UITextField) -> Void in
             textField.placeholder = "Car number"
+            textField.keyboardType = .numberPad
         })
         myAlert.addTextField(configurationHandler: {(_ textField: UITextField) -> Void in
             textField.placeholder = "Train ID"
+            textField.keyboardType = .numberPad
         })
         //myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: nil));
         myAlert.addAction(okAction)
