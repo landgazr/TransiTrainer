@@ -476,6 +476,234 @@
       </Point>
     </Placemark>
     <Placemark>
+        <ExtendedData>
+            <Data name="special">
+                <value>West Portal</value>
+            </Data>
+            <Data name="line">
+                <value>RB</value>
+            </Data>
+            <Data name="status">
+                <value>Existing</value>
+            </Data>
+            <Data name="type">
+                <value>MAX</value>
+            </Data>
+        </ExtendedData>
+        <Point>
+            <coordinates>-122.75544568,45.50607281</coordinates>
+        </Point>
+    </Placemark>
+    <Placemark>
+        <ExtendedData>
+            <Data name="special">
+                <value>West Stub</value>
+            </Data>
+            <Data name="line">
+                <value>RB</value>
+            </Data>
+            <Data name="status">
+                <value>Existing</value>
+            </Data>
+            <Data name="type">
+                <value>MAX</value>
+            </Data>
+        </ExtendedData>
+        <Point>
+            <coordinates>-122.67475713,45.52758443</coordinates>
+        </Point>
+    </Placemark>
+    <Placemark>
+        <ExtendedData>
+            <Data name="special">
+                <value>East Stub</value>
+            </Data>
+            <Data name="line">
+                <value>RB</value>
+            </Data>
+            <Data name="status">
+                <value>Existing</value>
+            </Data>
+            <Data name="type">
+                <value>MAX</value>
+            </Data>
+        </ExtendedData>
+        <Point>
+            <coordinates>-122.67266059,45.52720374</coordinates>
+        </Point>
+    </Placemark>
+    <Placemark>
+        <ExtendedData>
+            <Data name="special">
+                <value>Broadway Siding</value>
+            </Data>
+            <Data name="line">
+                <value>RB</value>
+            </Data>
+            <Data name="status">
+                <value>Existing</value>
+            </Data>
+            <Data name="type">
+                <value>MAX</value>
+            </Data>
+        </ExtendedData>
+        <Point>
+            <coordinates>-122.67119075,45.53266441</coordinates>
+        </Point>
+    </Placemark>
+    <Placemark>
+        <ExtendedData>
+            <Data name="special">
+                <value>Clackamas Tail Track</value>
+            </Data>
+            <Data name="line">
+                <value>G</value>
+            </Data>
+            <Data name="status">
+                <value>Existing</value>
+            </Data>
+            <Data name="type">
+                <value>MAX</value>
+            </Data>
+        </ExtendedData>
+        <Point>
+            <coordinates>-122.56662318,45.43417901</coordinates>
+        </Point>
+    </Placemark>
+    <Placemark>
+        <ExtendedData>
+            <Data name="special">
+                <value>Cleveland Tail Track</value>
+            </Data>
+            <Data name="line">
+                <value>B</value>
+            </Data>
+            <Data name="status">
+                <value>Existing</value>
+            </Data>
+            <Data name="type">
+                <value>MAX</value>
+            </Data>
+        </ExtendedData>
+        <Point>
+            <coordinates>-122.41685626,45.50141994</coordinates>
+        </Point>
+    </Placemark>
+    <Placemark>
+        <ExtendedData>
+            <Data name="special">
+                <value>PDX Pocket Track</value>
+            </Data>
+            <Data name="line">
+                <value>RB</value>
+            </Data>
+            <Data name="status">
+                <value>Existing</value>
+            </Data>
+            <Data name="type">
+                <value>MAX</value>
+            </Data>
+        </ExtendedData>
+        <Point>
+            <coordinates>-122.57541667,45.58192552</coordinates>
+        </Point>
+    </Placemark>
+    <Placemark>
+        <ExtendedData>
+            <Data name="special">
+                <value>Clinton Pocket Track</value>
+            </Data>
+            <Data name="line">
+                <value>O</value>
+            </Data>
+            <Data name="status">
+                <value>Existing</value>
+            </Data>
+            <Data name="type">
+                <value>MAX</value>
+            </Data>
+            </ExtendedData>
+            <Point>
+                <coordinates>-122.6512127,45.50188248</coordinates>
+            </Point>
+    </Placemark>
+    <Placemark>
+        <ExtendedData>
+            <Data name="special">
+                <value>Main Street Pocket Track</value>
+            </Data>
+            <Data name="line">
+                <value>RB</value>
+            </Data>
+            <Data name="status">
+                <value>Existing</value>
+            </Data>
+            <Data name="type">
+                <value>MAX</value>
+            </Data>
+        </ExtendedData>
+        <Point>
+            <coordinates>-122.56383394,45.5157678</coordinates>
+        </Point>
+    </Placemark>
+    <Placemark>
+        <ExtendedData>
+            <Data name="special">
+                <value>Jackson Terminus</value>
+            </Data>
+            <Data name="line">
+                <value>GY</value>
+            </Data>
+            <Data name="status">
+                <value>Existing</value>
+            </Data>
+            <Data name="type">
+                <value>MAX</value>
+            </Data>
+        </ExtendedData>
+        <Point>
+            <coordinates>-122.68350929,45.50866092</coordinates>
+        </Point>
+    </Placemark>
+    <Placemark>
+        <ExtendedData>
+            <Data name="special">
+                <value>11th Ave Turnaround</value>
+            </Data>
+            <Data name="line">
+                <value>RB</value>
+            </Data>
+            <Data name="status">
+                <value>Existing</value>
+            </Data>
+            <Data name="type">
+                <value>MAX</value>
+            </Data>
+        </ExtendedData>
+        <Point>
+            <coordinates>-122.68347796,45.52005044</coordinates>
+        </Point>
+    </Placemark>
+    <Placemark>
+        <ExtendedData>
+            <Data name="special">
+                <value>Double Tree</value>
+            </Data>
+            <Data name="line">
+                <value>RB</value>
+            </Data>
+            <Data name="status">
+                <value>Existing</value>
+            </Data>
+            <Data name="type">
+                <value>MAX</value>
+            </Data>
+        </ExtendedData>
+        <Point>
+            <coordinates>-122.65443216,45.5307974</coordinates>
+        </Point>
+    </Placemark>
+    <Placemark>
       <ExtendedData>
         <Data name="station">
           <value>SW Moody &amp; Gibbs</value>
