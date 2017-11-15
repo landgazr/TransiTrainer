@@ -60,6 +60,12 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
         }
     }
 
+    func cardinalDirection(closestToLocation location: CLLocation) -> String? {
+        let dirs = [" NB", " EB", " SB", " WB", " NB"]
+        let degreesPerDir: Double = 360.0 / Double((dirs.count - 1))
+        let index: Int = Int(location.course + (degreesPerDir / 2.0) / degreesPerDir)
+        return dirs[index]
+    }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         // This method is triggered whenever the user makes a change to the picker selection.
@@ -104,6 +110,7 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
     
     @IBAction func showCurrentLocation() {
         
+        var course: String = ""
         var stopCoords: CLLocation = CLLocation()
         var arr: [CLLocation] = [CLLocation]()
         for rs in railStops {
@@ -114,7 +121,7 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
             if (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse ||
             CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways){
             stopCoords = (self.closestLocation(locations: arr, closestToLocation: locManager.location!))!
-            
+            course = cardinalDirection(closestToLocation: locManager.location!)!
         }
         
         for rs in railStops {
@@ -124,7 +131,7 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
             }
         }
 
-        let myAlert = UIAlertController(title: "Information", message: self.currentStop, preferredStyle: .alert);
+        let myAlert = UIAlertController(title: "Information", message: self.currentStop + course, preferredStyle: .alert);
         myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: nil));
         self.show(myAlert, sender: self)
         } else {
@@ -176,8 +183,6 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
         }
         
         locManager.startUpdatingLocation()
-        
-        
         
         
         let date = Date()
@@ -305,9 +310,10 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
         formatter.timeStyle = .medium
         formatter.dateStyle = .short
        
-            
+        var course: String = ""
             var stopCoords: CLLocation = CLLocation()
             var arr: [CLLocation] = [CLLocation]()
+        
             for rs in railStops {
                 arr.append(rs.latlon)
             }
@@ -316,6 +322,7 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
                 if (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse ||
                     CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways){
                     stopCoords = closestLocation(locations: arr, closestToLocation: locManager.location!)!
+                    course = cardinalDirection(closestToLocation: locManager.location!)!
                 
                 }
                 
@@ -332,9 +339,9 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
        
         let s: String = (self.currentStudent.textLabel?.text)!
         let currentTime: Date = Date()
-        let pls: String = previousStop
+        let pls: String = previousStop + course
         //let pts: String = formatter.string(from: self.previousTime!).replacingOccurrences(of: ",", with: "")
-        let cls: String = self.currentStop
+        let cls: String = self.currentStop + course
         //let cts: String = formatter.string(from: currentTime).replacingOccurrences(of: ",", with: "")
                 
             
