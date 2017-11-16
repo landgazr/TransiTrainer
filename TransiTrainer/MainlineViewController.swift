@@ -45,6 +45,7 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
     static var previousLocation:CLLocation = CLLocation()
     var previousTime:Date? = Date()
     var previousStop:String = ""
+    var previousCourse:String = ""
     var currentStop:String = ""
     var todaysDate:String = ""
     
@@ -63,7 +64,8 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
     func cardinalDirection(closestToLocation location: CLLocation) -> String? {
         let dirs = [" NB", " EB", " SB", " WB", " NB"]
         let degreesPerDir: Double = 360.0 / Double((dirs.count - 1))
-        let index: Int = Int(location.course + (degreesPerDir / 2.0) / degreesPerDir)
+        let cld: CLLocationDirection = location.course
+        let index: Int = Int((cld + (degreesPerDir / 2.0)) / degreesPerDir)
         return dirs[index]
     }
     
@@ -120,8 +122,9 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
         locManager.requestWhenInUseAuthorization()
             if (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse ||
             CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways){
-            stopCoords = (self.closestLocation(locations: arr, closestToLocation: locManager.location!))!
-            course = cardinalDirection(closestToLocation: locManager.location!)!
+                let loc = locManager.location!
+                stopCoords = (self.closestLocation(locations: arr, closestToLocation: loc))!
+                course = cardinalDirection(closestToLocation: loc)!
         }
         
         for rs in railStops {
@@ -183,7 +186,7 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
         }
         
         locManager.startUpdatingLocation()
-        
+        locManager.startUpdatingHeading()
         
         let date = Date()
         let calendar = Calendar.current
@@ -329,7 +332,6 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
                 for rs in railStops {
                     if (rs.latlon.distance(from: stopCoords) == 0) {
                         self.currentStop = rs.station
-                        //self.previousStop = rs.station
                         break
                     }
                 }
@@ -339,7 +341,7 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
        
         let s: String = (self.currentStudent.textLabel?.text)!
         let currentTime: Date = Date()
-        let pls: String = previousStop + course
+        let pls: String = previousStop + previousCourse
         //let pts: String = formatter.string(from: self.previousTime!).replacingOccurrences(of: ",", with: "")
         let cls: String = self.currentStop + course
         //let cts: String = formatter.string(from: currentTime).replacingOccurrences(of: ",", with: "")
@@ -438,15 +440,19 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
         for rs in railStops {
             arr.append(rs.latlon)
         }
+        
+        let loc = locManager.location!
+        
         if (railStops.count > 0 && self.selectedStudent.text == "None") {
             locManager.requestWhenInUseAuthorization()
             if (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse ||
                 CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways){
-                stopCoords = (self.closestLocation(locations: arr, closestToLocation: locManager.location!))!
+                stopCoords = (self.closestLocation(locations: arr, closestToLocation: loc))!
             }
             for rs in railStops {
                 if (rs.latlon.distance(from: stopCoords) == 0) {
                     self.previousStop = rs.station
+                    self.previousCourse = cardinalDirection(closestToLocation: loc)!
                     break
                 }
             }
