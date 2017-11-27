@@ -23,6 +23,7 @@ class RailStop {
 class RailStation {
     var station:RailStop? = RailStop()
     var arrivalTime:Date? = Date()
+    var course:String = ""
 }
 
 struct Queue<T> {
@@ -88,7 +89,7 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
     var currentStop:String = ""
     var currentStation:RailStop = RailStop()
     var todaysDate:String = ""
-    static var stationsVisited:Queue? = Queue<RailStation>()
+    static var stationsVisited = OrderedDictionary<String, RailStation>()
     
     var namesOfTrainers = [Int: String]()
     static var trainerArr: [String] = [String]()
@@ -103,14 +104,55 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
     }
 
     func reconcile(student: UITableViewCell, inLocation: RailStation, outLocation: RailStation) {
-      //if student in seat
-      //finish out last record
-        //in location becomes last out location
-        //in time becomes last out time
-        //add record
+        if( self.selectedStudent.text != "None" ) {
+            
+            self.selectedStudent.text = "None"
+            
+            let s: String = (self.currentStudent.textLabel?.text)!
+            let currentTime: Date = outLocation.arrivalTime!
+            let pls: String = previousStop + previousCourse
+            //let pts: String = formatter.string(from: self.previousTime!).replacingOccurrences(of: ",", with: "")
+            let cls: String = (outLocation.station?.station)! + outLocation.course
+            //let cts: String = formatter.string(from: currentTime).replacingOccurrences(of: ",", with: "")
+            
+            let formatter = DateComponentsFormatter()
+            formatter.allowedUnits = [.hour, .minute, .second]
+            formatter.unitsStyle = .positional
+            formatter.zeroFormattingBehavior = .pad
+            
+            let ttm = formatter.string(from: currentTime.timeIntervalSince(self.previousTime!))!
+            
+            let fmtr: DateFormatter = DateFormatter()
+            fmtr.dateFormat = "HH:mm"
+            let str: String = self.todaysDate + "," + s + "," + pls + "," + fmtr.string(from: self.previousTime!) + "," + cls + "," + fmtr.string(from: currentTime) + "," + ttm + "\n"
+            self.csvArray.append(str)
+            NSLog(str)
+        }
       
-      //put in new record
+        let locationIn: RailStation = MainlineViewController.stationsVisited[(inLocation.station?.station)!]!
+        let locationOut: RailStation = MainlineViewController.stationsVisited[(outLocation.station?.station)!]!
+        MainlineViewController.stationsVisited.dict.removeValue(forKey: (inLocation.station?.station)!)
+        MainlineViewController.stationsVisited.dict.removeValue(forKey: (outLocation.station?.station)!)
         
+        let s: String = (student.textLabel?.text)!
+        let ils: String = (locationIn.station?.station)! + locationIn.course
+        //let pts: String = formatter.string(from: self.previousTime!).replacingOccurrences(of: ",", with: "")
+        let ols: String = (locationOut.station?.station)! + locationOut.course
+        //let cts: String = formatter.string(from: currentTime).replacingOccurrences(of: ",", with: "")
+        
+        
+        let formatter = DateComponentsFormatter()
+        formatter.allowedUnits = [.hour, .minute, .second]
+        formatter.unitsStyle = .positional
+        formatter.zeroFormattingBehavior = .pad
+        
+        let ttm = formatter.string(from: (outLocation.arrivalTime?.timeIntervalSince(inLocation.arrivalTime!))!)!
+        
+        let fmtr: DateFormatter = DateFormatter()
+        fmtr.dateFormat = "HH:mm"
+        let str: String = self.todaysDate + "," + s + "," + ils + "," + fmtr.string(from: inLocation.arrivalTime!) + "," + ols + "," + fmtr.string(from: outLocation.arrivalTime!) + "," + ttm + "\n"
+        self.csvArray.append(str)
+        NSLog(str)
         
     }
     
@@ -170,6 +212,7 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
     
     func getCurrentStation() {
         var stopCoords: CLLocation = CLLocation()
+        var course: String = ""
         
         if (railStops.count > 0) {
             locManager.requestWhenInUseAuthorization()
@@ -177,6 +220,7 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
                 CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways){
                 let loc = locManager.location!
                 stopCoords = (self.closestLocation(locations: railStopsLL, closestToLocation: loc))!
+                course = cardinalDirection(closestToLocation: loc)!
                 
                 for rs in railStops {
                     if (rs.latlon.distance(from: stopCoords) == 0) {
@@ -188,13 +232,13 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
                     let station:RailStation = RailStation()
                     station.arrivalTime = Date()
                     station.station = self.currentStation
+                    station.course = course
                     
-                    if(station.station?.station != MainlineViewController.stationsVisited?.peek()?.station?.station) {
-                        if( MainlineViewController.stationsVisited?.count() == 20) {
-                            MainlineViewController.stationsVisited?.dequeue()
-                        }
-                        MainlineViewController.stationsVisited?.enqueue(station)
+                    MainlineViewController.stationsVisited[(station.station?.station)!] = station
+                    if (MainlineViewController.stationsVisited.count == 20) {
+                        MainlineViewController.stationsVisited.dict.popFirst()
                     }
+                    
                 }
                
             }
