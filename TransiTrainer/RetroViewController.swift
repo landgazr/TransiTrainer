@@ -39,15 +39,18 @@ class RetroViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
             }
         } else if pickerView == inPicker{
           
+            if( MainlineViewController.stationsVisited.count > row) {
                 let firstKey = Array(MainlineViewController.stationsVisited.keys)[row]
                 self.inStation = MainlineViewController.stationsVisited[firstKey]!
+            }
             
         }
         else
         {
-           
+           if( MainlineViewController.stationsVisited.count > row) {
                 let firstKey = Array(MainlineViewController.stationsVisited.keys)[row]
                 self.outStation = MainlineViewController.stationsVisited[firstKey]!
+            }
             
         }
         
@@ -74,8 +77,15 @@ class RetroViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
            return row == 0 ? "" : svc.getSelectedStudents()[row - 1].textLabel?.text
         } else {
             
+            if( MainlineViewController.stationsVisited.count > row) {
                 let firstKey = Array(MainlineViewController.stationsVisited.keys)[row]
                 return MainlineViewController.stationsVisited[firstKey]?.station?.station
+            }
+            else
+            {
+                return ""
+            }
+            
             
         }
     }
