@@ -27,6 +27,8 @@
 		82DEA8651F9146AC006097B7 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82DEA8601F9146AC006097B7 /* Parser.swift */; };
 		82DEA8661F9146AC006097B7 /* ParserHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82DEA8611F9146AC006097B7 /* ParserHelpers.swift */; };
 		82DEA8671F9146AC006097B7 /* String+Lines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82DEA8621F9146AC006097B7 /* String+Lines.swift */; };
+		82EC13591FCB99FB007C1383 /* RetroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82EC13571FCB99FA007C1383 /* RetroViewController.swift */; };
+		82EC135A1FCB99FB007C1383 /* RetroViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 82EC13581FCB99FB007C1383 /* RetroViewController.xib */; };
 		82ED405C1F69C91D00862AA6 /* FXBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = 82ED404A1F69C91D00862AA6 /* FXBlurView.m */; };
 		82ED405D1F69C91D00862AA6 /* InteractiveTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82ED404B1F69C91D00862AA6 /* InteractiveTransition.swift */; };
 		82ED405E1F69C91D00862AA6 /* PopupDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82ED404C1F69C91D00862AA6 /* PopupDialog.swift */; };
@@ -99,6 +101,8 @@
 		82DEA8601F9146AC006097B7 /* Parser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
 		82DEA8611F9146AC006097B7 /* ParserHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParserHelpers.swift; sourceTree = "<group>"; };
 		82DEA8621F9146AC006097B7 /* String+Lines.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Lines.swift"; sourceTree = "<group>"; };
+		82EC13571FCB99FA007C1383 /* RetroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetroViewController.swift; sourceTree = "<group>"; };
+		82EC13581FCB99FB007C1383 /* RetroViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RetroViewController.xib; sourceTree = "<group>"; };
 		82ED40481F69C91C00862AA6 /* TransiTrainer-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TransiTrainer-Bridging-Header.h"; sourceTree = "<group>"; };
 		82ED40491F69C91D00862AA6 /* FXBlurView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXBlurView.h; sourceTree = "<group>"; };
 		82ED404A1F69C91D00862AA6 /* FXBlurView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXBlurView.m; sourceTree = "<group>"; };
@@ -193,6 +197,8 @@
 			isa = PBXGroup;
 			children = (
 				82DEA85E1F9146AC006097B7 /* CSV.swift */,
+				82EC13571FCB99FA007C1383 /* RetroViewController.swift */,
+				82EC13581FCB99FB007C1383 /* RetroViewController.xib */,
 				822C0AB31F9647A300BA649E /* Launch.storyboard */,
 				82DEA85F1F9146AC006097B7 /* Description.swift */,
 				82DEA8601F9146AC006097B7 /* Parser.swift */,
@@ -372,6 +378,7 @@
 				824518961F646D0000A7F2DA /* tm_rail_stops.kml in Resources */,
 				82AE6A281F977D5C00DB5573 /* TheMix-Plain.ttf in Resources */,
 				822C0AB41F9647A300BA649E /* Launch.storyboard in Resources */,
+				82EC135A1FCB99FB007C1383 /* RetroViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -423,6 +430,7 @@
 				82ED40641F69C91D00862AA6 /* PopupDialogDefaultViewController.swift in Sources */,
 				82ED405E1F69C91D00862AA6 /* PopupDialog.swift in Sources */,
 				82DEA8671F9146AC006097B7 /* String+Lines.swift in Sources */,
+				82EC13591FCB99FB007C1383 /* RetroViewController.swift in Sources */,
 				82ED406C1F69C91D00862AA6 /* UIView+Animations.swift in Sources */,
 				820299C51F93B9E100389AB1 /* AddingViewController.swift in Sources */,
 				82DEA8641F9146AC006097B7 /* Description.swift in Sources */,
