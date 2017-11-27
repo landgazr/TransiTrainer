@@ -29,6 +29,9 @@
 		82DEA8671F9146AC006097B7 /* String+Lines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82DEA8621F9146AC006097B7 /* String+Lines.swift */; };
 		82EC13591FCB99FB007C1383 /* RetroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82EC13571FCB99FA007C1383 /* RetroViewController.swift */; };
 		82EC135A1FCB99FB007C1383 /* RetroViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 82EC13581FCB99FB007C1383 /* RetroViewController.xib */; };
+		82EC135E1FCBA869007C1383 /* LSAnimationUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82EC135B1FCBA868007C1383 /* LSAnimationUtils.swift */; };
+		82EC135F1FCBA869007C1383 /* LSDialogBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82EC135C1FCBA869007C1383 /* LSDialogBackgroundView.swift */; };
+		82EC13601FCBA869007C1383 /* UIViewController+LSDialogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82EC135D1FCBA869007C1383 /* UIViewController+LSDialogViewController.swift */; };
 		82ED405C1F69C91D00862AA6 /* FXBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = 82ED404A1F69C91D00862AA6 /* FXBlurView.m */; };
 		82ED405D1F69C91D00862AA6 /* InteractiveTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82ED404B1F69C91D00862AA6 /* InteractiveTransition.swift */; };
 		82ED405E1F69C91D00862AA6 /* PopupDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82ED404C1F69C91D00862AA6 /* PopupDialog.swift */; };
@@ -103,6 +106,9 @@
 		82DEA8621F9146AC006097B7 /* String+Lines.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Lines.swift"; sourceTree = "<group>"; };
 		82EC13571FCB99FA007C1383 /* RetroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetroViewController.swift; sourceTree = "<group>"; };
 		82EC13581FCB99FB007C1383 /* RetroViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RetroViewController.xib; sourceTree = "<group>"; };
+		82EC135B1FCBA868007C1383 /* LSAnimationUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LSAnimationUtils.swift; sourceTree = "<group>"; };
+		82EC135C1FCBA869007C1383 /* LSDialogBackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LSDialogBackgroundView.swift; sourceTree = "<group>"; };
+		82EC135D1FCBA869007C1383 /* UIViewController+LSDialogViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+LSDialogViewController.swift"; sourceTree = "<group>"; };
 		82ED40481F69C91C00862AA6 /* TransiTrainer-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TransiTrainer-Bridging-Header.h"; sourceTree = "<group>"; };
 		82ED40491F69C91D00862AA6 /* FXBlurView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXBlurView.h; sourceTree = "<group>"; };
 		82ED404A1F69C91D00862AA6 /* FXBlurView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXBlurView.m; sourceTree = "<group>"; };
@@ -204,6 +210,9 @@
 				82DEA8601F9146AC006097B7 /* Parser.swift */,
 				82DEA8611F9146AC006097B7 /* ParserHelpers.swift */,
 				82DEA8621F9146AC006097B7 /* String+Lines.swift */,
+				82EC135B1FCBA868007C1383 /* LSAnimationUtils.swift */,
+				82EC135C1FCBA869007C1383 /* LSDialogBackgroundView.swift */,
+				82EC135D1FCBA869007C1383 /* UIViewController+LSDialogViewController.swift */,
 				82ED40771F69D8EB00862AA6 /* TZSpacerView.swift */,
 				82ED40781F69D8EB00862AA6 /* TZStackView.swift */,
 				829F6A401F99380D00DAC20F /* operators.csv */,
@@ -418,8 +427,10 @@
 				82DEA8661F9146AC006097B7 /* ParserHelpers.swift in Sources */,
 				8202D9F91F64F45E00660802 /* KMLParser.swift in Sources */,
 				82ED40631F69C91D00862AA6 /* PopupDialogDefaultView.swift in Sources */,
+				82EC135E1FCBA869007C1383 /* LSAnimationUtils.swift in Sources */,
 				82DEA8631F9146AC006097B7 /* CSV.swift in Sources */,
 				82ED40621F69C91D00862AA6 /* PopupDialogDefaultButtons.swift in Sources */,
+				82EC13601FCBA869007C1383 /* UIViewController+LSDialogViewController.swift in Sources */,
 				82DEA8651F9146AC006097B7 /* Parser.swift in Sources */,
 				82ED406B1F69C91D00862AA6 /* UIImageView+Calculations.swift in Sources */,
 				822C0AB71F96483900BA649E /* LaunchViewController.swift in Sources */,
@@ -431,6 +442,7 @@
 				82ED405E1F69C91D00862AA6 /* PopupDialog.swift in Sources */,
 				82DEA8671F9146AC006097B7 /* String+Lines.swift in Sources */,
 				82EC13591FCB99FB007C1383 /* RetroViewController.swift in Sources */,
+				82EC135F1FCBA869007C1383 /* LSDialogBackgroundView.swift in Sources */,
 				82ED406C1F69C91D00862AA6 /* UIView+Animations.swift in Sources */,
 				820299C51F93B9E100389AB1 /* AddingViewController.swift in Sources */,
 				82DEA8641F9146AC006097B7 /* Description.swift in Sources */,
