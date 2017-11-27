@@ -131,8 +131,8 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
       
         let locationIn: RailStation = MainlineViewController.stationsVisited[(inLocation.station?.station)!]!
         let locationOut: RailStation = MainlineViewController.stationsVisited[(outLocation.station?.station)!]!
-        MainlineViewController.stationsVisited.dict.removeValue(forKey: (inLocation.station?.station)!)
-        MainlineViewController.stationsVisited.dict.removeValue(forKey: (outLocation.station?.station)!)
+        //MainlineViewController.stationsVisited.dict.removeValue(forKey: (inLocation.station?.station)!)
+        //MainlineViewController.stationsVisited.dict.removeValue(forKey: (outLocation.station?.station)!)
         
         let s: String = (student.textLabel?.text)!
         let ils: String = (locationIn.station?.station)! + locationIn.course
@@ -375,7 +375,7 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
             railStopsLL.append(rs.latlon)
         }
         
-        var timer = Timer.scheduledTimer(timeInterval: 12, target: self, selector: #selector(MainlineViewController.getCurrentStation), userInfo: nil, repeats: true)
+        var timer = Timer.scheduledTimer(timeInterval: 9, target: self, selector: #selector(MainlineViewController.getCurrentStation), userInfo: nil, repeats: true)
 
     }
     
