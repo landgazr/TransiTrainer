@@ -41,7 +41,8 @@ class RetroViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
             if( row == 0 ){
                 //
             } else {
-                self.inStation = (MainlineViewController.stationsVisited?.list[row - 1])!
+                let firstKey = Array(MainlineViewController.stationsVisited.keys)[row - 1]
+                self.inStation = MainlineViewController.stationsVisited[firstKey]!
             }
         }
         else
@@ -49,7 +50,8 @@ class RetroViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
             if( row == 0 ){
                 //
             } else {
-                self.outStation = (MainlineViewController.stationsVisited?.list[row - 1])!
+                let firstKey = Array(MainlineViewController.stationsVisited.keys)[row - 1]
+                self.outStation = MainlineViewController.stationsVisited[firstKey]!
             }
         }
         
@@ -65,7 +67,7 @@ class RetroViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         }
         else
         {
-            return (MainlineViewController.stationsVisited?.count())!
+            return (MainlineViewController.stationsVisited.count)
         }
     }
     
@@ -74,12 +76,15 @@ class RetroViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         
         if pickerView == studentPicker {
            return row == 0 ? "" : svc.getSelectedStudents()[row - 1].textLabel?.text
-        } else if pickerView == inPicker{
-            return row == 0 ? "" : MainlineViewController.stationsVisited?.list[row - 1].station?.station
-        }
-        else
-        {
-           return row == 0 ? "" : MainlineViewController.stationsVisited?.list[row - 1].station?.station
+        } else {
+            if( row == 0 )
+            {
+                return ""
+            }
+            else {
+                let firstKey = Array(MainlineViewController.stationsVisited.keys)[row - 1]
+                return MainlineViewController.stationsVisited[firstKey]?.station?.station
+            }
         }
     }
     
