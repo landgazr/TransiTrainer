@@ -20,6 +20,44 @@ class RailStop {
     
 }
 
+class RailStation {
+    var station:RailStop? = RailStop()
+    var arrivalTime:Date? = Date()
+}
+
+struct Queue<T> {
+    var list = [T]()
+    
+    mutating func enqueue(_ element: T) {
+        list.append(element)
+    }
+    
+    mutating func dequeue() -> T? {
+        if !list.isEmpty {
+            return list.removeFirst()
+        } else {
+            return nil
+        }
+    }
+    
+    func peek() -> T? {
+        if !list.isEmpty {
+            return list[0]
+        } else {
+            return nil
+        }
+    }
+    
+    var isEmpty: Bool {
+        return list.isEmpty
+    }
+    
+    func count() -> Int {
+        return list.count
+    }
+    
+}
+
 
 class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMailComposeViewControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
 
@@ -40,6 +78,7 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
     var inStatus: Bool = false
     var inType: Bool = false
     var railStops: [RailStop] = []
+    var railStopsLL: [CLLocation] = []
     var csvArray: [String] = []
     var previousStudent:String = ""
     static var previousLocation:CLLocation = CLLocation()
@@ -47,7 +86,9 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
     var previousStop:String = ""
     var previousCourse:String = ""
     var currentStop:String = ""
+    var currentStation:RailStop = RailStop()
     var todaysDate:String = ""
+    static var stationsVisited:Queue? = Queue<RailStation>()
     
     var namesOfTrainers = [Int: String]()
     static var trainerArr: [String] = [String]()
@@ -61,6 +102,7 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
         }
     }
 
+    
     func cardinalDirection(closestToLocation location: CLLocation) -> String? {
         let dirs = [" NB", " EB", " SB", " WB", " NB"]
         let degreesPerDir: Double = 360.0 / Double((dirs.count - 1))
@@ -108,6 +150,40 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
         
     }
     
+    func getCurrentStation() {
+        var stopCoords: CLLocation = CLLocation()
+        
+        if (railStops.count > 0) {
+            locManager.requestWhenInUseAuthorization()
+            if (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse ||
+                CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways){
+                let loc = locManager.location!
+                stopCoords = (self.closestLocation(locations: railStopsLL, closestToLocation: loc))!
+                
+                for rs in railStops {
+                    if (rs.latlon.distance(from: stopCoords) == 0) {
+                        self.currentStation = rs
+                        break
+                    }
+                }
+                if( loc.distance(from: self.currentStation.latlon) < 50.0 && loc.speed < 2.0) {
+                    let station:RailStation = RailStation()
+                    station.arrivalTime = Date()
+                    station.station = self.currentStation
+                    
+                    if(station.station?.station != MainlineViewController.stationsVisited?.peek()?.station?.station) {
+                        if( MainlineViewController.stationsVisited?.count() == 20) {
+                            MainlineViewController.stationsVisited?.dequeue()
+                        }
+                        MainlineViewController.stationsVisited?.enqueue(station)
+                    }
+                }
+               
+            }
+            
+        }
+    }
+
     
     
     @IBAction func showCurrentLocation() {
@@ -204,6 +280,36 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
         self.view.backgroundColor = getBackgroundColor(hour: hour)
         self.selectedStudent.text = "None"
         
+        let filepath = Bundle.main.path(forResource: "tm_rail_stops", ofType: "kml")
+        let u: URL = URL.init(fileURLWithPath: filepath!)
+        let kp: KMLParser = KMLParser(url: u)
+        kp.parseKML()
+        
+        for mkb in kp.placemarks {
+            let rs: RailStop = RailStop()
+            NSLog((mkb.point?.coordinate.latitude.description)! + " " + (mkb.point?.coordinate.longitude.description)!)
+            rs.station = mkb.placemarkData[0]
+            rs.line = mkb.placemarkData[1]
+            rs.status = mkb.placemarkData[2]
+            rs.type = mkb.placemarkData[3]
+            
+            let lat: Double = Double((mkb.point?.coordinate.latitude.description)!)!
+            let lon: Double = Double((mkb.point?.coordinate.longitude.description)!)!
+            let latdeg: CLLocationDegrees = CLLocationDegrees(lat)
+            let londeg: CLLocationDegrees = CLLocationDegrees(lon)
+            let loc: CLLocation = CLLocation(latitude: latdeg, longitude: londeg)
+            
+            rs.latlon = loc
+            railStops.append(rs)
+            
+        }
+        
+        for rs in railStops {
+            railStopsLL.append(rs.latlon)
+        }
+        
+        var timer = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(MainlineViewController.getCurrentStation), userInfo: nil, repeats: true)
+
     }
     
         
@@ -406,29 +512,6 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
         formatter.dateStyle = .short
         
         
-        let filepath = Bundle.main.path(forResource: "tm_rail_stops", ofType: "kml")
-        let u: URL = URL.init(fileURLWithPath: filepath!)
-        let kp: KMLParser = KMLParser(url: u)
-        kp.parseKML()
-        
-            for mkb in kp.placemarks {
-            let rs: RailStop = RailStop()
-            NSLog((mkb.point?.coordinate.latitude.description)! + " " + (mkb.point?.coordinate.longitude.description)!)
-            rs.station = mkb.placemarkData[0]
-            rs.line = mkb.placemarkData[1]
-            rs.status = mkb.placemarkData[2]
-            rs.type = mkb.placemarkData[3]
-            
-                let lat: Double = Double((mkb.point?.coordinate.latitude.description)!)!
-                let lon: Double = Double((mkb.point?.coordinate.longitude.description)!)!
-                let latdeg: CLLocationDegrees = CLLocationDegrees(lat)
-                let londeg: CLLocationDegrees = CLLocationDegrees(lon)
-                let loc: CLLocation = CLLocation(latitude: latdeg, longitude: londeg)
-                
-                rs.latlon = loc
-                railStops.append(rs)
-            
-        }
         
         //self.timestamp.text = formatter.string(from: currentDateTime).replacingOccurrences(of: ",", with: "")
         
