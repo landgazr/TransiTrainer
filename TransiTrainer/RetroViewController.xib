@@ -90,6 +90,9 @@
                     <rect key="frame" x="88" y="453" width="71" height="51"/>
                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                     <state key="normal" title="Submit"/>
+                    <connections>
+                        <action selector="submitButton:" destination="-1" eventType="primaryActionTriggered" id="PR1-Nj-Fcs"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UKP-3e-cWx">
                     <rect key="frame" x="208" y="463" width="65" height="30"/>

@@ -109,10 +109,10 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
             self.selectedStudent.text = "None"
             
             let s: String = (self.currentStudent.textLabel?.text)!
-            let currentTime: Date = outLocation.arrivalTime!
+            let currentTime: Date = inLocation.arrivalTime!
             let pls: String = previousStop + previousCourse
             //let pts: String = formatter.string(from: self.previousTime!).replacingOccurrences(of: ",", with: "")
-            let cls: String = (outLocation.station?.station)! + outLocation.course
+            let cls: String = (inLocation.station?.station)! + inLocation.course
             //let cts: String = formatter.string(from: currentTime).replacingOccurrences(of: ",", with: "")
             
             let formatter = DateComponentsFormatter()
@@ -234,9 +234,14 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
                     station.station = self.currentStation
                     station.course = course
                     
-                    MainlineViewController.stationsVisited[(station.station?.station)!] = station
-                    if (MainlineViewController.stationsVisited.count == 20) {
-                        MainlineViewController.stationsVisited.dict.popFirst()
+                    
+                    if( !(MainlineViewController.stationsVisited.keys.contains((station.station?.station)!)) ) {
+                        MainlineViewController.stationsVisited[(station.station?.station)!] = station
+                        
+                        if (MainlineViewController.stationsVisited.count > 20) {
+                            MainlineViewController.stationsVisited.dict.popFirst()
+                        }
+                    
                     }
                     
                 }
@@ -370,7 +375,7 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
             railStopsLL.append(rs.latlon)
         }
         
-        var timer = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(MainlineViewController.getCurrentStation), userInfo: nil, repeats: true)
+        var timer = Timer.scheduledTimer(timeInterval: 12, target: self, selector: #selector(MainlineViewController.getCurrentStation), userInfo: nil, repeats: true)
 
     }
     
