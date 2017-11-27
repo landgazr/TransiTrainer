@@ -102,6 +102,17 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
         }
     }
 
+    func reconcile(student: UITableViewCell, inLocation: RailStation, outLocation: RailStation) {
+      //if student in seat
+      //finish out last record
+        //in location becomes last out location
+        //in time becomes last out time
+        //add record
+      
+      //put in new record
+        
+        
+    }
     
     func cardinalDirection(closestToLocation location: CLLocation) -> String? {
         let dirs = [" NB", " EB", " SB", " WB", " NB"]

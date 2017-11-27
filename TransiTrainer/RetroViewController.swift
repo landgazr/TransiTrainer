@@ -25,6 +25,11 @@ class RetroViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         self.delegate?.dismissDialog()
     }
     
+    @IBAction func submitButton(_ sender: AnyObject) {
+        mvc.reconcile(student: studentCell, inLocation: inStation, outLocation: outStation)
+        self.delegate?.dismissDialog()
+    }
+    
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if pickerView == studentPicker {
             if( row == 0 ){
