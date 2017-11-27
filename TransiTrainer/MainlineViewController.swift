@@ -27,7 +27,7 @@ class RailStation {
 
 struct Queue<T> {
     var list = [T]()
-    
+
     mutating func enqueue(_ element: T) {
         list.append(element)
     }
@@ -150,6 +150,13 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
         
     }
     
+    @IBAction func addRetroactiveStudent() {
+        self.showDialog(LSAnimationPattern.fadeInOut)
+    }
+            
+    
+    
+    
     func getCurrentStation() {
         var stopCoords: CLLocation = CLLocation()
         
@@ -186,7 +193,7 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
 
     
     
-    @IBAction func showCurrentLocation() {
+    func showCurrentLocation() {
         
         var course: String = ""
         var stopCoords: CLLocation = CLLocation()
@@ -500,6 +507,57 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
         show(myAlert, sender: self)
         
         
+    }
+    
+    @IBAction func tapButtonFadeInFadeOut(_ sender: AnyObject) {
+        self.showDialog(.fadeInOut)
+    }
+    
+    @IBAction func tapButtonZoomInZoomOut(_ sender: AnyObject) {
+        self.showDialog(.zoomInOut)
+    }
+    
+    @IBAction func tapButtonSlideBottomBottom(_ sender: AnyObject) {
+        self.showDialog(.slideBottomBottom)
+    }
+    
+    @IBAction func tapButtonSlideBottomTop(_ sender: AnyObject) {
+        self.showDialog(.slideBottomTop)
+    }
+    
+    @IBAction func tapButtonSlideLeftLeft(_ sender: AnyObject) {
+        self.showDialog(.slideLeftLeft)
+    }
+    
+    @IBAction func tapButtonSlideLeftRight(_ sender: AnyObject) {
+        self.showDialog(.slideLeftRight)
+    }
+    
+    @IBAction func tapButtonSlideTopTop(_ sender: AnyObject) {
+        self.showDialog(.slideTopTop)
+    }
+    
+    @IBAction func tapButtonSlideTopBottom(_ sender: AnyObject) {
+        self.showDialog(.slideTopBottom)
+        
+    }
+    
+    @IBAction func tapButtonSlideRightRight(_ sender: AnyObject) {
+        self.showDialog(.slideRightRight)
+    }
+    
+    @IBAction func tapButtonSlideRightLeft(_ sender: AnyObject) {
+        self.showDialog(.slideRightLeft)
+    }
+
+    fileprivate func showDialog(_ animationPattern: LSAnimationPattern) {
+        let dialogViewController = RetroViewController(nibName: "RetroViewController", bundle: nil)
+        dialogViewController.delegate = self
+        self.presentDialogViewController(dialogViewController, animationPattern: animationPattern)
+    }
+    
+    func dismissDialog() {
+        self.dismissDialogViewController(LSAnimationPattern.fadeInOut)
     }
     
        

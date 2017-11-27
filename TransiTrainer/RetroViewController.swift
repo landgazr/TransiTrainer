@@ -14,11 +14,16 @@ class RetroViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     @IBOutlet weak var inPicker: UIPickerView!
     @IBOutlet weak var outPicker: UIPickerView!
     
+    var delegate: MainlineViewController?
     var studentCell: UITableViewCell = UITableViewCell()
     var inStation: RailStation = RailStation()
     var outStation: RailStation = RailStation()
     var mvc: MainlineViewController = MainlineViewController()
     var svc: StudentsViewController = StudentsViewController()
+    
+    @IBAction func cancelButton(_ sender: AnyObject) {
+        self.delegate?.dismissDialog()
+    }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if pickerView == studentPicker {
@@ -63,7 +68,7 @@ class RetroViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         
         
         if pickerView == studentPicker {
-           return row == 0 ? "" : svc.getSelectedStudents()[row - 1].description
+           return row == 0 ? "" : svc.getSelectedStudents()[row - 1].textLabel?.text
         } else if pickerView == inPicker{
             return row == 0 ? "" : MainlineViewController.stationsVisited?.list[row - 1].station?.station
         }
@@ -87,6 +92,13 @@ class RetroViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
             }
             
         }
+        self.inPicker.delegate = self
+        self.outPicker.delegate = self
+        self.studentPicker.delegate = self
+        self.inPicker.dataSource = self
+        self.outPicker.dataSource = self
+        self.studentPicker.dataSource = self
+        
         // Do any additional setup after loading the view.
     }
 
