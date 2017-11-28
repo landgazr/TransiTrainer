@@ -23,8 +23,8 @@
             <rect key="frame" x="0.0" y="0.0" width="361" height="534"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jEc-ZP-wWp">
-                    <rect key="frame" x="0.0" y="167" width="361" height="48"/>
+                <pickerView contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jEc-ZP-wWp">
+                    <rect key="frame" x="0.0" y="132" width="361" height="83"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="48" id="eXV-DY-C8i"/>
                     </constraints>
@@ -33,8 +33,8 @@
                         <outlet property="delegate" destination="-1" id="Cjb-PY-Lmi"/>
                     </connections>
                 </pickerView>
-                <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IYH-Oi-1NP">
-                    <rect key="frame" x="0.0" y="252" width="361" height="48"/>
+                <pickerView contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IYH-Oi-1NP">
+                    <rect key="frame" x="0.0" y="252" width="361" height="83"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="48" id="TXr-5Q-phQ"/>
                     </constraints>
@@ -43,8 +43,8 @@
                         <outlet property="delegate" destination="-1" id="FeZ-fq-Pvo"/>
                     </connections>
                 </pickerView>
-                <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FzA-Mw-hTI">
-                    <rect key="frame" x="0.0" y="337" width="361" height="48"/>
+                <pickerView contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FzA-Mw-hTI">
+                    <rect key="frame" x="0.0" y="362" width="361" height="83"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="48" id="JgX-4x-3vz"/>
                     </constraints>
@@ -53,15 +53,6 @@
                         <outlet property="delegate" destination="-1" id="orx-O2-vPh"/>
                     </connections>
                 </pickerView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Student" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xdg-kP-byr">
-                    <rect key="frame" x="120" y="138" width="121" height="21"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="21" id="ipu-ni-NsE"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="In-Seat Location" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8P1-3P-hQZ">
                     <rect key="frame" x="88" y="223" width="185" height="21"/>
                     <constraints>
@@ -71,8 +62,8 @@
                     <color key="textColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Out-of-Seat Location" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9oD-v5-vt6">
-                    <rect key="frame" x="89" y="308" width="183" height="21"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Out-of-Seat Location" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9oD-v5-vt6">
+                    <rect key="frame" x="89" y="333" width="183" height="21"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="21" id="ASG-OS-hbM"/>
                     </constraints>
@@ -80,7 +71,7 @@
                     <color key="textColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Retroactive Record Add" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6fC-Cl-YBL">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Retroactive Rotation Add" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6fC-Cl-YBL">
                     <rect key="frame" x="10" y="20" width="341" height="66"/>
                     <fontDescription key="fontDescription" type="system" pointSize="28"/>
                     <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -106,6 +97,15 @@
                         <action selector="cancelButton:" destination="-1" eventType="primaryActionTriggered" id="lWf-VB-g5M"/>
                     </connections>
                 </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Student" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xdg-kP-byr">
+                    <rect key="frame" x="120" y="103" width="121" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="21" id="ipu-ni-NsE"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <rect key="contentStretch" x="0.0" y="0.0" width="0.0" height="0.0"/>

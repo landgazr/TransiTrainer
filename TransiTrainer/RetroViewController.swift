@@ -26,8 +26,16 @@ class RetroViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     }
     
     @IBAction func submitButton(_ sender: AnyObject) {
-        mvc.reconcile(student: studentCell, inLocation: inStation, outLocation: outStation)
-        self.delegate?.dismissDialog()
+        
+        if (MainlineViewController.stationsVisited.count > 0 && studentPicker.selectedRow(inComponent: 0) > 0) {
+            mvc.reconcile(student: studentCell, inLocation: inStation, outLocation: outStation)
+            self.delegate?.dismissDialog()
+        }
+        else {
+            let myAlert = UIAlertController(title: "Information", message: "Please select values for all three items.", preferredStyle: .alert)
+            myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: nil))
+            show(myAlert, sender: self)
+        }
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
