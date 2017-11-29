@@ -376,6 +376,9 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
         }
         
         var timer = Timer.scheduledTimer(timeInterval: 9, target: self, selector: #selector(MainlineViewController.getCurrentStation), userInfo: nil, repeats: true)
+        
+        let rvc = RetroViewController()
+        rvc.loadViewIfNeeded()
 
     }
     
