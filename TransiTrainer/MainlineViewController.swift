@@ -83,6 +83,7 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
     var railStops: [RailStop] = []
     var railStopsLL: [CLLocation] = []
     var csvArray: [String] = []
+    var tripArray: [String] = []
     var previousStudent:String = ""
     static var previousLocation:CLLocation = CLLocation()
     var previousTime:Date? = Date()
@@ -248,6 +249,8 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
         {
             csvArray.removeAll()
             csvArray.append("date,student,inlocation,intime,outlocation,outtime,totaltime,coupling\n")
+            tripArray.removeAll()
+            tripArray.append("station,traveltimeto\n")
         }
         controller.dismiss(animated: true, completion: nil)
         
@@ -287,7 +290,30 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
                     
                     
                     if( !(MainlineViewController.stationsVisited.keys.contains((station.station?.station)!)) ) {
-                        MainlineViewController.stationsVisited[(station.station?.station)!] = station
+                        
+                        
+                        
+                        if( MainlineViewController.stationsVisited.count > 1)
+                        {
+                            let previousStationKey = MainlineViewController.stationsVisited.keys[MainlineViewController.stationsVisited.count - 1]
+                            let previousStationVal: RailStation = MainlineViewController.stationsVisited[previousStationKey]!
+                            MainlineViewController.stationsVisited[(station.station?.station)!] = station
+                            
+                            let formatter = DateComponentsFormatter()
+                            formatter.allowedUnits = [.hour, .minute, .second]
+                            formatter.unitsStyle = .positional
+                            formatter.zeroFormattingBehavior = .pad
+                            
+                            
+                            let ttm = formatter.string(from: (station.arrivalTime?.timeIntervalSince(previousStationVal.arrivalTime!))!)!
+                            
+                            self.tripArray.append((station.station?.station)! + "," + ttm)
+                            
+                        }
+                        else
+                        {
+                            self.tripArray.append((station.station?.station)! + ",00:00:00")
+                        }
                         
                         if (MainlineViewController.stationsVisited.count > 20) {
                             MainlineViewController.stationsVisited.dict.popFirst()
@@ -391,8 +417,8 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
         dateFormatter.dateFormat = "MM-dd-yyyy"
         self.todaysDate = dateFormatter.string(from: date)
         
-        csvArray.append("date,student,inlocation,intime,outlocation,outtime,totaltime,didcpl\n")
-
+        csvArray.append("date,student,inlocation,intime,outlocation,outtime,totaltime,coupling\n")
+        tripArray.append("station,traveltimeto\n")
 
         
         self.view.backgroundColor = getBackgroundColor(hour: hour)
@@ -467,25 +493,35 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
     
     @IBAction func csvSend(_ sender: Any) {
         var str: String = ""
+        var tripStr: String = ""
         
         for row in csvArray {
             str.append(row)
         }
+        
+        for row in tripArray {
+            tripStr.append(row)
+        }
+        
         let file = "trainingRecord.csv" //this is the file. we will write to and read from it
+        let tripFile = "tripLog.csv"
         
         if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
             
             let fileURL = dir.appendingPathComponent(file)
+            let tripFileURL = dir.appendingPathComponent(tripFile)
             
             do {
                 
             
             if(FileManager.default.fileExists(atPath: fileURL.path)){
                 try FileManager.default.removeItem(atPath: fileURL.path)
+                try FileManager.default.removeItem(atPath: tripFileURL.path)
                 } } catch {}
 
             do {
                 try str.write(to: fileURL, atomically: false, encoding: .utf8)
+                try tripStr.write(to: tripFileURL, atomically: false, encoding: .utf8)
             } catch {/* error handling here */}
         
             do {
@@ -493,7 +529,9 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
            
                 
                 let csvdata: NSData = try NSData(contentsOf: fileURL, options: .alwaysMapped)
+                let tripdata: NSData = try NSData(contentsOf: tripFileURL, options: .alwaysMapped)
                 let csvatt: Data = csvdata as Data
+                let tripatt: Data = tripdata as Data
                 
                 let body = self.trainerLabel.text! + "\n Car # " + self.carLabel.text! + "\n Train ID " + self.trainLabel.text!
                 
@@ -511,6 +549,7 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
                 mail.setSubject("Training Record " + self.trainerLabel.text! + " " + todaysDate)
                 mail.setMessageBody(body, isHTML: false)
                 mail.addAttachmentData(csvatt, mimeType: "text/csv", fileName: "trainingRecord.csv")
+                mail.addAttachmentData(tripatt, mimeType: "text/csv", fileName: "tripLog.csv")
                 self.present(mail, animated: true, completion: nil)
                 } else {
                     let myAlert = UIAlertController(title: "Information", message: "Cannot send mail with this device.", preferredStyle: .alert);
