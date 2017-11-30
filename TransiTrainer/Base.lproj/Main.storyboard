@@ -118,8 +118,8 @@
                                     <action selector="setTrainer:" destination="9pv-A4-QxB" eventType="primaryActionTriggered" id="RP1-EY-3kl"/>
                                 </connections>
                             </button>
-                            <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CvY-IR-srF">
-                                <rect key="frame" x="62" y="413" width="248" height="30"/>
+                            <button contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CvY-IR-srF">
+                                <rect key="frame" x="62" y="437" width="248" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="TtQ-c2-vZj"/>
                                 </constraints>
@@ -131,6 +131,15 @@
                                     <action selector="addRetroactiveStudent" destination="9pv-A4-QxB" eventType="primaryActionTriggered" id="rbh-fz-7E9"/>
                                 </connections>
                             </button>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="A5o-aJ-XF0">
+                                <rect key="frame" x="63" y="401" width="248" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="Uncoupled"/>
+                                    <segment title="None"/>
+                                    <segment title="Coupled"/>
+                                </segments>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -177,6 +186,7 @@
                     <tabBarItem key="tabBarItem" title="Mainline" image="first" id="acW-dT-cKf"/>
                     <connections>
                         <outlet property="carLabel" destination="ALI-kQ-7Pt" id="2gv-hU-Gye"/>
+                        <outlet property="coupled" destination="A5o-aJ-XF0" id="owq-PB-Acp"/>
                         <outlet property="picker" destination="99V-v7-cXA" id="sy0-Hw-GXT"/>
                         <outlet property="selectedStudent" destination="A5M-7J-77L" id="NK7-Po-WTD"/>
                         <outlet property="trainLabel" destination="TGZ-pe-6Je" id="1CK-Rh-5VO"/>
