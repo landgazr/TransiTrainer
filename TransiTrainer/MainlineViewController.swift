@@ -74,6 +74,8 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
     //@IBOutlet weak var location: UILabel!
     @IBOutlet weak var selectedStudent: UILabel!
     @IBOutlet weak var picker: UIPickerView!
+    @IBOutlet weak var coupled: UISegmentedControl!
+    
     var inStation: Bool = false
     var inLine: Bool = false
     var inStatus: Bool = false
@@ -102,8 +104,24 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
             return nil
         }
     }
+    
+    @IBAction func segmentedControlAction(sender: AnyObject) {
+        /*if(segmentedControl.selectedSegmentIndex == 0)
+        {
+            textLabel.text = "First Segment Selected";
+        }
+        else if(segmentedControl.selectedSegmentIndex == 1)
+        {
+            textLabel.text = "Second Segment Selected";
+        }
+        else if(segmentedControl.selectedSegmentIndex == 2)
+        {
+            textLabel.text = "Third Segment Selected";
+        }*/
+    }
 
-    func reconcile(student: UITableViewCell, inLocation: RailStation, outLocation: RailStation) {
+
+    func reconcile(student: UITableViewCell, inLocation: RailStation, outLocation: RailStation, couple: Int) {
         if( self.selectedStudent.text != "None" ) {
             
             self.selectedStudent.text = "None"
@@ -119,15 +137,46 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
             formatter.allowedUnits = [.hour, .minute, .second]
             formatter.unitsStyle = .positional
             formatter.zeroFormattingBehavior = .pad
+            var cpl:String = ""
+            
+            if( self.coupled.selectedSegmentIndex == 0)
+            {
+                cpl = "uncoupled"
+            }
+            else if( self.coupled.selectedSegmentIndex == 2)
+            {
+                cpl = "coupled"
+            }
+            else
+            {
+                cpl = "none"
+            }
             
             let ttm = formatter.string(from: currentTime.timeIntervalSince(self.previousTime!))!
             
             let fmtr: DateFormatter = DateFormatter()
             fmtr.dateFormat = "HH:mm"
-            let str: String = self.todaysDate + "," + s + "," + pls + "," + fmtr.string(from: self.previousTime!) + "," + cls + "," + fmtr.string(from: currentTime) + "," + ttm + "\n"
+            let str: String = self.todaysDate + "," + s + "," + pls + "," + fmtr.string(from: self.previousTime!) + "," + cls + "," + fmtr.string(from: currentTime) + "," + ttm + "," + cpl + "\n"
             self.csvArray.append(str)
             NSLog(str)
+            self.coupled.selectedSegmentIndex = 1
         }
+        
+        var cpl:String = ""
+        
+        if( couple == 0)
+        {
+            cpl = "uncoupled"
+        }
+        else if( couple == 2)
+        {
+            cpl = "coupled"
+        }
+        else
+        {
+            cpl = "none"
+        }
+        
       
         let locationIn: RailStation = MainlineViewController.stationsVisited[(inLocation.station?.station)!]!
         let locationOut: RailStation = MainlineViewController.stationsVisited[(outLocation.station?.station)!]!
@@ -150,8 +199,10 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
         
         let fmtr: DateFormatter = DateFormatter()
         fmtr.dateFormat = "HH:mm"
-        let str: String = self.todaysDate + "," + s + "," + ils + "," + fmtr.string(from: inLocation.arrivalTime!) + "," + ols + "," + fmtr.string(from: outLocation.arrivalTime!) + "," + ttm + "\n"
+        let str: String = self.todaysDate + "," + s + "," + ils + "," + fmtr.string(from: inLocation.arrivalTime!) + "," + ols + "," + fmtr.string(from: outLocation.arrivalTime!) + "," + ttm + "," + cpl + "\n"
         self.csvArray.append(str)
+        self.previousCourse = outLocation.course
+        self.previousStop = (outLocation.station?.station)!
         NSLog(str)
         
     }
@@ -196,7 +247,7 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
         if( result == MFMailComposeResult.sent )
         {
             csvArray.removeAll()
-            csvArray.append("date,student,inlocation,intime,outlocation,outtime,totaltime\n")
+            csvArray.append("date,student,inlocation,intime,outlocation,outtime,totaltime,coupling\n")
         }
         controller.dismiss(animated: true, completion: nil)
         
@@ -340,7 +391,7 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
         dateFormatter.dateFormat = "MM-dd-yyyy"
         self.todaysDate = dateFormatter.string(from: date)
         
-        csvArray.append("date,student,inlocation,intime,outlocation,outtime,totaltime\n")
+        csvArray.append("date,student,inlocation,intime,outlocation,outtime,totaltime,didcpl\n")
 
 
         
@@ -420,7 +471,7 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
         for row in csvArray {
             str.append(row)
         }
-        let file = "file.csv" //this is the file. we will write to and read from it
+        let file = "trainingRecord.csv" //this is the file. we will write to and read from it
         
         if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
             
@@ -459,7 +510,7 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
                 mail.setCcRecipients(["JonesRI@trimet.org"])
                 mail.setSubject("Training Record " + self.trainerLabel.text! + " " + todaysDate)
                 mail.setMessageBody(body, isHTML: false)
-                mail.addAttachmentData(csvatt, mimeType: "text/csv", fileName: "file.csv")
+                mail.addAttachmentData(csvatt, mimeType: "text/csv", fileName: "trainingRecord.csv")
                 self.present(mail, animated: true, completion: nil)
                 } else {
                     let myAlert = UIAlertController(title: "Information", message: "Cannot send mail with this device.", preferredStyle: .alert);
@@ -522,6 +573,20 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
         let cls: String = self.currentStop + course
         //let cts: String = formatter.string(from: currentTime).replacingOccurrences(of: ",", with: "")
                 
+                var cpl:String = ""
+                
+                if( self.coupled.selectedSegmentIndex == 0)
+                {
+                    cpl = "uncoupled"
+                }
+                else if( self.coupled.selectedSegmentIndex == 2)
+                {
+                    cpl = "coupled"
+                }
+                else
+                {
+                    cpl = "none"
+                }
             
     let formatter = DateComponentsFormatter()
     formatter.allowedUnits = [.hour, .minute, .second]
@@ -532,7 +597,7 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
     
     let fmtr: DateFormatter = DateFormatter()
     fmtr.dateFormat = "HH:mm"
-        let str: String = self.todaysDate + "," + s + "," + pls + "," + fmtr.string(from: self.previousTime!) + "," + cls + "," + fmtr.string(from: currentTime) + "," + ttm + "\n"
+        let str: String = self.todaysDate + "," + s + "," + pls + "," + fmtr.string(from: self.previousTime!) + "," + cls + "," + fmtr.string(from: currentTime) + "," + ttm + "," + cpl + "\n"
         self.csvArray.append(str)
         NSLog(str)
         } else {
@@ -540,6 +605,7 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
             myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: nil));
             self.show(myAlert, sender: self)        }
 
+        self.coupled.selectedSegmentIndex = 1
     
     }
   
@@ -635,9 +701,6 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
         
         
         //self.timestamp.text = formatter.string(from: currentDateTime).replacingOccurrences(of: ",", with: "")
-        
-        
-        
         
         var stopCoords: CLLocation = CLLocation()
         var arr: [CLLocation] = [CLLocation]()

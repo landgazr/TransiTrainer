@@ -13,6 +13,7 @@ class RetroViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     @IBOutlet weak var studentPicker: UIPickerView!
     @IBOutlet weak var inPicker: UIPickerView!
     @IBOutlet weak var outPicker: UIPickerView!
+    @IBOutlet weak var coupled: UISegmentedControl!
     
     var delegate: MainlineViewController?
     var studentCell: UITableViewCell = UITableViewCell()
@@ -28,7 +29,7 @@ class RetroViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     @IBAction func submitButton(_ sender: AnyObject) {
         
         if (MainlineViewController.stationsVisited.count > 0 && studentPicker.selectedRow(inComponent: 0) > 0) {
-            mvc.reconcile(student: studentCell, inLocation: inStation, outLocation: outStation)
+            mvc.reconcile(student: studentCell, inLocation: inStation, outLocation: outStation, couple: self.coupled.selectedSegmentIndex)
             self.delegate?.dismissDialog()
         }
         else {
