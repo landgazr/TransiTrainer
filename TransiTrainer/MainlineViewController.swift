@@ -746,7 +746,7 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
                     break
                 }
             }
-        let popup = PopupDialog(title: "Students", message: "Please select student.")
+        let popup = PopupDialog(title: "Students", message: "Please select student.\nTap outside to cancel.")
         var studentButtons = [DefaultButton]()
         ss = avc.svc.getSelectedStudents()
         for ssc: UITableViewCell in ss {
