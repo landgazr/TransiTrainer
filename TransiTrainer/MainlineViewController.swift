@@ -332,35 +332,17 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
 
     
     
-    func showCurrentLocation() {
+    @IBAction func showCurrentLocation() {
         
-        var course: String = ""
-        var stopCoords: CLLocation = CLLocation()
-        var arr: [CLLocation] = [CLLocation]()
-        for rs in railStops {
-            arr.append(rs.latlon)
-        }
-        if (railStops.count > 0) {
-        locManager.requestWhenInUseAuthorization()
-            if (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse ||
-            CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways){
-                let loc = locManager.location!
-                stopCoords = (self.closestLocation(locations: arr, closestToLocation: loc))!
-                course = cardinalDirection(closestToLocation: loc)!
-        }
-        
-        for rs in railStops {
-            if (rs.latlon.distance(from: stopCoords) == 0) {
-                self.currentStop = rs.station
-                break
-            }
-        }
-
-        let myAlert = UIAlertController(title: "Information", message: self.currentStop + course, preferredStyle: .alert);
+        if (MainlineViewController.stationsVisited.count > 0) {
+        let key = MainlineViewController.stationsVisited.keys.last
+            let stn = MainlineViewController.stationsVisited.dict[key!]
+            let msg = (stn?.station?.station)! + (stn?.course)!
+        let myAlert = UIAlertController(title: "Information", message: msg, preferredStyle: .alert);
         myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: nil));
         self.show(myAlert, sender: self)
         } else {
-            let myAlert = UIAlertController(title: "Information", message: "Please select a starting student to show location.", preferredStyle: .alert);
+            let myAlert = UIAlertController(title: "Information", message: "No stops visited.", preferredStyle: .alert);
             myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: nil));
             self.show(myAlert, sender: self)
         }
