@@ -495,6 +495,44 @@
         </Point>
     </Placemark>
     <Placemark>
+      <ExtendedData>
+        <Data name="special">
+          <value>Ruby Junction Yard</value>
+        </Data>
+        <Data name="line">
+          <value>RB</value>
+        </Data>
+        <Data name="status">
+          <value>Existing</value>
+        </Data>
+        <Data name="type">
+          <value>MAX</value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>-122.4596533,45.5106592</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <ExtendedData>
+        <Data name="special">
+          <value>Elmonica Yard</value>
+        </Data>
+        <Data name="line">
+          <value>RB</value>
+        </Data>
+        <Data name="status">
+          <value>Existing</value>
+        </Data>
+        <Data name="type">
+          <value>MAX</value>
+        </Data>
+    </ExtendedData>
+    <Point>
+      <coordinates>-122.849374,45.5097579</coordinates>
+    </Point>
+    </Placemark>
+    <Placemark>
         <ExtendedData>
             <Data name="special">
                 <value>West Stub</value>
