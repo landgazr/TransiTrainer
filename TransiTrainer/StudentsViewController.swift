@@ -76,18 +76,19 @@ class StudentsViewController: UITableViewController {
         
         //tableView.cellForRow(at: indexPath)?.selectedBackgroundView?.backgroundColor = self.getBackgroundColor(hour: hour)
         
+        
         StudentsViewController.selectedCells.append(tableView.cellForRow(at: indexPath)!)
     }
     
   
     
     override func viewDidAppear(_ animated: Bool) {
-        let rowsCount = self.tableView.numberOfRows(inSection: 0)
+        /*let rowsCount = self.tableView.numberOfRows(inSection: 0)
         for i in 0..<rowsCount  {
             let ip: IndexPath = IndexPath(row: i, section: 0)
             self.tableView.deselectRow(at: ip, animated: false)
             // your custom code (deselecting)
-        }
+        }*/
         //StudentsViewController.selectedCells.removeAll()
     }
     
