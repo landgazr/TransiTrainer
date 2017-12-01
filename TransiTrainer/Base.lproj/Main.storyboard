@@ -131,7 +131,7 @@
                                     <action selector="addRetroactiveStudent" destination="9pv-A4-QxB" eventType="primaryActionTriggered" id="rbh-fz-7E9"/>
                                 </connections>
                             </button>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="A5o-aJ-XF0">
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="A5o-aJ-XF0">
                                 <rect key="frame" x="63" y="401" width="248" height="29"/>
                                 <segments>
                                     <segment title="Uncoupled"/>
