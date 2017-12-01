@@ -250,7 +250,7 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
             csvArray.removeAll()
             csvArray.append("date,student,inlocation,intime,outlocation,outtime,totaltime,coupling\n")
             tripArray.removeAll()
-            tripArray.append("station,traveltimeto\n")
+            tripArray.append("student,station,traveltimeto\n")
         }
         controller.dismiss(animated: true, completion: nil)
         
@@ -291,8 +291,6 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
                     
                     if( !(MainlineViewController.stationsVisited.keys.contains((station.station?.station)!)) ) {
                         
-                        
-                        
                         if( MainlineViewController.stationsVisited.count > 1)
                         {
                             let previousStationKey = MainlineViewController.stationsVisited.keys[MainlineViewController.stationsVisited.count - 1]
@@ -307,12 +305,16 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
                             
                             let ttm = formatter.string(from: (station.arrivalTime?.timeIntervalSince(previousStationVal.arrivalTime!))!)!
                             
-                            self.tripArray.append((station.station?.station)! + "," + ttm)
+                            let stn: String = (station.station?.station)! + ","
+                            let sls: String = self.selectedStudent.text! + ","
+                            let rowStr = sls + stn + ttm + "\n"
+                            self.tripArray.append(rowStr)
                             
                         }
                         else
                         {
-                            self.tripArray.append((station.station?.station)! + ",00:00:00")
+                            MainlineViewController.stationsVisited[(station.station?.station)!] = station
+                            self.tripArray.append(self.selectedStudent.text! + "," + (station.station?.station)! + ",00:00:00" + "\n")
                         }
                         
                         if (MainlineViewController.stationsVisited.count > 20) {
@@ -418,7 +420,7 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
         self.todaysDate = dateFormatter.string(from: date)
         
         csvArray.append("date,student,inlocation,intime,outlocation,outtime,totaltime,coupling\n")
-        tripArray.append("station,traveltimeto\n")
+        tripArray.append("student,station,traveltimeto\n")
 
         
         self.view.backgroundColor = getBackgroundColor(hour: hour)

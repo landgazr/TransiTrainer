@@ -88,7 +88,7 @@ class StudentsViewController: UITableViewController {
             self.tableView.deselectRow(at: ip, animated: false)
             // your custom code (deselecting)
         }
-        StudentsViewController.selectedCells.removeAll()
+        //StudentsViewController.selectedCells.removeAll()
     }
     
     func addCell(s: String)
@@ -111,16 +111,22 @@ class StudentsViewController: UITableViewController {
             
             
             
-            
+            if(StudentsViewController.list.contains(s)) {
+                let myAlert = UIAlertController(title: "Information", message: "Student already on roster.", preferredStyle: .alert);
+                myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: nil));
+                show(myAlert, sender: self)
+                
+            }
+            else {
             StudentsViewController.list.append(s)
             let indexPath:IndexPath = IndexPath(row:(StudentsViewController.list.count - 1), section:0)
             
             self.tableView.insertRows(at: [indexPath], with: .none)
             self.tableView.reloadData()
             self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+            }
             
-            
-            StudentsViewController.selectedCells.removeAll()
+            //StudentsViewController.selectedCells.removeAll()
         }
                 
        
