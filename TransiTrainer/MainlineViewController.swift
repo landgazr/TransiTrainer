@@ -260,7 +260,10 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
     @IBAction func addRetroactiveStudent() {
         self.showDialog(LSAnimationPattern.fadeInOut)
     }
-            
+    
+    @IBAction func showCurrentMap() {
+        self.showMap(LSAnimationPattern.fadeInOut)
+    }
     
     
     
@@ -288,15 +291,15 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
                     station.station = self.currentStation
                     station.course = course
                     
-                    let previousStationKey = MainlineViewController.stationsVisited.keys[MainlineViewController.stationsVisited.count - 1]
-                    let previousStationVal: RailStation = MainlineViewController.stationsVisited[previousStationKey]!
-                    
+                  
                     if( MainlineViewController.stationsVisited.count > 1 ) {
+                        
+                        let previousStationKey = MainlineViewController.stationsVisited.keys[MainlineViewController.stationsVisited.count - 1]
+                        let previousStationVal: RailStation = MainlineViewController.stationsVisited[previousStationKey]!
                         
                         if( previousStationKey != station.station?.station)
                         {
-                            let previousStationKey = MainlineViewController.stationsVisited.keys[MainlineViewController.stationsVisited.count - 1]
-                            let previousStationVal: RailStation = MainlineViewController.stationsVisited[previousStationKey]!
+                            
                             MainlineViewController.stationsVisited[(station.station?.station)!] = station
                             
                             let formatter = DateComponentsFormatter()
@@ -711,6 +714,11 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
         let dialogViewController = RetroViewController(nibName: "RetroViewController", bundle: nil)
         dialogViewController.delegate = self
         self.presentDialogViewController(dialogViewController, animationPattern: animationPattern)
+    }
+    
+    fileprivate func showMap(_ animationPattern: LSAnimationPattern) {
+        let mapViewController = MapViewController(nibName: "MapViewController", bundle: nil)
+        self.presentDialogViewController(mapViewController, animationPattern: animationPattern)
     }
     
     func dismissDialog() {

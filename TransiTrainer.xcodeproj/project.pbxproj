@@ -15,6 +15,8 @@
 		822C0AB71F96483900BA649E /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822C0AB51F96483900BA649E /* LaunchViewController.swift */; };
 		824518961F646D0000A7F2DA /* tm_rail_stops.kml in Resources */ = {isa = PBXBuildFile; fileRef = 824518951F646D0000A7F2DA /* tm_rail_stops.kml */; };
 		829F6A411F99380D00DAC20F /* operators.csv in Resources */ = {isa = PBXBuildFile; fileRef = 829F6A401F99380D00DAC20F /* operators.csv */; };
+		82A8CEA91FD2BAAF0085BEE5 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82A8CEA71FD2BAAF0085BEE5 /* MapViewController.swift */; };
+		82A8CEAA1FD2BAAF0085BEE5 /* MapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 82A8CEA81FD2BAAF0085BEE5 /* MapViewController.xib */; };
 		82AE6A281F977D5C00DB5573 /* TheMix-Plain.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 82AE6A271F977D5C00DB5573 /* TheMix-Plain.ttf */; };
 		82AFAD941F53AC4B001D2E5E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AFAD931F53AC4B001D2E5E /* AppDelegate.swift */; };
 		82AFAD961F53AC4B001D2E5E /* MainlineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AFAD951F53AC4B001D2E5E /* MainlineViewController.swift */; };
@@ -87,6 +89,8 @@
 		822C0AB61F96483900BA649E /* LaunchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchViewController.xib; sourceTree = "<group>"; };
 		824518951F646D0000A7F2DA /* tm_rail_stops.kml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = tm_rail_stops.kml; sourceTree = "<group>"; };
 		829F6A401F99380D00DAC20F /* operators.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = operators.csv; sourceTree = "<group>"; };
+		82A8CEA71FD2BAAF0085BEE5 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		82A8CEA81FD2BAAF0085BEE5 /* MapViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MapViewController.xib; sourceTree = "<group>"; };
 		82AE6A271F977D5C00DB5573 /* TheMix-Plain.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "TheMix-Plain.ttf"; sourceTree = "<group>"; };
 		82AFAD901F53AC4B001D2E5E /* TransiTrainer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TransiTrainer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		82AFAD931F53AC4B001D2E5E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -206,6 +210,8 @@
 			children = (
 				82DEA85E1F9146AC006097B7 /* CSV.swift */,
 				82EC13571FCB99FA007C1383 /* RetroViewController.swift */,
+				82A8CEA71FD2BAAF0085BEE5 /* MapViewController.swift */,
+				82A8CEA81FD2BAAF0085BEE5 /* MapViewController.xib */,
 				82EC13581FCB99FB007C1383 /* RetroViewController.xib */,
 				822C0AB31F9647A300BA649E /* Launch.storyboard */,
 				82DEA85F1F9146AC006097B7 /* Description.swift */,
@@ -387,6 +393,7 @@
 				82AFAD9D1F53AC4B001D2E5E /* Assets.xcassets in Resources */,
 				82AFAD9B1F53AC4B001D2E5E /* Main.storyboard in Resources */,
 				829F6A411F99380D00DAC20F /* operators.csv in Resources */,
+				82A8CEAA1FD2BAAF0085BEE5 /* MapViewController.xib in Resources */,
 				824518961F646D0000A7F2DA /* tm_rail_stops.kml in Resources */,
 				82AE6A281F977D5C00DB5573 /* TheMix-Plain.ttf in Resources */,
 				822C0AB41F9647A300BA649E /* Launch.storyboard in Resources */,
@@ -434,6 +441,7 @@
 				82EC135E1FCBA869007C1383 /* LSAnimationUtils.swift in Sources */,
 				82DEA8631F9146AC006097B7 /* CSV.swift in Sources */,
 				82ED40621F69C91D00862AA6 /* PopupDialogDefaultButtons.swift in Sources */,
+				82A8CEA91FD2BAAF0085BEE5 /* MapViewController.swift in Sources */,
 				82EC13601FCBA869007C1383 /* UIViewController+LSDialogViewController.swift in Sources */,
 				82DEA8651F9146AC006097B7 /* Parser.swift in Sources */,
 				82ED406B1F69C91D00862AA6 /* UIImageView+Calculations.swift in Sources */,
