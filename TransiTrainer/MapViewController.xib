@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MapViewController" customModule="TransiTrainer" customModuleProvider="target">
+            <connections>
+                <outlet property="mapView" destination="z95-y1-6hI" id="icd-Wn-VZ4"/>
+                <outlet property="view" destination="s1d-Rh-8Df" id="Eth-Md-uwI"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="s1d-Rh-8Df">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="z95-y1-6hI">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="599"/>
+                </mapView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dT6-rp-WqL">
+                    <rect key="frame" x="133" y="607" width="109" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="QTZ-Tc-bnD"/>
+                    </constraints>
+                    <state key="normal" title="OK"/>
+                    <connections>
+                        <action selector="cancelButton:" destination="-1" eventType="primaryActionTriggered" id="MvB-43-sFG"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="z95-y1-6hI" firstAttribute="top" secondItem="s1d-Rh-8Df" secondAttribute="top" id="0id-1V-4XD"/>
+                <constraint firstItem="dT6-rp-WqL" firstAttribute="leading" secondItem="MOS-Cg-9Vm" secondAttribute="leading" constant="133" id="HG3-GR-9TU"/>
+                <constraint firstItem="MOS-Cg-9Vm" firstAttribute="bottom" secondItem="dT6-rp-WqL" secondAttribute="bottom" constant="10" id="ZrV-AK-OGJ"/>
+                <constraint firstItem="dT6-rp-WqL" firstAttribute="top" secondItem="z95-y1-6hI" secondAttribute="bottom" constant="8" symbolic="YES" id="aE4-9g-Ixc"/>
+                <constraint firstItem="z95-y1-6hI" firstAttribute="leading" secondItem="s1d-Rh-8Df" secondAttribute="leading" id="frg-U0-Mvv"/>
+                <constraint firstAttribute="trailing" secondItem="z95-y1-6hI" secondAttribute="trailing" id="kZp-TN-gEs"/>
+                <constraint firstItem="z95-y1-6hI" firstAttribute="centerX" secondItem="dT6-rp-WqL" secondAttribute="centerX" id="lnG-Md-heE"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="MOS-Cg-9Vm"/>
+            <point key="canvasLocation" x="16.5" y="-12.5"/>
+        </view>
+    </objects>
+</document>
