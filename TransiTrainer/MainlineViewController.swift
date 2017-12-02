@@ -424,7 +424,7 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
         
         for mkb in kp.placemarks {
             let rs: RailStop = RailStop()
-            NSLog((mkb.point?.coordinate.latitude.description)! + " " + (mkb.point?.coordinate.longitude.description)!)
+            //NSLog((mkb.point?.coordinate.latitude.description)! + " " + (mkb.point?.coordinate.longitude.description)!)
             rs.station = mkb.placemarkData[0]
             rs.line = mkb.placemarkData[1]
             rs.status = mkb.placemarkData[2]
