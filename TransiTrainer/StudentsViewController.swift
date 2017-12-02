@@ -30,6 +30,7 @@ class StudentsViewController: UITableViewController {
     static var list: [String] = [String]()
     static var selectedCells: [UITableViewCell] = []
     
+    
     var operators: [Int : String] = [Int : String]()
     
    
@@ -94,6 +95,7 @@ class StudentsViewController: UITableViewController {
     
     func addCell(s: String)
     {
+        
         var avc: AddingViewController = AddingViewController()
         
         let _: Int = (self.tableView.numberOfRows(inSection: 0))
@@ -130,7 +132,7 @@ class StudentsViewController: UITableViewController {
             //StudentsViewController.selectedCells.removeAll()
         }
                 
-       
+       avc.badge.text = ""
         
     }
     
@@ -267,7 +269,6 @@ class StudentsViewController: UITableViewController {
                 show(myAlert, sender: self)
                 }
             
-            
 
         }
 
@@ -278,7 +279,6 @@ class StudentsViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         
         if let fileURL2 = Bundle.main.url(forResource: "operators", withExtension: "csv") {
             
