@@ -210,6 +210,7 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
     
     func cardinalDirection(closestToLocation location: CLLocation) -> String? {
         let dirs = [" NB", " EB", " SB", " WB", " NB"]
+        
         let degreesPerDir: Double = 360.0 / Double((dirs.count - 1))
         let cld: CLLocationDirection = location.course
         let index: Int = Int((cld + (degreesPerDir / 2.0)) / degreesPerDir)
