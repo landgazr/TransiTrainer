@@ -14,6 +14,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
 
     var locationManager:CLLocationManager!
     var mvc:MainlineViewController!
+    @IBOutlet weak var locLabel: UILabel!
     
     @IBOutlet weak var mapView:MKMapView!
     
@@ -55,16 +56,28 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         // other wise this function will be called every time when user location changes.
         //manager.stopUpdatingLocation()
         
-        let center = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
-        let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
         
-        mapView.setRegion(region, animated: true)
         
         // Drop a pin at user's Current Location
         let myAnnotation: MKPointAnnotation = MKPointAnnotation()
         myAnnotation.coordinate = CLLocationCoordinate2DMake(userLocation.coordinate.latitude, userLocation.coordinate.longitude);
         myAnnotation.title = "Current location"
+        
         mapView.addAnnotation(myAnnotation)
+        
+        let rs:RailStop = mvc.returnCurrentLocation()!
+        
+        let closestAnnotation: MKPointAnnotation = MKPointAnnotation()
+        closestAnnotation.coordinate = CLLocationCoordinate2DMake(rs.latlon.coordinate.latitude, rs.latlon.coordinate.longitude);
+        closestAnnotation.title = rs.station
+        
+        locLabel.text = rs.station
+        
+        mapView.addAnnotation(closestAnnotation)
+        
+        let center = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
+        let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+        mapView.setRegion(region, animated: true)
     }
     
     func createMapView()

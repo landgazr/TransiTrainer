@@ -331,6 +331,32 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
         }
     }
     
+    func returnCurrentLocation() -> RailStop? {
+    
+        var stopCoords: CLLocation = CLLocation()
+        var course: String = ""
+        
+    if (railStops.count > 0) {
+        locManager.requestWhenInUseAuthorization()
+        if (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse ||
+            CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways){
+            let loc = locManager.location!
+            stopCoords = (self.closestLocation(locations: railStopsLL, closestToLocation: loc))!
+            course = cardinalDirection(closestToLocation: loc)!
+    
+            for rs in railStops {
+                if (rs.latlon.distance(from: stopCoords) == 0) {
+                    return rs
+                    
+    }
+    }
+    }
+    }
+    
+        return RailStop()
+    
+    }
+    
     
     @IBAction func showCurrentLocation() {
         
