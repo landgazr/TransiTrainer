@@ -310,7 +310,7 @@
                                     <segue destination="Nrq-0b-ZGh" kind="embed" id="Yn7-dN-4mw"/>
                                 </connections>
                             </containerView>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Type badge # here" textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EZd-R1-EmR">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Type badge # here" textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EZd-R1-EmR" userLabel="Badge">
                                 <rect key="frame" x="98" y="73" width="178" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -319,19 +319,19 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="3Sb-bL-QFX" firstAttribute="top" secondItem="opd-UT-cuw" secondAttribute="bottom" constant="8" symbolic="YES" id="3sH-0B-UHo"/>
-                            <constraint firstItem="opd-UT-cuw" firstAttribute="top" secondItem="EZd-R1-EmR" secondAttribute="bottom" constant="8" symbolic="YES" id="3tC-SO-6qA"/>
-                            <constraint firstItem="EZd-R1-EmR" firstAttribute="centerX" secondItem="opd-UT-cuw" secondAttribute="centerX" id="89C-eW-z33"/>
-                            <constraint firstItem="opd-UT-cuw" firstAttribute="leading" secondItem="DZc-IR-vj0" secondAttribute="leadingMargin" id="9gM-IY-n9B"/>
-                            <constraint firstItem="opd-UT-cuw" firstAttribute="trailing" secondItem="DZc-IR-vj0" secondAttribute="trailingMargin" id="CfW-H7-LYd"/>
-                            <constraint firstItem="EZd-R1-EmR" firstAttribute="top" secondItem="v10-fS-BpB" secondAttribute="bottom" constant="53" id="GKf-AD-yWy"/>
-                            <constraint firstItem="EZd-R1-EmR" firstAttribute="leading" secondItem="DZc-IR-vj0" secondAttribute="leadingMargin" constant="82" id="skh-gJ-HNQ"/>
+                            <constraint firstItem="3Sb-bL-QFX" firstAttribute="top" secondItem="opd-UT-cuw" secondAttribute="bottom" constant="8" symbolic="YES" id="RgW-Ki-4ie"/>
+                            <constraint firstItem="opd-UT-cuw" firstAttribute="top" secondItem="EZd-R1-EmR" secondAttribute="bottom" constant="8" symbolic="YES" id="WXr-9q-mjQ"/>
+                            <constraint firstItem="EZd-R1-EmR" firstAttribute="leading" secondItem="DZc-IR-vj0" secondAttribute="leadingMargin" constant="82" id="hej-eM-2vp"/>
+                            <constraint firstItem="opd-UT-cuw" firstAttribute="trailing" secondItem="DZc-IR-vj0" secondAttribute="trailingMargin" id="nAx-GX-uyJ"/>
+                            <constraint firstItem="EZd-R1-EmR" firstAttribute="top" secondItem="v10-fS-BpB" secondAttribute="bottom" constant="53" id="s0A-Hu-ZAL"/>
+                            <constraint firstItem="opd-UT-cuw" firstAttribute="leading" secondItem="DZc-IR-vj0" secondAttribute="leadingMargin" id="tEv-Jd-ogF"/>
+                            <constraint firstItem="EZd-R1-EmR" firstAttribute="centerX" secondItem="opd-UT-cuw" secondAttribute="centerX" id="zRu-fy-AMM"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Roster" image="second" id="P3s-bD-qqQ" userLabel="Adding"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="badge" destination="EZd-R1-EmR" id="Aom-87-Lqy"/>
+                        <outlet property="badge" destination="EZd-R1-EmR" id="9z8-wL-DgD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u5r-BR-fOK" userLabel="First Responder" sceneMemberID="firstResponder"/>
