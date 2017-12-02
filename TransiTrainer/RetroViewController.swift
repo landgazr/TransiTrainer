@@ -88,7 +88,8 @@ class RetroViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
             
             if( MainlineViewController.stationsVisited.count > row) {
                 let firstKey = Array(MainlineViewController.stationsVisited.keys)[row]
-                return MainlineViewController.stationsVisited[firstKey]?.station?.station
+                let tfr = (MainlineViewController.stationsVisited[firstKey]?.station?.station)! + (MainlineViewController.stationsVisited[firstKey]?.course)!
+                return tfr
             }
             else
             {

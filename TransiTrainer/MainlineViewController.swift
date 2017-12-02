@@ -288,10 +288,12 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
                     station.station = self.currentStation
                     station.course = course
                     
+                    let previousStationKey = MainlineViewController.stationsVisited.keys[MainlineViewController.stationsVisited.count - 1]
+                    let previousStationVal: RailStation = MainlineViewController.stationsVisited[previousStationKey]!
                     
-                    if( !(MainlineViewController.stationsVisited.keys.contains((station.station?.station)!)) ) {
+                    if( MainlineViewController.stationsVisited.count > 1 ) {
                         
-                        if( MainlineViewController.stationsVisited.count > 1)
+                        if( previousStationKey != station.station?.station)
                         {
                             let previousStationKey = MainlineViewController.stationsVisited.keys[MainlineViewController.stationsVisited.count - 1]
                             let previousStationVal: RailStation = MainlineViewController.stationsVisited[previousStationKey]!
@@ -311,42 +313,45 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
                             self.tripArray.append(rowStr)
                             
                         }
-                        else
-                        {
-                            MainlineViewController.stationsVisited[(station.station?.station)!] = station
-                            self.tripArray.append(self.selectedStudent.text! + "," + (station.station?.station)! + ",00:00:00" + "\n")
-                        }
-                        
                         if (MainlineViewController.stationsVisited.count > 20) {
                             MainlineViewController.stationsVisited.dict.popFirst()
                         }
-                    
                     }
-                    
+                    else
+                    {
+                        MainlineViewController.stationsVisited[(station.station?.station)!] = station
+                        self.tripArray.append(self.selectedStudent.text! + "," + (station.station?.station)! + ",0:00:00" + "\n")
+                    }
                 }
-               
             }
-            
         }
     }
-
     
     
     @IBAction func showCurrentLocation() {
         
-        if (MainlineViewController.stationsVisited.count > 0) {
-        let key = MainlineViewController.stationsVisited.keys.last
-            let stn = MainlineViewController.stationsVisited.dict[key!]
-            let msg = (stn?.station?.station)! + (stn?.course)!
-        let myAlert = UIAlertController(title: "Information", message: msg, preferredStyle: .alert);
-        myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: nil));
-        self.show(myAlert, sender: self)
-        } else {
-            let myAlert = UIAlertController(title: "Information", message: "No stops visited.", preferredStyle: .alert);
-            myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: nil));
-            self.show(myAlert, sender: self)
+        var stopCoords: CLLocation = CLLocation()
+        var course: String = ""
+        
+        if (railStops.count > 0) {
+            locManager.requestWhenInUseAuthorization()
+            if (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse ||
+                CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways){
+                let loc = locManager.location!
+                stopCoords = (self.closestLocation(locations: railStopsLL, closestToLocation: loc))!
+                course = cardinalDirection(closestToLocation: loc)!
+                
+                for rs in railStops {
+                    if (rs.latlon.distance(from: stopCoords) == 0) {
+                        let msg = rs.station + course
+                        let myAlert = UIAlertController(title: "Information", message: msg, preferredStyle: .alert);
+                        myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: nil));
+                        self.show(myAlert, sender: self)
+                        break
+                    }
+                }
+            }
         }
-
     }
     
     override func viewDidLoad() {

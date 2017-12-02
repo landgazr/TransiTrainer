@@ -142,7 +142,7 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lbp-UF-5Sc">
                                 <rect key="frame" x="51" y="191" width="277" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Show Current or Last Known Stop"/>
+                                <state key="normal" title="Show Closest Station"/>
                                 <connections>
                                     <action selector="showCurrentLocation" destination="9pv-A4-QxB" eventType="primaryActionTriggered" id="QLB-PF-5Zr"/>
                                 </connections>
