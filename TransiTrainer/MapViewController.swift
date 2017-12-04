@@ -65,13 +65,13 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         
         mapView.addAnnotation(myAnnotation)
         
-        let rs:RailStop = mvc.returnCurrentLocation()!
+        let cs:CurrentMapLocation = mvc.returnCurrentLocation()!
         
         let closestAnnotation: MKPointAnnotation = MKPointAnnotation()
-        closestAnnotation.coordinate = CLLocationCoordinate2DMake(rs.latlon.coordinate.latitude, rs.latlon.coordinate.longitude);
-        closestAnnotation.title = rs.station
+        closestAnnotation.coordinate = CLLocationCoordinate2DMake(cs.rs.latlon.coordinate.latitude, cs.rs.latlon.coordinate.longitude);
+        closestAnnotation.title = cs.rs.station
         
-        locLabel.text = rs.station
+        locLabel.text = cs.rs.station + " (currently" + cs.courseStr + ")"
         
         mapView.addAnnotation(closestAnnotation)
         

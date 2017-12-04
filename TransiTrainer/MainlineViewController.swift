@@ -11,6 +11,11 @@ import CoreLocation
 import MapKit
 import MessageUI
 
+class CurrentMapLocation {
+    var rs:RailStop = RailStop()
+    var courseStr:String = ""
+}
+
 class RailStop {
     var station:String = ""
     var line:String = ""
@@ -209,12 +214,29 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
     }
     
     func cardinalDirection(closestToLocation location: CLLocation) -> String? {
-        let dirs = [" NB", " EB", " SB", " WB", " NB"]
+        
+        if( location.course >= 44.0 && location.course < 135.0 )
+        {
+            return " EB"
+        }
+        else if( location.course >= 135.0 && location.course < 225.0 )
+        {
+            return " SB"
+        }
+        else if( location.course >= 225.0 && location.course < 315.0 )
+        {
+            return " WB"
+        }
+        else
+        {
+            return " NB"
+        }
+        /*let dirs = [" NB", " EB", " SB", " WB", " NB"]
         
         let degreesPerDir: Double = 360.0 / Double((dirs.count - 1))
         let cld: CLLocationDirection = location.course
         let index: Int = Int((cld + (degreesPerDir / 2.0)) / degreesPerDir)
-        return dirs[index]
+        return dirs[index]*/
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
@@ -331,7 +353,7 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
         }
     }
     
-    func returnCurrentLocation() -> RailStop? {
+    func returnCurrentLocation() -> CurrentMapLocation? {
     
         var stopCoords: CLLocation = CLLocation()
         var course: String = ""
@@ -346,14 +368,17 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
     
             for rs in railStops {
                 if (rs.latlon.distance(from: stopCoords) == 0) {
-                    return rs
+                    let toReturn:CurrentMapLocation = CurrentMapLocation()
+                    toReturn.rs = rs
+                    toReturn.courseStr = course
+                    return toReturn
                     
     }
     }
     }
     }
     
-        return RailStop()
+        return CurrentMapLocation()
     
     }
     
@@ -374,6 +399,7 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
                 for rs in railStops {
                     if (rs.latlon.distance(from: stopCoords) == 0) {
                         let msg = rs.station + course
+                        
                         let myAlert = UIAlertController(title: "Information", message: msg, preferredStyle: .alert);
                         myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: nil));
                         self.show(myAlert, sender: self)
