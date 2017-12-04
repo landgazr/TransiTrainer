@@ -48,7 +48,7 @@ class RetroViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
             }
         } else if pickerView == inPicker{
           
-            if( MainlineViewController.stationsVisited.count > row) {
+            if( MainlineViewController.stationsVisited.count > 0) {
                 let firstKey = Array(MainlineViewController.stationsVisited.keys)[row]
                 self.inStation = MainlineViewController.stationsVisited[firstKey]!
             }
@@ -56,7 +56,7 @@ class RetroViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         }
         else
         {
-           if( MainlineViewController.stationsVisited.count > row) {
+           if( MainlineViewController.stationsVisited.count > 0) {
                 let firstKey = Array(MainlineViewController.stationsVisited.keys)[row]
                 self.outStation = MainlineViewController.stationsVisited[firstKey]!
             }
@@ -86,7 +86,7 @@ class RetroViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
            return row == 0 ? "" : svc.getSelectedStudents()[row - 1].textLabel?.text
         } else {
             
-            if( MainlineViewController.stationsVisited.count > row) {
+            if( MainlineViewController.stationsVisited.count > 0) {
                 let firstKey = Array(MainlineViewController.stationsVisited.keys)[row]
                 let tfr = (MainlineViewController.stationsVisited[firstKey]?.station?.station)! + (MainlineViewController.stationsVisited[firstKey]?.course)!
                 return tfr

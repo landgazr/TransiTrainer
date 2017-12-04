@@ -293,7 +293,7 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
                     station.course = course
                     
                   
-                    if( MainlineViewController.stationsVisited.count > 1 ) {
+                    if( MainlineViewController.stationsVisited.count > 0 ) {
                         
                         let previousStationKey = MainlineViewController.stationsVisited.keys[MainlineViewController.stationsVisited.count - 1]
                         let previousStationVal: RailStation = MainlineViewController.stationsVisited[previousStationKey]!
