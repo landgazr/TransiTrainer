@@ -129,7 +129,7 @@ class StudentsViewController: UITableViewController {
             self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
             }
             
-            //StudentsViewController.selectedCells.removeAll()
+            StudentsViewController.selectedCells.removeAll()
         }
                 
        avc.badge.text = ""
