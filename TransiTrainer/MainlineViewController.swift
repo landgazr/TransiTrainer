@@ -97,7 +97,7 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
     var currentStop:String = ""
     var currentStation:RailStop = RailStop()
     var todaysDate:String = ""
-    static var stationsVisited = OrderedDictionary<String, RailStation>()
+    var stationsVisited = OrderedDictionary<String, RailStation>()
     
     var namesOfTrainers = [Int: String]()
     static var trainerArr: [String] = [String]()
@@ -184,8 +184,8 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
         }
         
       
-        let locationIn: RailStation = MainlineViewController.stationsVisited[(inLocation.station?.station)!]!
-        let locationOut: RailStation = MainlineViewController.stationsVisited[(outLocation.station?.station)!]!
+        let locationIn: RailStation =  self.stationsVisited[(inLocation.station?.station)!]!
+        let locationOut: RailStation = self.stationsVisited[(outLocation.station?.station)!]!
         //MainlineViewController.stationsVisited.dict.removeValue(forKey: (inLocation.station?.station)!)
         //MainlineViewController.stationsVisited.dict.removeValue(forKey: (outLocation.station?.station)!)
         
@@ -315,15 +315,15 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
                     station.course = course
                     
                   
-                    if( MainlineViewController.stationsVisited.count > 0 ) {
+                    if( self.stationsVisited.count > 0 ) {
                         
-                        let previousStationKey = MainlineViewController.stationsVisited.keys[MainlineViewController.stationsVisited.count - 1]
-                        let previousStationVal: RailStation = MainlineViewController.stationsVisited[previousStationKey]!
+                        let previousStationKey = self.stationsVisited.keys[self.stationsVisited.count - 1]
+                        let previousStationVal: RailStation = self.stationsVisited[previousStationKey]!
                         
                         if( previousStationKey != station.station?.station)
                         {
                             
-                            MainlineViewController.stationsVisited[(station.station?.station)!] = station
+                            self.stationsVisited[(station.station?.station)!] = station
                             
                             let formatter = DateComponentsFormatter()
                             formatter.allowedUnits = [.hour, .minute, .second]
@@ -334,18 +334,28 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
                             let ttm = formatter.string(from: (station.arrivalTime?.timeIntervalSince(previousStationVal.arrivalTime!))!)!
                             
                             let stn: String = (station.station?.station)! + ","
-                            let sls: String = self.selectedStudent.text! + ","
+                            var sls: String = ""
+                            
+                            if( self.selectedStudent.text! == "None" )
+                            {
+                                sls = self.previousStudent
+                            }
+                            else
+                            {
+                                sls = self.selectedStudent.text! + ","
+                            }
+                            
                             let rowStr = sls + stn + ttm + "\n"
                             self.tripArray.append(rowStr)
                             
                         }
-                        if (MainlineViewController.stationsVisited.count > 20) {
-                            MainlineViewController.stationsVisited.dict.popFirst()
+                        if (self.stationsVisited.count > 20) {
+                            self.stationsVisited.dict.popFirst()
                         }
                     }
                     else
                     {
-                        MainlineViewController.stationsVisited[(station.station?.station)!] = station
+                        self.stationsVisited[(station.station?.station)!] = station
                         self.tripArray.append(self.selectedStudent.text! + "," + (station.station?.station)! + ",0:00:00" + "\n")
                     }
                 }
@@ -765,7 +775,6 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
 
     fileprivate func showDialog(_ animationPattern: LSAnimationPattern) {
         let dialogViewController = RetroViewController(nibName: "RetroViewController", bundle: nil)
-        dialogViewController.delegate = self
         self.presentDialogViewController(dialogViewController, animationPattern: animationPattern)
     }
     
