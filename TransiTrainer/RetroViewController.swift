@@ -15,7 +15,7 @@ class RetroViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     @IBOutlet weak var outPicker: UIPickerView!
     @IBOutlet weak var coupled: UISegmentedControl!
     
-    var delegate: MainlineViewController?
+    //var delegate: MainlineViewController?
     var studentCell: UITableViewCell = UITableViewCell()
     var inStation: RailStation = RailStation()
     var outStation: RailStation = RailStation()
@@ -23,14 +23,14 @@ class RetroViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     var svc: StudentsViewController = StudentsViewController()
     
     @IBAction func cancelButton(_ sender: AnyObject) {
-        self.delegate?.dismissDialog()
+        mvc.dismissDialog()
     }
     
     @IBAction func submitButton(_ sender: AnyObject) {
         
-        if (MainlineViewController.stationsVisited.count > 0 && studentPicker.selectedRow(inComponent: 0) > 0) {
+        if (mvc.stationsVisited.count > 0 && studentPicker.selectedRow(inComponent: 0) > 0) {
             mvc.reconcile(student: studentCell, inLocation: inStation, outLocation: outStation, couple: self.coupled.selectedSegmentIndex)
-            self.delegate?.dismissDialog()
+            mvc.dismissDialog()
         }
         else {
             let myAlert = UIAlertController(title: "Information", message: "Please select values for all three items.", preferredStyle: .alert)
@@ -44,21 +44,21 @@ class RetroViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
             if( row == 0 ){
                 //
             } else {
-                self.studentCell = svc.getSelectedStudents()[row - 1]
+                self.studentCell = svc.getSelectedStudents()[row]
             }
         } else if pickerView == inPicker{
           
-            if( MainlineViewController.stationsVisited.count > 0) {
-                let firstKey = Array(MainlineViewController.stationsVisited.keys)[row]
-                self.inStation = MainlineViewController.stationsVisited[firstKey]!
+            if( mvc.stationsVisited.count > 0) {
+                let firstKey = mvc.stationsVisited.keys[row]
+                self.inStation = mvc.stationsVisited[firstKey]!
             }
             
         }
         else
         {
-           if( MainlineViewController.stationsVisited.count > 0) {
-                let firstKey = Array(MainlineViewController.stationsVisited.keys)[row]
-                self.outStation = MainlineViewController.stationsVisited[firstKey]!
+           if( mvc.stationsVisited.count > 0) {
+                let firstKey = mvc.stationsVisited.keys[row]
+                self.outStation = mvc.stationsVisited[firstKey]!
             }
             
         }
@@ -75,7 +75,7 @@ class RetroViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         }
         else
         {
-            return (MainlineViewController.stationsVisited.count)
+            return (mvc.stationsVisited.count)
         }
     }
     
@@ -83,12 +83,12 @@ class RetroViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         
         
         if pickerView == studentPicker {
-           return row == 0 ? "" : svc.getSelectedStudents()[row - 1].textLabel?.text
+           return row == 0 ? "" : svc.getSelectedStudents()[row].textLabel?.text
         } else {
             
-            if( MainlineViewController.stationsVisited.count > 0) {
-                let firstKey = Array(MainlineViewController.stationsVisited.keys)[row]
-                let tfr = (MainlineViewController.stationsVisited[firstKey]?.station?.station)! + (MainlineViewController.stationsVisited[firstKey]?.course)!
+            if( mvc.stationsVisited.count > 0) {
+                let firstKey = mvc.stationsVisited.keys[row]
+                let tfr = (mvc.stationsVisited[firstKey]?.station?.station)! + (mvc.stationsVisited[firstKey]?.course)!
                 return tfr
             }
             else
