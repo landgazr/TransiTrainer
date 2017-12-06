@@ -325,7 +325,7 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
                             
                             self.stationsVisited[(station.station?.station)!] = station
                             
-                            let formatter = DateComponentsFormatter()
+                            /*let formatter = DateComponentsFormatter()
                             formatter.allowedUnits = [.hour, .minute, .second]
                             formatter.unitsStyle = .positional
                             formatter.zeroFormattingBehavior = .pad
@@ -345,9 +345,9 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
                                 sls = self.selectedStudent.text! + ","
                             }
                             
-                            let rowStr = sls + stn + ttm + "\n"
-                            self.tripArray.append(rowStr)
-                            
+                            //let rowStr = sls + stn + ttm + "\n"
+                            //self.tripArray.append(rowStr)
+                            */
                         }
                         if (self.stationsVisited.count > 20) {
                             self.stationsVisited.dict.popFirst()
@@ -356,7 +356,7 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
                     else
                     {
                         self.stationsVisited[(station.station?.station)!] = station
-                        self.tripArray.append(self.selectedStudent.text! + "," + (station.station?.station)! + ",0:00:00" + "\n")
+                        //self.tripArray.append(self.selectedStudent.text! + "," + (station.station?.station)! + ",0:00:00" + "\n")
                     }
                 }
             }
@@ -453,12 +453,13 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
         locManager.desiredAccuracy = kCLLocationAccuracyBest
         locManager.requestAlwaysAuthorization()
        
-            if (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse ||
+     /*       if (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse ||
             CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways){
             
             NSLog((locManager.location?.coordinate.latitude.description)!)
             NSLog((locManager.location?.coordinate.longitude.description)!)
         }
+        */
         
         locManager.startUpdatingLocation()
         locManager.startUpdatingHeading()
@@ -549,15 +550,110 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
     @IBAction func csvSend(_ sender: Any) {
         var str: String = ""
         var tripStr: String = ""
+        var currentCsvRow: Int = 1
+        let formatter = DateComponentsFormatter()
+        formatter.allowedUnits = [.hour, .minute, .second]
+        formatter.unitsStyle = .positional
+        formatter.zeroFormattingBehavior = .pad
         
+        var record:String = csvArray[currentCsvRow]
+        var recordRow:[String] = record.components(separatedBy: ",")
+        
+        var start = recordRow[2].index(recordRow[2].startIndex, offsetBy: 0)
+        var end = recordRow[2].index(recordRow[2].endIndex, offsetBy: -3)
+        var range = start..<end
+        var inStn:String = recordRow[2][range]
+        
+        var startOut = recordRow[4].index(recordRow[4].startIndex, offsetBy: 0)
+        var endOut = recordRow[4].index(recordRow[4].endIndex, offsetBy: -3)
+        var rangeOut = startOut..<endOut
+        var outStn:String = recordRow[4][rangeOut]
+        
+        
+        var flag: Bool = false
+        var prev:RailStation = RailStation()
+        var loc = ""
+        var ttt = ""
+        var std = ""
+        var cnt = 0
+        
+        stationLoop: while(cnt < stationsVisited.count)
+        {
+            
+            let key = stationsVisited.keys[cnt]
+            let visited:RailStation = stationsVisited[key]!
+            
+            if( !flag )
+            {
+                if( visited.station?.station == inStn )
+                {
+                    flag = true
+                    loc = inStn
+                    prev = visited
+                    std = recordRow[1]
+                }
+            }
+            else
+            {
+                if( visited.station?.station == outStn )
+                {
+                    flag = false
+                    loc = outStn
+                    
+                    //set up for next iteration
+                    currentCsvRow += 1
+                    
+                    if( currentCsvRow < csvArray.count) {
+                    record = csvArray[currentCsvRow]
+                    recordRow = record.components(separatedBy: ",")
+                    
+                    start = recordRow[2].index(recordRow[2].startIndex, offsetBy: 0)
+                    end = recordRow[2].index(recordRow[2].endIndex, offsetBy: -3)
+                    range = start..<end
+                    inStn = recordRow[2][range]
+                    
+                    if( outStn == inStn)
+                    {
+                        cnt -= 1
+                    }
+                    
+                    startOut = recordRow[4].index(recordRow[4].startIndex, offsetBy: 0)
+                    endOut = recordRow[4].index(recordRow[4].endIndex, offsetBy: -3)
+                    rangeOut = startOut..<endOut
+                    outStn = recordRow[4][rangeOut]
+                    }
+                    
+                }
+            }
+            
+            if( prev.station?.station != visited.station?.station) {
+            loc = (visited.station?.station)!
+            ttt = formatter.string(from: (visited.arrivalTime?.timeIntervalSince(prev.arrivalTime!))!)!
+            tripStr = std + "," + loc + "," + ttt + "\n"
+            tripArray.append(tripStr)
+                
+            prev = visited
+            
+            }
+            cnt += 1
+            
+            
+            
+        }
+       
+        NSLog("csvArray:\n")
         for row in csvArray {
             str.append(row)
+            NSLog(row)
         }
         
+        NSLog("tripArray:\n")
         for row in tripArray {
             tripStr.append(row)
+            NSLog(row)
         }
         
+        /*
         let file = "trainingRecord.csv" //this is the file. we will write to and read from it
         let tripFile = "tripLog.csv"
         
@@ -625,7 +721,7 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
         }
         
         avc.svc.writeRoster()
-        
+        */
         }
     
     @IBAction func actionAlertOut(_ sender: Any)
