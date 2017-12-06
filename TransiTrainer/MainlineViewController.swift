@@ -631,29 +631,16 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
             ttt = formatter.string(from: (visited.arrivalTime?.timeIntervalSince(prev.arrivalTime!))!)!
             tripStr = std + "," + loc + "," + ttt + "\n"
             tripArray.append(tripStr)
-                
+            }
             prev = visited
             
-            }
             cnt += 1
             
             
             
         }
-       
-        NSLog("csvArray:\n")
-        for row in csvArray {
-            str.append(row)
-            NSLog(row)
-        }
         
-        NSLog("tripArray:\n")
-        for row in tripArray {
-            tripStr.append(row)
-            NSLog(row)
-        }
         
-        /*
         let file = "trainingRecord.csv" //this is the file. we will write to and read from it
         let tripFile = "tripLog.csv"
         
@@ -721,7 +708,7 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
         }
         
         avc.svc.writeRoster()
-        */
+        
         }
     
     @IBAction func actionAlertOut(_ sender: Any)
