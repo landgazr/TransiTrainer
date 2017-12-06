@@ -44,7 +44,7 @@ class RetroViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
             if( row == 0 ){
                 //
             } else {
-                self.studentCell = svc.getSelectedStudents()[row]
+                self.studentCell = svc.getSelectedStudents()[row - 1]
             }
         } else if pickerView == inPicker{
           
@@ -83,7 +83,15 @@ class RetroViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         
         
         if pickerView == studentPicker {
-           return row == 0 ? "" : svc.getSelectedStudents()[row].textLabel?.text
+            if( row == 0 )
+            {
+                return ""
+            }
+            else
+            {
+                return svc.getSelectedStudents()[row - 1].textLabel?.text
+            }
+            
         } else {
             
             if( mvc.stationsVisited.count > 0) {
