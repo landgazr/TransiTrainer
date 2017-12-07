@@ -577,15 +577,19 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
         var std = ""
         var cnt = 0
         
+        //begin creating trip log from final CSV array
         stationLoop: while(cnt < stationsVisited.count)
         {
-            
+            //get station under consideration
             let key = stationsVisited.keys[cnt]
             let visited:RailStation = stationsVisited[key]!
             
-            if( !flag )
+            /* now var "visited" is one station ahead of var "prev"
+            which in essence simulates next stop on the route */
+            
+            if( !flag ) //if we are not processing a student's visited stations...
             {
-                if( visited.station?.station == inStn )
+                if( visited.station?.station == inStn ) //...start doing so if we are at the student's in-seat location
                 {
                     flag = true
                     loc = inStn
@@ -593,10 +597,11 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
                     std = recordRow[1]
                 }
             }
-            else
+            else //we are already processing a student's visited stations, so...
             {
-                if( visited.station?.station == outStn )
+                if( visited.station?.station == outStn ) //...if we are at the student's out-of-seat location...
                 {
+                    //...get them out
                     flag = false
                     loc = outStn
                     
@@ -604,40 +609,43 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
                     currentCsvRow += 1
                     
                     if( currentCsvRow < csvArray.count) {
-                    record = csvArray[currentCsvRow]
-                    recordRow = record.components(separatedBy: ",")
-                    
-                    start = recordRow[2].index(recordRow[2].startIndex, offsetBy: 0)
-                    end = recordRow[2].index(recordRow[2].endIndex, offsetBy: -3)
-                    range = start..<end
-                    inStn = recordRow[2][range]
-                    
-                    if( outStn == inStn)
-                    {
-                        cnt -= 1
+                        record = csvArray[currentCsvRow]
+                        recordRow = record.components(separatedBy: ",")
+                        
+                        start = recordRow[2].index(recordRow[2].startIndex, offsetBy: 0)
+                        end = recordRow[2].index(recordRow[2].endIndex, offsetBy: -3)
+                        range = start..<end
+                        inStn = recordRow[2][range]
+                        
+                        /* execute if we had two students switch at a single location
+                        so it can be processed again under new student; do it here
+                        so we compare the old student's out-of-seat station to the
+                        new student's in-seat station */
+                        if( outStn == inStn )
+                        {
+                            cnt -= 1
+                        }
+                        
+                        startOut = recordRow[4].index(recordRow[4].startIndex, offsetBy: 0)
+                        endOut = recordRow[4].index(recordRow[4].endIndex, offsetBy: -3)
+                        rangeOut = startOut..<endOut
+                        outStn = recordRow[4][rangeOut]
                     }
-                    
-                    startOut = recordRow[4].index(recordRow[4].startIndex, offsetBy: 0)
-                    endOut = recordRow[4].index(recordRow[4].endIndex, offsetBy: -3)
-                    rangeOut = startOut..<endOut
-                    outStn = recordRow[4][rangeOut]
-                    }
-                    
                 }
             }
             
+            
+            //do not execute if we are at a student's
+            //starting point since they haven't traveled anywhere
             if( prev.station?.station != visited.station?.station) {
-            loc = (visited.station?.station)!
-            ttt = formatter.string(from: (visited.arrivalTime?.timeIntervalSince(prev.arrivalTime!))!)!
-            tripStr = std + "," + loc + "," + ttt + "\n"
-            tripArray.append(tripStr)
+                loc = (visited.station?.station)!
+                ttt = formatter.string(from: (visited.arrivalTime?.timeIntervalSince(prev.arrivalTime!))!)!
+                tripStr = std + "," + loc + "," + ttt + "\n"
+                tripArray.append(tripStr)
             }
+            
             prev = visited
-            
             cnt += 1
-            
-            
-            
         }
         
         
