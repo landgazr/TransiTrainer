@@ -550,6 +550,7 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
     @IBAction func csvSend(_ sender: Any) {
         var str: String = ""
         var tripStr: String = ""
+        
         var currentCsvRow: Int = 1
         let formatter = DateComponentsFormatter()
         formatter.allowedUnits = [.hour, .minute, .second]
@@ -640,13 +641,24 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
             if( prev.station?.station != visited.station?.station) {
                 loc = (visited.station?.station)!
                 ttt = formatter.string(from: (visited.arrivalTime?.timeIntervalSince(prev.arrivalTime!))!)!
-                tripStr = std + "," + loc + "," + ttt + "\n"
-                tripArray.append(tripStr)
+                let str = std + "," + loc + "," + ttt + "\n"
+                tripArray.append(str)
             }
             
             prev = visited
             cnt += 1
         }
+        
+        for csv in csvArray {
+            str.append(csv)
+        }
+        
+        for trip in tripArray {
+            tripStr.append(trip)
+        }
+        
+        NSLog(str)
+        NSLog(tripStr)
         
         
         let file = "trainingRecord.csv" //this is the file. we will write to and read from it
