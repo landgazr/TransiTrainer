@@ -271,9 +271,9 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
         if( result == MFMailComposeResult.sent )
         {
             csvArray.removeAll()
-            csvArray.append("date,student,inlocation,intime,outlocation,outtime,totaltime,coupling\n")
+            csvArray.append("date,student,inlocation,intime,outlocation,outtime,timeinseat,coupling\n")
             tripArray.removeAll()
-            tripArray.append("student,station,traveltimeto\n")
+            tripArray.append("student,station,totaltimeto\n")
         }
         controller.dismiss(animated: true, completion: nil)
         
@@ -473,8 +473,8 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
         dateFormatter.dateFormat = "MM-dd-yyyy"
         self.todaysDate = dateFormatter.string(from: date)
         
-        csvArray.append("date,student,inlocation,intime,outlocation,outtime,totaltime,coupling\n")
-        tripArray.append("student,station,traveltimeto\n")
+        csvArray.append("date,student,inlocation,intime,outlocation,outtime,timeinseat,coupling\n")
+        tripArray.append("student,station,totaltimeto\n")
 
         
         self.view.backgroundColor = getBackgroundColor(hour: hour)
