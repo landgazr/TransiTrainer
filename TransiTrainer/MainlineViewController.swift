@@ -568,9 +568,9 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
         var endOut = recordRow[4].index(recordRow[4].endIndex, offsetBy: -3)
         var rangeOut = startOut..<endOut
         var outStn:String = recordRow[4][rangeOut]
-        var newStudent = recordRow[1]
         
         var flag: Bool = false
+        var switchAtStation: Bool!
         var prev:RailStation = RailStation()
         var loc = ""
         var ttt = ""
@@ -583,7 +583,8 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
             //get station under consideration
             let key = stationsVisited.keys[cnt]
             let visited:RailStation = stationsVisited[key]!
-            
+         
+            switchAtStation = false
             /* now var "visited" is one station ahead of var "prev"
             which in essence simulates next stop on the route */
             
@@ -594,7 +595,7 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
                     flag = true
                     loc = inStn
                     prev = visited
-                    std = newStudent
+                    std = recordRow[1]
                 }
             }
             else //we are already processing a student's visited stations, so...
@@ -619,7 +620,13 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
                         range = start..<end
                         inStn = recordRow[2][range]
                         
-                        newStudent = recordRow[1]
+                        //if new inStation is the same as old outStation
+                        //then "stay" at this station
+                        if( outStn == inStn )
+                        {
+                            switchAtStation = true
+                        }
+                        
                         
                         startOut = recordRow[4].index(recordRow[4].startIndex, offsetBy: 0)
                         endOut = recordRow[4].index(recordRow[4].endIndex, offsetBy: -3)
@@ -639,8 +646,16 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
                 tripArray.append(str)
             }
             
-            prev = visited
-            cnt += 1
+            
+            if( switchAtStation )
+            {
+                continue
+            }
+            else
+            {
+                prev = visited
+                cnt += 1
+            }
         }
         
         for csv in csvArray {
