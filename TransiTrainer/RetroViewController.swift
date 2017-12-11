@@ -14,9 +14,12 @@ class RetroViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     @IBOutlet weak var inPicker: UIPickerView!
     @IBOutlet weak var outPicker: UIPickerView!
     @IBOutlet weak var coupled: UISegmentedControl!
+    var stdArr: [String] = []
+    var inArr: [String] = []
+    var outArr: [String] = []
     
     //var delegate: MainlineViewController?
-    var studentCell: UITableViewCell = UITableViewCell()
+    var studentCell: String!
     var inStation: RailStation = RailStation()
     var outStation: RailStation = RailStation()
     var mvc: MainlineViewController = MainlineViewController()
@@ -28,7 +31,7 @@ class RetroViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     
     @IBAction func submitButton(_ sender: AnyObject) {
         
-        if (mvc.stationsVisited.count > 0 && studentPicker.selectedRow(inComponent: 0) > 0) {
+        if (mvc.stationsVisited.count > 0) {
             mvc.reconcile(student: studentCell, inLocation: inStation, outLocation: outStation, couple: self.coupled.selectedSegmentIndex)
             mvc.dismissDialog()
         }
@@ -41,15 +44,14 @@ class RetroViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if pickerView == studentPicker {
-            if( row == 0 ){
-                //
-            } else {
-                self.studentCell = svc.getSelectedStudents()[row - 1]
-            }
+           
+          
+                self.studentCell = stdArr[row]
+           
         } else if pickerView == inPicker{
           
             if( mvc.stationsVisited.count > 0) {
-                let firstKey = mvc.stationsVisited.keys[row]
+                let firstKey = inArr[row]
                 self.inStation = mvc.stationsVisited[firstKey]!
             }
             
@@ -57,7 +59,7 @@ class RetroViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         else
         {
            if( mvc.stationsVisited.count > 0) {
-                let firstKey = mvc.stationsVisited.keys[row]
+                let firstKey = outArr[row]
                 self.outStation = mvc.stationsVisited[firstKey]!
             }
             
@@ -71,11 +73,15 @@ class RetroViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         if pickerView == studentPicker {
-            return svc.getSelectedStudents().count + 1
+            return stdArr.count
+        }
+        else if pickerView == inPicker
+        {
+            return inArr.count
         }
         else
         {
-            return (mvc.stationsVisited.count)
+            return outArr.count
         }
     }
     
@@ -83,28 +89,54 @@ class RetroViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         
         
         if pickerView == studentPicker {
-            if( row == 0 )
+            
+            if( stdArr.count == 0 )
             {
                 return ""
             }
             else
             {
-                return svc.getSelectedStudents()[row - 1].textLabel?.text
+                return self.stdArr[row]
             }
+        }
             
-        } else {
+         else if pickerView == inPicker {
             
-            if( mvc.stationsVisited.count > 0) {
-                let firstKey = mvc.stationsVisited.keys[row]
-                let tfr = (mvc.stationsVisited[firstKey]?.station?.station)! + (mvc.stationsVisited[firstKey]?.course)!
-                return tfr
-            }
-            else
+            if( inArr.count == 0 )
             {
                 return ""
             }
+            else
+            {
+                return inArr[row]
+            }
             
+        }
+        if( outArr.count == 0 )
+        {
+            return ""
+        }
+        else
+        {
+            return outArr[row]
+        }
+    }
             
+
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.stdArr = []
+        self.inArr = []
+        self.outArr = []
+        for stn in mvc.stationsVisited {
+            self.inArr.append((stn.station?.station)!)
+            self.outArr.append((stn.station?.station)!)
+        }
+        for std in svc.getSelectedStudents() {
+            self.stdArr.append((std.textLabel?.text)!)
+        }
+        if stdArr.count > 0 {
+            self.studentCell = stdArr[0]
         }
     }
     

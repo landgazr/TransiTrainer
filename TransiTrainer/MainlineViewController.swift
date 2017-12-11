@@ -127,7 +127,7 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
     }
 
 
-    func reconcile(student: UITableViewCell, inLocation: RailStation, outLocation: RailStation, couple: Int) {
+    func reconcile(student: String, inLocation: RailStation, outLocation: RailStation, couple: Int) {
         if( self.selectedStudent.text != "None" ) {
             
             self.selectedStudent.text = "None"
@@ -189,7 +189,6 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
         //MainlineViewController.stationsVisited.dict.removeValue(forKey: (inLocation.station?.station)!)
         //MainlineViewController.stationsVisited.dict.removeValue(forKey: (outLocation.station?.station)!)
         
-        let s: String = (student.textLabel?.text)!
         let ils: String = (locationIn.station?.station)! + locationIn.course
         //let pts: String = formatter.string(from: self.previousTime!).replacingOccurrences(of: ",", with: "")
         let ols: String = (locationOut.station?.station)! + locationOut.course
@@ -205,7 +204,7 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
         
         let fmtr: DateFormatter = DateFormatter()
         fmtr.dateFormat = "HH:mm"
-        let str: String = self.todaysDate + "," + s + "," + ils + "," + fmtr.string(from: inLocation.arrivalTime!) + "," + ols + "," + fmtr.string(from: outLocation.arrivalTime!) + "," + ttm + "," + cpl + "\n"
+        let str: String = self.todaysDate + "," + student + "," + ils + "," + fmtr.string(from: inLocation.arrivalTime!) + "," + ols + "," + fmtr.string(from: outLocation.arrivalTime!) + "," + ttm + "," + cpl + "\n"
         self.csvArray.append(str)
         self.previousCourse = outLocation.course
         self.previousStop = (outLocation.station?.station)!
@@ -508,7 +507,7 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
             railStopsLL.append(rs.latlon)
         }
         
-        var timer = Timer.scheduledTimer(timeInterval: 9, target: self, selector: #selector(MainlineViewController.getCurrentStation), userInfo: nil, repeats: true)
+        var timer = Timer.scheduledTimer(timeInterval: 9, target: self, selector: #selector(self.getCurrentStation), userInfo: nil, repeats: true)
         
         let rvc = RetroViewController()
         rvc.loadViewIfNeeded()
@@ -569,7 +568,7 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
         var endOut = recordRow[4].index(recordRow[4].endIndex, offsetBy: -3)
         var rangeOut = startOut..<endOut
         var outStn:String = recordRow[4][rangeOut]
-        
+        var newStudent = recordRow[1]
         
         var flag: Bool = false
         var prev:RailStation = RailStation()
@@ -595,7 +594,7 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
                     flag = true
                     loc = inStn
                     prev = visited
-                    std = recordRow[1]
+                    std = newStudent
                 }
             }
             else //we are already processing a student's visited stations, so...
@@ -609,6 +608,8 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
                     //set up for next iteration
                     currentCsvRow += 1
                     
+                    
+                    
                     if( currentCsvRow < csvArray.count) {
                         record = csvArray[currentCsvRow]
                         recordRow = record.components(separatedBy: ",")
@@ -618,14 +619,7 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
                         range = start..<end
                         inStn = recordRow[2][range]
                         
-                        /* execute if we had two students switch at a single location
-                        so it can be processed again under new student; do it here
-                        so we compare the old student's out-of-seat station to the
-                        new student's in-seat station */
-                        if( outStn == inStn )
-                        {
-                            cnt -= 1
-                        }
+                        newStudent = recordRow[1]
                         
                         startOut = recordRow[4].index(recordRow[4].startIndex, offsetBy: 0)
                         endOut = recordRow[4].index(recordRow[4].endIndex, offsetBy: -3)
