@@ -18,7 +18,7 @@ class AddingViewController: UIViewController {
     
     var numberToolbar: UIToolbar = UIToolbar()
     
-    func done () {
+    @objc func done () {
     badge.resignFirstResponder()
     }
     
@@ -26,7 +26,7 @@ class AddingViewController: UIViewController {
         super.viewDidLoad()
 
         numberToolbar.items=[
-            UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.bordered, target: self, action: "done")
+            UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.bordered, target: self, action: #selector(AddingViewController.done))
             
         ]
         

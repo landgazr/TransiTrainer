@@ -289,7 +289,7 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
     
     
     
-    func getCurrentStation() {
+    @objc func getCurrentStation() {
         var stopCoords: CLLocation = CLLocation()
         var course: String = ""
         
@@ -562,12 +562,12 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
         var start = recordRow[2].index(recordRow[2].startIndex, offsetBy: 0)
         var end = recordRow[2].index(recordRow[2].endIndex, offsetBy: -3)
         var range = start..<end
-        var inStn:String = recordRow[2][range]
+        var inStn:String = String(recordRow[2][range])
         
         var startOut = recordRow[4].index(recordRow[4].startIndex, offsetBy: 0)
         var endOut = recordRow[4].index(recordRow[4].endIndex, offsetBy: -3)
         var rangeOut = startOut..<endOut
-        var outStn:String = recordRow[4][rangeOut]
+        var outStn:String = String(recordRow[4][rangeOut])
         
         var flag: Bool = false
         var switchAtStation: Bool!
@@ -618,7 +618,7 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
                         start = recordRow[2].index(recordRow[2].startIndex, offsetBy: 0)
                         end = recordRow[2].index(recordRow[2].endIndex, offsetBy: -3)
                         range = start..<end
-                        inStn = recordRow[2][range]
+                        inStn = String(recordRow[2][range])
                         
                         //if new inStation is the same as old outStation
                         //then "stay" at this station
@@ -631,7 +631,7 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
                         startOut = recordRow[4].index(recordRow[4].startIndex, offsetBy: 0)
                         endOut = recordRow[4].index(recordRow[4].endIndex, offsetBy: -3)
                         rangeOut = startOut..<endOut
-                        outStn = recordRow[4][rangeOut]
+                        outStn = String(recordRow[4][rangeOut])
                     }
                 }
             }
