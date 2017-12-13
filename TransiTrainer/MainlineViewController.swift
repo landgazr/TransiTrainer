@@ -182,10 +182,15 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
         {
             cpl = "none"
         }
+        let fmtr: DateFormatter = DateFormatter()
+        fmtr.dateFormat = "HH:mm"
         
-      
-        let locationIn: RailStation =  self.stationsVisited[(inLocation.station?.station)!]!
-        let locationOut: RailStation = self.stationsVisited[(outLocation.station?.station)!]!
+        let inKey = (inLocation.station?.station)! + "@" + fmtr.string(from: inLocation.arrivalTime!)
+        let outKey = (outLocation.station?.station)! + "@" + fmtr.string(from: outLocation.arrivalTime!)
+        
+        let locationIn: RailStation =  self.stationsVisited[inKey]!
+        let locationOut: RailStation = self.stationsVisited[outKey]!
+        
         //MainlineViewController.stationsVisited.dict.removeValue(forKey: (inLocation.station?.station)!)
         //MainlineViewController.stationsVisited.dict.removeValue(forKey: (outLocation.station?.station)!)
         
@@ -202,8 +207,6 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
         
         let ttm = formatter.string(from: (outLocation.arrivalTime?.timeIntervalSince(inLocation.arrivalTime!))!)!
         
-        let fmtr: DateFormatter = DateFormatter()
-        fmtr.dateFormat = "HH:mm"
         let str: String = self.todaysDate + "," + student + "," + ils + "," + fmtr.string(from: inLocation.arrivalTime!) + "," + ols + "," + fmtr.string(from: outLocation.arrivalTime!) + "," + ttm + "," + cpl + "\n"
         self.csvArray.append(str)
         self.previousCourse = outLocation.course
@@ -293,9 +296,8 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
         var stopCoords: CLLocation = CLLocation()
         var course: String = ""
         
-        let fmtr = DateFormatter()
-        fmtr.dateStyle = .none
-        fmtr.timeStyle = .short
+        let fmtr: DateFormatter = DateFormatter()
+        fmtr.dateFormat = "HH:mm"
         
         
         if (railStops.count > 0) {

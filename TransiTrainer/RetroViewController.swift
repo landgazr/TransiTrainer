@@ -45,9 +45,10 @@ class RetroViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if pickerView == studentPicker {
            
-          
+            if (svc.getSelectedStudents().count > 0)
+            {
                 self.studentCell = stdArr[row]
-           
+            }
         } else if pickerView == inPicker{
           
             if( mvc.stationsVisited.count > 0) {
@@ -131,9 +132,13 @@ class RetroViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         self.stdArr = []
         self.inArr = []
         self.outArr = []
+        let fmtr = DateFormatter()
+        fmtr.dateFormat = "HH:mm"
+        
         for stn in mvc.stationsVisited {
-            self.inArr.append((stn.station?.station)!)
-            self.outArr.append((stn.station?.station)!)
+            let key = (stn.station?.station)! + "@" + fmtr.string(from: stn.arrivalTime!)
+            self.inArr.append(key)
+            self.outArr.append(key)
         }
         for std in svc.getSelectedStudents() {
             self.stdArr.append((std.textLabel?.text)!)
