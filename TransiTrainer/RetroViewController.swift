@@ -20,8 +20,8 @@ class RetroViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     
     //var delegate: MainlineViewController?
     var studentCell: String!
-    var inStation: RailStation = RailStation()
-    var outStation: RailStation = RailStation()
+    var inStation: RailStation!
+    var outStation: RailStation!
     var mvc: MainlineViewController = MainlineViewController()
     var svc: StudentsViewController = StudentsViewController()
     
@@ -136,9 +136,11 @@ class RetroViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         fmtr.dateFormat = "HH:mm"
         
         for stn in mvc.stationsVisited {
+           
             let key = (stn.station?.station)! + "@" + fmtr.string(from: stn.arrivalTime!)
             self.inArr.append(key)
             self.outArr.append(key)
+            
         }
         for std in svc.getSelectedStudents() {
             self.stdArr.append((std.textLabel?.text)!)
