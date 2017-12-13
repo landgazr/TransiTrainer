@@ -363,10 +363,12 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
                     }
                     else
                     {
+                        if( station.station?.station != "" ) {
                         let key = (station.station?.station)! + "@" + fmtr.string(from: station.arrivalTime!)
                         
                         self.stationsVisited[key] = station
                         //self.tripArray.append(self.selectedStudent.text! + "," + (station.station?.station)! + ",0:00:00" + "\n")
+                        }
                     }
                 }
             }
