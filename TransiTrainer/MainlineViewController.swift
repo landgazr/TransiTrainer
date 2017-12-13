@@ -293,6 +293,11 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
         var stopCoords: CLLocation = CLLocation()
         var course: String = ""
         
+        let fmtr = DateFormatter()
+        fmtr.dateStyle = .none
+        fmtr.timeStyle = .short
+        
+        
         if (railStops.count > 0) {
             locManager.requestWhenInUseAuthorization()
             if (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse ||
@@ -319,10 +324,12 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
                         let previousStationKey = self.stationsVisited.keys[self.stationsVisited.count - 1]
                         let previousStationVal: RailStation = self.stationsVisited[previousStationKey]!
                         
-                        if( previousStationKey != station.station?.station)
+                        //if we are not lingering at the same station...
+                        if( previousStationVal.station?.station != station.station?.station)
                         {
                             
-                            self.stationsVisited[(station.station?.station)!] = station
+                            let key = (station.station?.station)! + "@" + fmtr.string(from: station.arrivalTime!)
+                            self.stationsVisited[key] = station
                             
                             /*let formatter = DateComponentsFormatter()
                             formatter.allowedUnits = [.hour, .minute, .second]
@@ -354,7 +361,9 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
                     }
                     else
                     {
-                        self.stationsVisited[(station.station?.station)!] = station
+                        let key = (station.station?.station)! + "@" + fmtr.string(from: station.arrivalTime!)
+                        
+                        self.stationsVisited[key] = station
                         //self.tripArray.append(self.selectedStudent.text! + "," + (station.station?.station)! + ",0:00:00" + "\n")
                     }
                 }
@@ -736,7 +745,7 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
             //catch {/* error handling here */}
         }
         
-        avc.svc.writeRoster()
+        //avc.svc.writeRoster()
         
         }
     

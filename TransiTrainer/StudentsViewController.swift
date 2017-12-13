@@ -146,6 +146,7 @@ class StudentsViewController: UITableViewController {
         }
     }
     
+    /*
     func writeRoster() {
         
         let file = "roster.csv" //this is the file. we will write to and read from it
@@ -177,7 +178,7 @@ class StudentsViewController: UITableViewController {
         } catch {}
             
             
-    }
+    }*/
 
 
     @IBAction func removeSelectedCells(_ sender: Any) {
@@ -310,6 +311,7 @@ class StudentsViewController: UITableViewController {
         
         self.tableView.backgroundColor = getBackgroundColor(hour: hour)
         
+        /*
         let file = "roster.csv" //this is the file. we will write to and read from it
         
          do {
@@ -340,7 +342,7 @@ class StudentsViewController: UITableViewController {
                     
                 }
             } catch {/* error handling here */}
-            
+           */
     }
     
         
