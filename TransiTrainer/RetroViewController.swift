@@ -202,7 +202,8 @@ class RetroViewController: UIViewController, UITableViewDataSource, UITableViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        inBar.returnKeyType = .done
+        outBar.returnKeyType = .done
     }
     
     override func viewDidAppear(_ animated: Bool) {
