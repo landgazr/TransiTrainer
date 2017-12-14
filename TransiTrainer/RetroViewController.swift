@@ -8,12 +8,22 @@
 
 import UIKit
 
-class RetroViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource  {
+class RetroViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UIPickerViewDelegate, UIPickerViewDataSource  {
+    
+    
 
     @IBOutlet weak var studentPicker: UIPickerView!
-    @IBOutlet weak var inPicker: UIPickerView!
-    @IBOutlet weak var outPicker: UIPickerView!
+    @IBOutlet weak var inBar: UISearchBar!
+    @IBOutlet weak var inTable: UITableView!
+    
+    @IBOutlet weak var outBar: UISearchBar!
+    @IBOutlet weak var outTable: UITableView!
     @IBOutlet weak var coupled: UISegmentedControl!
+    
+    
+    var inFilter:[String] = []
+    var outFilter:[String] = []
+    
     var stdArr: [String] = []
     var inArr: [String] = []
     var outArr: [String] = []
@@ -24,16 +34,41 @@ class RetroViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     var outStation: RailStation!
     var mvc: MainlineViewController = MainlineViewController()
     var svc: StudentsViewController = StudentsViewController()
+    var isSearch:Bool = false
     
-    @IBAction func cancelButton(_ sender: AnyObject) {
-        mvc.dismissDialog()
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        // This method is triggered whenever the user makes a change to the picker selection.
+        // The parameter named row and component represents what was selected.
+        if (svc.getSelectedStudents().count > 0) {
+            self.studentCell = stdArr[row]
+        }
     }
     
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return stdArr.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        if( stdArr.count == 0) {
+            return ""
+        }
+        else
+        {
+            return self.stdArr[row]
+        }
+    }
+    
+   
     @IBAction func submitButton(_ sender: AnyObject) {
         
         if (mvc.stationsVisited.count > 0) {
             mvc.reconcile(student: studentCell, inLocation: inStation, outLocation: outStation, couple: self.coupled.selectedSegmentIndex)
-            mvc.dismissDialog()
+            self.performSegue(withIdentifier: "TabBarSegue", sender: nil)
         }
         else {
             let myAlert = UIAlertController(title: "Information", message: "Please select values for all three items.", preferredStyle: .alert)
@@ -42,93 +77,135 @@ class RetroViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         }
     }
     
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if pickerView == studentPicker {
-           
-            if (svc.getSelectedStudents().count > 0)
-            {
-                self.studentCell = stdArr[row]
-            }
-        } else if pickerView == inPicker{
-          
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt: IndexPath) {
+        if( tableView == inTable ) {
             if( mvc.stationsVisited.count > 0) {
-                let firstKey = inArr[row]
+                let firstKey = inArr[didSelectRowAt.row]
                 self.inStation = mvc.stationsVisited[firstKey]!
             }
-            
         }
-        else
-        {
-           if( mvc.stationsVisited.count > 0) {
-                let firstKey = outArr[row]
+        else {
+            if( mvc.stationsVisited.count > 0) {
+                let firstKey = outArr[didSelectRowAt.row]
                 self.outStation = mvc.stationsVisited[firstKey]!
             }
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if(isSearch) {
+            if( tableView == inTable) {
+                return inFilter.count }
+            else {
+                return outFilter.count }
+        }
+        else {
+            if( tableView == inTable) {
+                return inArr.count }
+            else {
+                return outArr.count }
+        }
+    }
+    
+    
+    
+    func configureCell(tv: UITableView, cell: UITableViewCell, forRowAtIndexPath: NSIndexPath) {
+        if(isSearch){
+            if( tv == inTable) {
+                cell.textLabel?.text = inFilter[forRowAtIndexPath.row] }
+            else {
+                cell.textLabel?.text = outFilter[forRowAtIndexPath.row] }
             
+            
+        } else {
+            if( tv == inTable) {
+                cell.textLabel?.text = inArr[forRowAtIndexPath.row] }
+            else {
+                cell.textLabel?.text = outArr[forRowAtIndexPath.row] }
         }
-        
     }
     
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-       return 1
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if pickerView == studentPicker {
-            return stdArr.count
-        }
-        else if pickerView == inPicker
+   
+   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if( tableView == inTable)
         {
-            return inArr.count
+            let cell = tableView.dequeueReusableCell(withIdentifier: "inCell1", for: indexPath)
+            configureCell(tv: tableView, cell: cell, forRowAtIndexPath: indexPath as NSIndexPath)
+            return cell
         }
         else
         {
-            return outArr.count
+            let cell = tableView.dequeueReusableCell(withIdentifier: "outCell1", for: indexPath)
+            configureCell(tv: tableView, cell: cell, forRowAtIndexPath: indexPath as NSIndexPath)
+            return cell
         }
+        
     }
     
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        isSearch = true;
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+        isSearch = false;
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+        isSearch = false;
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+        isSearch = false;
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
-        
-        if pickerView == studentPicker {
+        if searchText.characters.count == 0 {
+            isSearch = false;
+            self.inTable.reloadData()
+            self.outTable.reloadData()
+        } else {
             
-            if( stdArr.count == 0 )
-            {
-                return ""
-            }
-            else
-            {
-                return self.stdArr[row]
-            }
-        }
+            if( searchBar == inBar ) {
+            inFilter = inArr.filter({ (text) -> Bool in
+                let tmp: NSString = text as NSString
+                let range = tmp.range(of: searchText, options: NSString.CompareOptions.caseInsensitive)
+                return range.location != NSNotFound
+            }) }
+                else {
+                outFilter = outArr.filter({ (text) -> Bool in
+                    let tmp: NSString = text as NSString
+                    let range = tmp.range(of: searchText, options: NSString.CompareOptions.caseInsensitive)
+                    return range.location != NSNotFound
+                })}
             
-         else if pickerView == inPicker {
-            
-            if( inArr.count == 0 )
-            {
-                return ""
-            }
-            else
-            {
-                return inArr[row]
+            if(inFilter.count == 0 || outFilter.count == 0){
+                isSearch = false;
+            } else {
+                isSearch = true;
             }
             
-        }
-        else
-        {
-            if( outArr.count == 0 )
-            {
-                return ""
-            }
-            else
-            {
-                return outArr[row]
-            }
+            self.inTable.reloadData()
+            self.outTable.reloadData()
         }
     }
-            
+
 
     
-    override func viewWillAppear(_ animated: Bool) {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
         self.stdArr = []
         self.inArr = []
         self.outArr = []
@@ -136,7 +213,7 @@ class RetroViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         fmtr.dateFormat = "HH:mm"
         
         for stn in mvc.stationsVisited {
-           
+            
             let key = (stn.station?.station)! + "@" + fmtr.string(from: stn.arrivalTime!)
             self.inArr.append(key)
             self.outArr.append(key)
@@ -148,10 +225,11 @@ class RetroViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         if stdArr.count > 0 {
             self.studentCell = stdArr[0]
         }
+        studentPicker.reloadAllComponents()
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewWillAppear(_ animated: Bool) {
+        
 
         if let viewControllers = UIApplication.shared.keyWindow?.rootViewController?.childViewControllers {
             for viewController in viewControllers {
@@ -164,14 +242,8 @@ class RetroViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
             }
             
         }
-        self.inPicker.delegate = self
-        self.outPicker.delegate = self
-        self.studentPicker.delegate = self
-        self.inPicker.dataSource = self
-        self.outPicker.dataSource = self
-        self.studentPicker.dataSource = self
         
-        // Do any additional setup after loading the view.
+        
     }
 
     override func didReceiveMemoryWarning() {

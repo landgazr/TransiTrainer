@@ -67,6 +67,7 @@ struct Queue<T> {
 
 class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMailComposeViewControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
 
+    
     var locManager = CLLocationManager()
     var avc: AddingViewController = AddingViewController()
     var ss = [UITableViewCell]()
@@ -282,9 +283,9 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
         
     }
     
-    @IBAction func addRetroactiveStudent() {
-        self.showDialog(LSAnimationPattern.fadeInOut)
-    }
+    //@IBAction func addRetroactiveStudent() {
+    //    self.showDialog(LSAnimationPattern.fadeInOut)
+    //}
     
     @IBAction func showCurrentMap() {
         self.showMap(LSAnimationPattern.fadeInOut)
@@ -357,18 +358,14 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
                             //self.tripArray.append(rowStr)
                             */
                         }
-                        if (self.stationsVisited.count > 20) {
-                            self.stationsVisited.dict.popFirst()
-                        }
                     }
                     else
                     {
-                        if( station.station?.station != "" ) {
                         let key = (station.station?.station)! + "@" + fmtr.string(from: station.arrivalTime!)
                         
                         self.stationsVisited[key] = station
                         //self.tripArray.append(self.selectedStudent.text! + "," + (station.station?.station)! + ",0:00:00" + "\n")
-                        }
+                        
                     }
                 }
             }
@@ -520,10 +517,9 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
             railStopsLL.append(rs.latlon)
         }
         
-        var timer = Timer.scheduledTimer(timeInterval: 9, target: self, selector: #selector(self.getCurrentStation), userInfo: nil, repeats: true)
+        var timer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(self.getCurrentStation), userInfo: nil, repeats: true)
         
-        let rvc = RetroViewController()
-        rvc.loadViewIfNeeded()
+       
 
     }
     
@@ -826,7 +822,7 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
 
         self.coupled.selectedSegmentIndex = 1
     
-    }
+}
   
     @IBAction func setTrainer(_ sender: Any)
     {
@@ -857,6 +853,8 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
         
     }
     
+    /*
+
     @IBAction func tapButtonFadeInFadeOut(_ sender: AnyObject) {
         self.showDialog(.fadeInOut)
     }
@@ -899,9 +897,10 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
     }
 
     fileprivate func showDialog(_ animationPattern: LSAnimationPattern) {
-        let dialogViewController = RetroViewController(nibName: "RetroViewController", bundle: nil)
+        let dialogViewController = rvc
         self.presentDialogViewController(dialogViewController, animationPattern: animationPattern)
-    }
+    }*/
+ 
     
     fileprivate func showMap(_ animationPattern: LSAnimationPattern) {
         let mapViewController = MapViewController(nibName: "MapViewController", bundle: nil)
@@ -984,5 +983,7 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
             myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: nil));
             show(myAlert, sender: self)        }
 
-        }}
+}
+}
+
 
