@@ -178,8 +178,12 @@ class RetroViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         if searchText.characters.count == 0 {
             isSearch = false;
-            self.inTable.reloadData()
+            if( searchBar == inBar) {
+                self.inTable.reloadData()
+            }
+            else {
             self.outTable.reloadData()
+            }
         } else {
             
             if( searchBar == inBar ) {
@@ -195,8 +199,12 @@ class RetroViewController: UIViewController, UITableViewDataSource, UITableViewD
                 isSearch = true;
             }
             
-            self.inTable.reloadData()
+            if( searchBar == inBar ) {
+                self.inTable.reloadData()
+            }
+            else {
             self.outTable.reloadData()
+            }
         }
     }
 
@@ -216,9 +224,9 @@ class RetroViewController: UIViewController, UITableViewDataSource, UITableViewD
         let fmtr = DateFormatter()
         fmtr.dateFormat = "HH:mm"
         
-        for stn in mvc.stationsVisited {
+        for key in mvc.stationsVisited.keys {
             
-            let key = (stn.station?.station)! + "@" + fmtr.string(from: stn.arrivalTime!)
+            let stn = mvc.stationsVisited[key]
             self.inArr.append(key)
             self.outArr.append(key)
             
@@ -245,6 +253,7 @@ class RetroViewController: UIViewController, UITableViewDataSource, UITableViewD
         if( inSelected != nil) {
         for indexPath in inSelected! {
             inTable.deselectRow(at: indexPath, animated: true)
+            
         }
         }
         
@@ -253,6 +262,8 @@ class RetroViewController: UIViewController, UITableViewDataSource, UITableViewD
             outTable.deselectRow(at: indexPath, animated: true)
         }
         }
+        self.inTable.reloadData()
+        self.outTable.reloadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -265,7 +276,6 @@ class RetroViewController: UIViewController, UITableViewDataSource, UITableViewD
                 }
                 else if (viewController is MainlineViewController) {
                     mvc = viewController as! MainlineViewController
-                    mvc.modalPresentationStyle = .none
                 }
             }
             
