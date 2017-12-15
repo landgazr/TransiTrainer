@@ -19,7 +19,7 @@ class RetroViewController: UIViewController, UITableViewDataSource, UITableViewD
     @IBOutlet weak var outBar: UISearchBar!
     @IBOutlet weak var outTable: UITableView!
     @IBOutlet weak var coupled: UISegmentedControl!
-    
+    @IBOutlet weak var submitButton: UIButton!
     
     var inFilter:[String] = []
     var outFilter:[String] = []
@@ -40,6 +40,7 @@ class RetroViewController: UIViewController, UITableViewDataSource, UITableViewD
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         // This method is triggered whenever the user makes a change to the picker selection.
         // The parameter named row and component represents what was selected.
+        
         if (svc.getSelectedStudents().count > 0) {
             self.studentCell = stdArr[row]
         }
@@ -63,12 +64,20 @@ class RetroViewController: UIViewController, UITableViewDataSource, UITableViewD
         }
     }
     
+    @IBAction func submitDisable(_ sender: UIButton) {
+        
+        sender.alpha = 0.4
+        sender.isEnabled = false
+        
+    }
+    
    
-    @IBAction func submitButton(_ sender: AnyObject) {
+    @IBAction func submitButton(_ sender: UIButton) {
         
         if (mvc.stationsVisited.count > 0) {
             mvc.reconcile(student: studentCell, inLocation: inStation, outLocation: outStation, couple: self.coupled.selectedSegmentIndex)
-            self.performSegue(withIdentifier: "TabBarSegue", sender: nil)
+           
+            
         }
         else {
             let myAlert = UIAlertController(title: "Information", message: "Please select values for all three items.", preferredStyle: .alert)
@@ -174,19 +183,13 @@ class RetroViewController: UIViewController, UITableViewDataSource, UITableViewD
         } else {
             
             if( searchBar == inBar ) {
-            inFilter = inArr.filter({ (text) -> Bool in
-                let tmp: NSString = text as NSString
-                let range = tmp.range(of: searchText, options: NSString.CompareOptions.caseInsensitive)
-                return range.location != NSNotFound
-            }) }
-                else {
-                outFilter = outArr.filter({ (text) -> Bool in
-                    let tmp: NSString = text as NSString
-                    let range = tmp.range(of: searchText, options: NSString.CompareOptions.caseInsensitive)
-                    return range.location != NSNotFound
-                })}
+                inFilter = inArr.filter({ $0.contains(searchText) })
+            }
+            else {
+                outFilter = outArr.filter({ $0.contains(searchText) })
+            }
             
-            if(inFilter.count == 0 || outFilter.count == 0){
+            if(inFilter.count == 0 && outFilter.count == 0){
                 isSearch = false;
             } else {
                 isSearch = true;
@@ -227,6 +230,10 @@ class RetroViewController: UIViewController, UITableViewDataSource, UITableViewD
             self.studentCell = stdArr[0]
         }
         studentPicker.reloadAllComponents()
+        submitButton.isEnabled = true
+        submitButton.isUserInteractionEnabled = true
+        submitButton.setTitle("Submitted", for: UIControlState.disabled)
+        submitButton.alpha = 1.0
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -239,6 +246,7 @@ class RetroViewController: UIViewController, UITableViewDataSource, UITableViewD
                 }
                 else if (viewController is MainlineViewController) {
                     mvc = viewController as! MainlineViewController
+                    mvc.modalPresentationStyle = .none
                 }
             }
             
