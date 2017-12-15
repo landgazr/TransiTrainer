@@ -125,16 +125,24 @@ class RetroViewController: UIViewController, UITableViewDataSource, UITableViewD
     func configureCell(tv: UITableView, cell: UITableViewCell, forRowAtIndexPath: NSIndexPath) {
         if(isSearch){
             if( tv == inTable) {
+                if( inFilter.count > 0) {
                 cell.textLabel?.text = inFilter[forRowAtIndexPath.row] }
+            }
             else {
+                if( outFilter.count > 0) {
                 cell.textLabel?.text = outFilter[forRowAtIndexPath.row] }
+            }
             
             
         } else {
             if( tv == inTable) {
+                if( inArr.count > 0) {
                 cell.textLabel?.text = inArr[forRowAtIndexPath.row] }
+            }
             else {
+                if( outArr.count > 0) {
                 cell.textLabel?.text = outArr[forRowAtIndexPath.row] }
+            }
         }
     }
     
@@ -161,12 +169,16 @@ class RetroViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
+        if( inBar.text?.characters.count == 0 && inBar.text?.characters.count == 0) {
         isSearch = false;
+        }
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
-        isSearch = false;
+        if( inBar.text?.characters.count == 0 && inBar.text?.characters.count == 0) {
+            isSearch = false;
+        }
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -185,26 +197,19 @@ class RetroViewController: UIViewController, UITableViewDataSource, UITableViewD
             self.outTable.reloadData()
             }
         } else {
-            
+            isSearch = true
             if( searchBar == inBar ) {
                 inFilter = inArr.filter({ $0.contains(searchText) })
-            }
-            else {
-                outFilter = outArr.filter({ $0.contains(searchText) })
-            }
-            
-            if(inFilter.count == 0 && outFilter.count == 0){
-                isSearch = false;
-            } else {
-                isSearch = true;
-            }
-            
-            if( searchBar == inBar ) {
                 self.inTable.reloadData()
             }
             else {
-            self.outTable.reloadData()
+                outFilter = outArr.filter({ $0.contains(searchText) })
+                self.outTable.reloadData()
             }
+            
+            
+            
+            
         }
     }
 
