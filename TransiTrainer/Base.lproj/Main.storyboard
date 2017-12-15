@@ -444,7 +444,6 @@
                                 <state key="selected" title="Submitted"/>
                                 <connections>
                                     <action selector="submitButton:" destination="hoI-Yf-VIq" eventType="primaryActionTriggered" id="PQk-vL-eOE"/>
-                                    <action selector="submitDisable:" destination="hoI-Yf-VIq" eventType="touchUpInside" id="9jB-11-8HH"/>
                                 </connections>
                             </button>
                         </subviews>

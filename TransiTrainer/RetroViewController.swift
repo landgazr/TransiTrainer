@@ -35,7 +35,7 @@ class RetroViewController: UIViewController, UITableViewDataSource, UITableViewD
     var mvc: MainlineViewController = MainlineViewController()
     var svc: StudentsViewController = StudentsViewController()
     var isSearch:Bool = false
-    
+    var okToDisable:Bool = false
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         // This method is triggered whenever the user makes a change to the picker selection.
@@ -64,25 +64,25 @@ class RetroViewController: UIViewController, UITableViewDataSource, UITableViewD
         }
     }
     
-    @IBAction func submitDisable(_ sender: UIButton) {
-        
-        sender.alpha = 0.4
-        sender.isEnabled = false
-        
-    }
+    
     
    
     @IBAction func submitButton(_ sender: UIButton) {
         
-        if (mvc.stationsVisited.count > 0) {
+        if ((inStation != nil) && (outStation != nil) && (studentCell != nil)) {
             mvc.reconcile(student: studentCell, inLocation: inStation, outLocation: outStation, couple: self.coupled.selectedSegmentIndex)
-           
+                okToDisable = true
             
         }
         else {
             let myAlert = UIAlertController(title: "Information", message: "Please select values for all three items.", preferredStyle: .alert)
             myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: nil))
             show(myAlert, sender: self)
+        }
+        
+        if( okToDisable ) {
+            sender.alpha = 0.4
+            sender.isEnabled = false
         }
     }
     
@@ -234,6 +234,25 @@ class RetroViewController: UIViewController, UITableViewDataSource, UITableViewD
         submitButton.isUserInteractionEnabled = true
         submitButton.setTitle("Submitted", for: UIControlState.disabled)
         submitButton.alpha = 1.0
+        okToDisable = false
+        inStation = nil
+        outStation = nil
+        inBar.text = ""
+        outBar.text = ""
+        let inSelected = inTable.indexPathsForSelectedRows
+        let outSelected = outTable.indexPathsForSelectedRows
+        
+        if( inSelected != nil) {
+        for indexPath in inSelected! {
+            inTable.deselectRow(at: indexPath, animated: true)
+        }
+        }
+        
+        if( outSelected != nil) {
+        for indexPath in outSelected! {
+            outTable.deselectRow(at: indexPath, animated: true)
+        }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
