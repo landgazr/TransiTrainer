@@ -345,7 +345,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
 				LastUpgradeCheck = 0920;
-				ORGANIZATIONNAME = "Tri-Met";
+				ORGANIZATIONNAME = "Gabe Stone";
 				TargetAttributes = {
 					82AFAD8F1F53AC4B001D2E5E = {
 						CreatedOnToolsVersion = 8.3.2;

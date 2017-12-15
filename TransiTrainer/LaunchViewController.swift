@@ -3,7 +3,7 @@
 //  TransiTrainer
 //
 //  Created by Stone, Gabe on 10/17/17.
-//  Copyright © 2017 Tri-Met. All rights reserved.
+//  Copyright © 2017 Gabe Stone. All rights reserved.
 //
 
 import UIKit
