@@ -472,6 +472,7 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
         
         locManager.startUpdatingLocation()
         locManager.startUpdatingHeading()
+        locManager.allowsBackgroundLocationUpdates = true
         
         let date = Date()
         let calendar = Calendar.current
@@ -518,6 +519,7 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
         }
         
         var timer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(self.getCurrentStation), userInfo: nil, repeats: true)
+        
         
        
 
