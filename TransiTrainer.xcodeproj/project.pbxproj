@@ -11,8 +11,6 @@
 		8202D9F91F64F45E00660802 /* KMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8202D9F81F64F45E00660802 /* KMLParser.swift */; };
 		820DD1521F633AA9005B6EFA /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 820DD1511F633AA9005B6EFA /* CoreLocation.framework */; };
 		8217325E1FCC4677008885DE /* OrderedDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8217325D1FCC4677008885DE /* OrderedDictionary.swift */; };
-		822C0AB41F9647A300BA649E /* Launch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 822C0AB31F9647A300BA649E /* Launch.storyboard */; };
-		822C0AB71F96483900BA649E /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822C0AB51F96483900BA649E /* LaunchViewController.swift */; };
 		824518961F646D0000A7F2DA /* tm_rail_stops.kml in Resources */ = {isa = PBXBuildFile; fileRef = 824518951F646D0000A7F2DA /* tm_rail_stops.kml */; };
 		82757CA21FE311F70089F790 /* RetroTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82757CA11FE311F70089F790 /* RetroTableViewCell.swift */; };
 		829F6A411F99380D00DAC20F /* operators.csv in Resources */ = {isa = PBXBuildFile; fileRef = 829F6A401F99380D00DAC20F /* operators.csv */; };
@@ -84,9 +82,6 @@
 		8202D9F81F64F45E00660802 /* KMLParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMLParser.swift; sourceTree = "<group>"; };
 		820DD1511F633AA9005B6EFA /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		8217325D1FCC4677008885DE /* OrderedDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderedDictionary.swift; sourceTree = "<group>"; };
-		822C0AB31F9647A300BA649E /* Launch.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Launch.storyboard; sourceTree = "<group>"; };
-		822C0AB51F96483900BA649E /* LaunchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
-		822C0AB61F96483900BA649E /* LaunchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchViewController.xib; sourceTree = "<group>"; };
 		824518951F646D0000A7F2DA /* tm_rail_stops.kml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = tm_rail_stops.kml; sourceTree = "<group>"; };
 		82757CA11FE311F70089F790 /* RetroTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetroTableViewCell.swift; sourceTree = "<group>"; };
 		829F6A401F99380D00DAC20F /* operators.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = operators.csv; sourceTree = "<group>"; };
@@ -212,7 +207,6 @@
 				82EC13571FCB99FA007C1383 /* RetroViewController.swift */,
 				82A8CEA71FD2BAAF0085BEE5 /* MapViewController.swift */,
 				82A8CEA81FD2BAAF0085BEE5 /* MapViewController.xib */,
-				822C0AB31F9647A300BA649E /* Launch.storyboard */,
 				82DEA85F1F9146AC006097B7 /* Description.swift */,
 				82DEA8601F9146AC006097B7 /* Parser.swift */,
 				82DEA8611F9146AC006097B7 /* ParserHelpers.swift */,
@@ -255,8 +249,6 @@
 				82AFADA11F53AC4B001D2E5E /* Info.plist */,
 				8202D9F81F64F45E00660802 /* KMLParser.swift */,
 				82ED40481F69C91C00862AA6 /* TransiTrainer-Bridging-Header.h */,
-				822C0AB51F96483900BA649E /* LaunchViewController.swift */,
-				822C0AB61F96483900BA649E /* LaunchViewController.xib */,
 				8217325D1FCC4677008885DE /* OrderedDictionary.swift */,
 				82757CA11FE311F70089F790 /* RetroTableViewCell.swift */,
 			);
@@ -398,7 +390,6 @@
 				82A8CEAA1FD2BAAF0085BEE5 /* MapViewController.xib in Resources */,
 				824518961F646D0000A7F2DA /* tm_rail_stops.kml in Resources */,
 				82AE6A281F977D5C00DB5573 /* TheMix-Plain.ttf in Resources */,
-				822C0AB41F9647A300BA649E /* Launch.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -446,7 +437,6 @@
 				82EC13601FCBA869007C1383 /* UIViewController+LSDialogViewController.swift in Sources */,
 				82DEA8651F9146AC006097B7 /* Parser.swift in Sources */,
 				82ED406B1F69C91D00862AA6 /* UIImageView+Calculations.swift in Sources */,
-				822C0AB71F96483900BA649E /* LaunchViewController.swift in Sources */,
 				82ED40691F69C91D00862AA6 /* TransitionAnimator.swift in Sources */,
 				82ED405F1F69C91D00862AA6 /* PopupDialog+Keyboard.swift in Sources */,
 				82757CA21FE311F70089F790 /* RetroTableViewCell.swift in Sources */,
@@ -624,6 +614,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = launcher;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = 6FRY6X7ZAZ;
@@ -651,6 +642,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = launcher;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = 6FRY6X7ZAZ;
