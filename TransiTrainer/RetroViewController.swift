@@ -170,7 +170,7 @@ class RetroViewController: UIViewController, UITableViewDataSource, UITableViewD
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
         
-        if( inBar.text?.characters.count == 0 && outBar.text?.characters.count == 0) {
+        if( inBar.text?.characters.count == 0 || outBar.text?.characters.count == 0) {
         isSearch = false;
         }
     }
@@ -178,7 +178,7 @@ class RetroViewController: UIViewController, UITableViewDataSource, UITableViewD
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
         
-        if( inBar.text?.characters.count == 0 && outBar.text?.characters.count == 0) {
+        if( inBar.text?.characters.count == 0 || outBar.text?.characters.count == 0) {
             isSearch = false;
         }
         
