@@ -568,6 +568,8 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
         formatter.unitsStyle = .positional
         formatter.zeroFormattingBehavior = .pad
         
+        if( csvArray.count > 1 )
+        {
         var record:String = csvArray[currentCsvRow]
         var recordRow:[String] = record.components(separatedBy: ",")
         
@@ -750,7 +752,11 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
         
         //avc.svc.writeRoster()
         
-        }
+        } else {
+            let myAlert = UIAlertController(title: "Information", message: "No rotations logged yet.", preferredStyle: .alert);
+            myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: nil));
+            self.show(myAlert, sender: self)        }
+    }
     
     @IBAction func actionAlertOut(_ sender: Any)
     {
