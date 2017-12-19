@@ -473,6 +473,7 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
         locManager.startUpdatingLocation()
         locManager.startUpdatingHeading()
         locManager.allowsBackgroundLocationUpdates = true
+        locManager.pausesLocationUpdatesAutomatically = false
         
         let date = Date()
         let calendar = Calendar.current
