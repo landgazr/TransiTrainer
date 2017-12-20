@@ -164,15 +164,20 @@ class RetroViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        isSearch = true;
+        if( searchBar.isFirstResponder) {
+        isSearch = false
+        }
+        else {
+            isSearch = true
+        }
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
         
-        if( inBar.text?.characters.count == 0 || outBar.text?.characters.count == 0) {
+        
         isSearch = false;
-        }
+        
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
