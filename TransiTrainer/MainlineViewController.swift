@@ -76,6 +76,8 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
     @IBOutlet weak var trainerLabel: UILabel!
     @IBOutlet weak var carLabel: UILabel!
     @IBOutlet weak var trainLabel: UILabel!
+    @IBOutlet weak var carLabel2: UILabel!
+    @IBOutlet weak var trainLabel2: UILabel!
     
     //@IBOutlet weak var location: UILabel!
     @IBOutlet weak var selectedStudent: UILabel!
@@ -448,6 +450,7 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
         namesOfTrainers[1426] = "Carothers/Matthew"
         namesOfTrainers[2852] = "Ruiz/David"
         namesOfTrainers[7244] = "Saleib/Moheb"
+        namesOfTrainers[7032] = "Pindell/Sher"
         
         self.picker.dataSource = self
         self.picker.delegate = self
@@ -714,7 +717,7 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
                 let csvatt: Data = csvdata as Data
                 let tripatt: Data = tripdata as Data
                 
-                let body = self.trainerLabel.text! + "\n Car # " + self.carLabel.text! + "\n Train ID " + self.trainLabel.text!
+                let body = self.trainerLabel.text! + "\n Car 1 # " + self.carLabel.text! + " / Train 1 ID " + self.trainLabel.text! + "\n Car 2 # " + self.carLabel2.text! + " / Train 2 ID " + self.trainLabel2.text!
                 
                 let date : Date = Date()
                 let dateFormatter = DateFormatter()
@@ -837,7 +840,7 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
     {
         
         
-        let myAlert = UIAlertController(title: "Information", message: "Enter car #/train ID.", preferredStyle: .alert);
+        let myAlert = UIAlertController(title: "Information", message: "Enter car #/train ID 1.", preferredStyle: .alert);
         let okAction = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
             // Get 1st TextField's text
             var sa: [String] = [String]()
@@ -846,6 +849,35 @@ class MainlineViewController: UIViewController, CLLocationManagerDelegate, MFMai
             }
             self.carLabel.text = sa[0]
             self.trainLabel.text = sa[1]
+        })
+        myAlert.addTextField(configurationHandler: {(_ textField: UITextField) -> Void in
+            textField.placeholder = "Car number"
+            textField.keyboardType = .numberPad
+        })
+        myAlert.addTextField(configurationHandler: {(_ textField: UITextField) -> Void in
+            textField.placeholder = "Train ID"
+            textField.keyboardType = .numberPad
+        })
+        //myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: nil));
+        myAlert.addAction(okAction)
+        show(myAlert, sender: self)
+        
+        
+    }
+    
+    @IBAction func setTrainer2(_ sender: Any)
+    {
+        
+        
+        let myAlert = UIAlertController(title: "Information", message: "Enter car #/train ID 2.", preferredStyle: .alert);
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
+            // Get 1st TextField's text
+            var sa: [String] = [String]()
+            for utf in myAlert.textFields! {
+                sa.append(utf.text!)
+            }
+            self.carLabel2.text = sa[0]
+            self.trainLabel2.text = sa[1]
         })
         myAlert.addTextField(configurationHandler: {(_ textField: UITextField) -> Void in
             textField.placeholder = "Car number"
