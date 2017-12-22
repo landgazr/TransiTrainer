@@ -184,10 +184,19 @@ class StudentsViewController: UITableViewController {
     @IBAction func removeSelectedCells(_ sender: Any) {
         
         for r in StudentsViewController.selectedCells {
-        let indexPath = IndexPath(row: r.tag, section: 0)
-        StudentsViewController.list.remove(at: r.tag)
-        self.tableView.deselectRow(at: indexPath, animated: false)
-        tableView.deleteRows(at: [indexPath], with: .none)
+        
+            if( r.tag == StudentsViewController.list.count) {
+                let indexPath = IndexPath(row: (r.tag - 1), section: 0)
+                StudentsViewController.list.remove(at: (r.tag - 1))
+                self.tableView.deselectRow(at: indexPath, animated: false)
+                tableView.deleteRows(at: [indexPath], with: .none)
+            } else {
+                let indexPath = IndexPath(row: r.tag, section: 0)
+                StudentsViewController.list.remove(at: r.tag)
+                self.tableView.deselectRow(at: indexPath, animated: false)
+                tableView.deleteRows(at: [indexPath], with: .none)
+            }
+        
         }
         
         
