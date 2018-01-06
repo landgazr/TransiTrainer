@@ -3,7 +3,7 @@
 //  TransiTrainerUITests
 //
 //  Created by Stone, Gabe on 8/27/17.
-//  Copyright © 2017 Tri-Met. All rights reserved.
+//  Copyright © 2017 Gabe Stone. All rights reserved.
 //
 
 import XCTest

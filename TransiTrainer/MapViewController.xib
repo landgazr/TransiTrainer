@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MapViewController" customModule="TransiTrainer" customModuleProvider="target">
+            <connections>
+                <outlet property="locLabel" destination="17a-4u-L2U" id="uPp-4X-Jf8"/>
+                <outlet property="mapView" destination="z95-y1-6hI" id="icd-Wn-VZ4"/>
+                <outlet property="view" destination="s1d-Rh-8Df" id="Eth-Md-uwI"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="s1d-Rh-8Df">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="z95-y1-6hI">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="485"/>
+                </mapView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dT6-rp-WqL">
+                    <rect key="frame" x="133" y="607" width="109" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="ZyA-1Q-gqX"/>
+                    </constraints>
+                    <state key="normal" title="OK"/>
+                    <connections>
+                        <action selector="cancelButton:" destination="-1" eventType="primaryActionTriggered" id="MvB-43-sFG"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Closest Stop:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q2u-HA-EBf">
+                    <rect key="frame" x="96" y="493" width="182" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="fWc-Dy-cxB"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="1" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="17a-4u-L2U">
+                    <rect key="frame" x="16" y="550" width="343" height="49"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="49" id="x29-3C-uce"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="17a-4u-L2U" firstAttribute="leading" secondItem="s1d-Rh-8Df" secondAttribute="leadingMargin" id="7Up-Ol-yk2"/>
+                <constraint firstItem="17a-4u-L2U" firstAttribute="top" secondItem="Q2u-HA-EBf" secondAttribute="bottom" constant="13" id="8aQ-p1-a4j"/>
+                <constraint firstAttribute="trailing" secondItem="z95-y1-6hI" secondAttribute="trailing" id="JXJ-BK-9Gm"/>
+                <constraint firstItem="dT6-rp-WqL" firstAttribute="top" secondItem="17a-4u-L2U" secondAttribute="bottom" constant="8" symbolic="YES" id="KFL-6z-QOm"/>
+                <constraint firstItem="17a-4u-L2U" firstAttribute="centerX" secondItem="dT6-rp-WqL" secondAttribute="centerX" id="PHG-1Y-Xs2"/>
+                <constraint firstItem="z95-y1-6hI" firstAttribute="leading" secondItem="s1d-Rh-8Df" secondAttribute="leading" id="R9Y-2O-Yfx"/>
+                <constraint firstItem="z95-y1-6hI" firstAttribute="top" secondItem="s1d-Rh-8Df" secondAttribute="top" id="bBw-Sm-QPq"/>
+                <constraint firstItem="Q2u-HA-EBf" firstAttribute="top" secondItem="z95-y1-6hI" secondAttribute="bottom" constant="8" symbolic="YES" id="eWU-oD-AMp"/>
+                <constraint firstItem="z95-y1-6hI" firstAttribute="centerX" secondItem="Q2u-HA-EBf" secondAttribute="centerX" id="kWA-AK-6u5"/>
+                <constraint firstItem="Q2u-HA-EBf" firstAttribute="leading" secondItem="MOS-Cg-9Vm" secondAttribute="leading" constant="96" id="msX-MP-ZxQ"/>
+                <constraint firstItem="dT6-rp-WqL" firstAttribute="leading" secondItem="MOS-Cg-9Vm" secondAttribute="leading" constant="133" id="wfk-5L-16v"/>
+                <constraint firstItem="Q2u-HA-EBf" firstAttribute="centerX" secondItem="17a-4u-L2U" secondAttribute="centerX" id="xWK-GT-crs"/>
+                <constraint firstItem="MOS-Cg-9Vm" firstAttribute="bottom" secondItem="dT6-rp-WqL" secondAttribute="bottom" constant="10" id="zlP-tK-dXJ"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="MOS-Cg-9Vm"/>
+            <point key="canvasLocation" x="16.5" y="-12.5"/>
+        </view>
+    </objects>
+</document>
